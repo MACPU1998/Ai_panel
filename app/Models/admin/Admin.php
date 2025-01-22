@@ -2,7 +2,7 @@
 
 namespace App\Models\admin;
 
-//use Illuminate\Database\Eloquent\Model as Authenticatable;
+//use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Spatie\Permission\Traits\HasRoles;
 

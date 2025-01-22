@@ -5,6 +5,8 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12">
+{{--            @dd(auth()->guard())--}}
+{{--            @dd(Auth::guard('admin')->check());--}}
 
             <div class="row flex-nowrap">
                 <div class="col">

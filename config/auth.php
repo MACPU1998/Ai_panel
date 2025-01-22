@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\admin\Admin;
+
 return [
 
     /*
@@ -70,7 +72,7 @@ return [
         ],
         'admins' => [
             'driver' => 'eloquent',
-            'model' => \App\Models\admin\Admin::class,
+            'model' => Admin::class,
         ],
         Spatie\Permission\PermissionServiceProvider::class,
 

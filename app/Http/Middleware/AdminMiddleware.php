@@ -4,7 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
@@ -15,7 +15,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next)
     {
-        if (auth('admin')->check()) {
+        // بررسی اینکه آیا ادمین وارد شده است یا خیر
+        if (Auth::guard('admin')->check()) {
             return $next($request);
         }
         // dd('error');
