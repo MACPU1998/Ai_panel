@@ -1,0 +1,20 @@
+@font-face {
+    font-family: 'IRANSansWeb';
+    src: url('././../fonts/IRANSansWeb.woff2');
+}
+@font-face {
+    font-family: 'IRANSansWebBold';
+    src: url('././../fonts/IRANSansWeb_Bold.woff2');
+}
+@font-face {
+    font-family: 'IRANSansWebLight';
+    src: url('././../fonts/IRANSansWeb_Light.woff2');
+}
+@font-face {
+    font-family: 'IRANSansWebMedium';
+    src: url('././../fonts/IRANSansWeb_Medium.woff2');
+}
+@font-face {
+    font-family: 'IRANSansWebUltraLight';
+    src: url('././../fonts/IRANSansWeb_UltraLight.woff2');
+}
