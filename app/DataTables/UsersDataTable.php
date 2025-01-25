@@ -6,7 +6,6 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
-use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
@@ -23,8 +22,8 @@ class UsersDataTable extends DataTable
             ->addColumn('action', function ($user) {
                 return '
                 <a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary">ویرایش</a>
-                <a href="'.route('users.destroy', $user->id).'" class="btn btn-sm btn-danger" onclick="return confirm(\'آیا مطمئن هستید؟\')">حذف</a>
-            ';
+               <button class="btn btn-sm btn-danger" onclick="deleteUser('.$user->id.')">حذف</button>
+        ';
             })
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');

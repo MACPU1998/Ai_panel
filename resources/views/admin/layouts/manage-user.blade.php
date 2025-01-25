@@ -62,4 +62,30 @@
             });
         });
     </script>
+
+    <script>
+        function deleteUser(userId) {
+            if (confirm("آیا مطمئن هستید که می‌خواهید این کاربر را حذف کنید؟")) {
+                $.ajax({
+                    url: '/admin/users/' + userId, // مسیر روت حذف کاربر
+                    type: 'DELETE',
+                    data: {
+                        _token: '{{ csrf_token() }}'
+                    },
+                    success: function(response) {
+                        if (response.success) {
+                            alert('کاربر با موفقیت حذف شد!');
+                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
+                            $('#users-table').DataTable().ajax.reload();
+                        } else {
+                            alert('خطا در حذف کاربر!');
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('خطا در ارسال درخواست!');
+                    }
+                });
+            }
+        }
+    </script>
 @endsection

@@ -14,7 +14,7 @@ Route::prefix('admin')->group(function () {
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
     Route::put('users/edit', [UserController::class, 'edit'])->name('users.edit');
-    Route::delete('users/delete', [UserController::class, 'destroy'])->name('users.destroy');
+    Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     // داشبورد (محافظت‌شده)
     Route::middleware('auth:admin')->group(function () {

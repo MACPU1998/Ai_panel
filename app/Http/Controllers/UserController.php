@@ -32,4 +32,14 @@ class UserController extends Controller
         return $dataTable->ajax();
     }
 
+    public function destroy(User $user)
+    {
+        try {
+            $user->delete();
+            return response()->json(['success' => true], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'خطا در حذف کاربر'], 500);
+        }
+    }
+
 }
