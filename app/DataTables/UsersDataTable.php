@@ -59,19 +59,6 @@ class UsersDataTable extends DataTable
      */
     public function getColumns(): array
     {
-//        return [
-//            Column::computed('نام')
-//                  ->exportable(false)
-//                  ->printable(false)
-//                  ->width(60)
-//                  ->addClass('text-center'),
-//            Column::make('ایمیل'),
-//            Column::make('add your columns'),
-//            Column::make('تاریخ_ایجاد'),
-//            Column::make('تاریخ_آپدیت'),
-//        ];
-
-
     return [
         Column::make('id')->title('شناسه'),
         Column::make('name')->title('نام'),
