@@ -15,6 +15,7 @@
         </div>
     </div>
 
+
     <!-- جاوا اسکریپت های مورد نیاز Bootstrap و DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
@@ -26,7 +27,7 @@
             $('#users-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('users.datatable') }}', // مسیر صحیح
+                ajax: '{{ route('users.datatable') }}',
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
@@ -34,12 +35,31 @@
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
-                ]
+                ],
+                language: {
+                    "sProcessing": "در حال پردازش...",
+                    "sLengthMenu": "نمایش _MENU_ رکورد",
+                    "sZeroRecords": "موردی پیدا نشد",
+                    "sInfo": "نمایش _START_ تا _END_ از _TOTAL_ رکورد",
+                    "sInfoEmpty": "نمایش 0 تا 0 از 0 رکورد",
+                    "sInfoFiltered": "(فیلتر شده از _MAX_ رکورد)",
+                    "sInfoPostFix": "",
+                    "sSearch": "جستجو: ",
+                    "sUrl": "",
+                    "sInfoThousands": ",",
+                    "sLoadingRecords": "در حال بارگذاری...",
+                    "oPaginate": {
+                        "sFirst": "اولین",
+                        "sPrevious": "قبلی",
+                        "sNext": "بعدی",
+                        "sLast": "آخرین"
+                    },
+                    "oAria": {
+                        "sSortAscending": ": فعال سازی برای مرتب‌سازی صعودی",
+                        "sSortDescending": ": فعال سازی برای مرتب‌سازی نزولی"
+                    }
+                }
             });
         });
     </script>
-
-
-    {{--    </body>--}}
-
 @endsection

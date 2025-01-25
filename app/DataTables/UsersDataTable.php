@@ -46,7 +46,7 @@ class UsersDataTable extends DataTable
         return $this->builder()
             ->setTableId('users-table')
             ->columns($this->getColumns())
-//            ->minifiedAjax(route('users.datatable')) // مسیر ajax
+            ->minifiedAjax(route('users.datatable')) // مسیر ajax
             ->orderBy(0)
             ->parameters([
                 'dom' => 'Bfrtip',
