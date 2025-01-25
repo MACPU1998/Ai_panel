@@ -43,23 +43,6 @@ class UsersDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
-//        return $this->builder()
-//                    ->setTableId('users-table')
-//                    ->columns($this->getColumns())
-//                    ->minifiedAjax()
-//            ->addAction(['title' => 'عملیات'])
-//                    //->dom('Bfrtip')
-//                    ->orderBy(1)
-//                    ->selectStyleSingle()
-//                    ->buttons([
-//                        Button::make('excel'),
-//                        Button::make('csv'),
-//                        Button::make('pdf'),
-//                        Button::make('print'),
-//                        Button::make('reset'),
-//                        Button::make('reload')
-//                    ]);
-
         return $this->builder()
             ->setTableId('users-table')
             ->columns($this->getColumns())
