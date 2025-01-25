@@ -17,6 +17,9 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/leaflet/leaflet.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+
     <title>@yield('title')</title>
 </head>
 
@@ -71,6 +74,7 @@
             document.documentElement.setAttribute("data-color-theme", e);
         }
     </script>
+
     <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
@@ -84,8 +88,15 @@
     <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
     <!--end script-->
 
-
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- Custom scripts pushed from specific pages -->
+    @stack('scripts')
 
     <!-- custom js -->
     @yield('customjs')

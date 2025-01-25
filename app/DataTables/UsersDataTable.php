@@ -20,7 +20,13 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', 'users.action')
+            ->addColumn('action', function ($user) {
+                return '
+                <a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary">ویرایش</a>
+                <a href="'.route('users.destroy', $user->id).'" class="btn btn-sm btn-danger" onclick="return confirm(\'آیا مطمئن هستید؟\')">حذف</a>
+            ';
+            })
+            ->rawColumns(['action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
 
@@ -37,22 +43,32 @@ class UsersDataTable extends DataTable
      */
     public function html(): HtmlBuilder
     {
+//        return $this->builder()
+//                    ->setTableId('users-table')
+//                    ->columns($this->getColumns())
+//                    ->minifiedAjax()
+//            ->addAction(['title' => 'عملیات'])
+//                    //->dom('Bfrtip')
+//                    ->orderBy(1)
+//                    ->selectStyleSingle()
+//                    ->buttons([
+//                        Button::make('excel'),
+//                        Button::make('csv'),
+//                        Button::make('pdf'),
+//                        Button::make('print'),
+//                        Button::make('reset'),
+//                        Button::make('reload')
+//                    ]);
+
         return $this->builder()
-                    ->setTableId('users-table')
-                    ->columns($this->getColumns())
-                    ->minifiedAjax()
-            ->addAction(['title' => 'عملیات'])
-                    //->dom('Bfrtip')
-                    ->orderBy(1)
-                    ->selectStyleSingle()
-                    ->buttons([
-                        Button::make('excel'),
-                        Button::make('csv'),
-                        Button::make('pdf'),
-                        Button::make('print'),
-                        Button::make('reset'),
-                        Button::make('reload')
-                    ]);
+            ->setTableId('users-table')
+            ->columns($this->getColumns())
+//            ->minifiedAjax(route('users.datatable')) // مسیر ajax
+            ->orderBy(0)
+            ->parameters([
+                'dom' => 'Bfrtip',
+                'buttons' => ['excel', 'csv', 'pdf', 'print', 'reload'],
+            ]);
     }
 
     /**
@@ -60,17 +76,31 @@ class UsersDataTable extends DataTable
      */
     public function getColumns(): array
     {
-        return [
-            Column::computed('action')
-                  ->exportable(false)
-                  ->printable(false)
-                  ->width(60)
-                  ->addClass('text-center'),
-            Column::make('id'),
-            Column::make('add your columns'),
-            Column::make('created_at'),
-            Column::make('updated_at'),
-        ];
+//        return [
+//            Column::computed('نام')
+//                  ->exportable(false)
+//                  ->printable(false)
+//                  ->width(60)
+//                  ->addClass('text-center'),
+//            Column::make('ایمیل'),
+//            Column::make('add your columns'),
+//            Column::make('تاریخ_ایجاد'),
+//            Column::make('تاریخ_آپدیت'),
+//        ];
+
+
+    return [
+        Column::make('id')->title('شناسه'),
+        Column::make('name')->title('نام'),
+        Column::make('email')->title('ایمیل'),
+        Column::make('created_at')->title('تاریخ ایجاد'),
+        Column::make('updated_at')->title('تاریخ آپدیت'),
+        Column::computed('action')
+            ->exportable(false)
+            ->printable(false)
+            ->addClass('text-center')
+            ->title('عملیات'),
+    ];
     }
 
     /**

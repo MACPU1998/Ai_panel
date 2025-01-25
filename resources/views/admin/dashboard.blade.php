@@ -1,18 +1,19 @@
-@extends('admin.layouts.project-master')
+@extends('admin.layouts.project-master-admin')
 
 @section('title', 'داشبورد')
 
 @section('content')
     <div class="row">
         <div class="col-lg-12">
-{{--            @dd(auth()->guard())--}}
-{{--            @dd(Auth::guard('admin')->check());--}}
+            {{--            @dd(auth()->guard())--}}
+            {{--            @dd(Auth::guard('admin')->check());--}}
 
             <div class="row flex-nowrap">
                 <div class="col">
                     <div class="card warning-gradient">
                         <div class="card-body text-center px-9 pb-4">
-                            <div class="d-flex align-items-center justify-content-center round-48 rounded text-bg-warning flex-shrink-0 mb-3 mx-auto">
+                            <div
+                                class="d-flex align-items-center justify-content-center round-48 rounded text-bg-warning flex-shrink-0 mb-3 mx-auto">
                                 <iconify-icon icon="solar:recive-twice-square-linear"
                                               class="fs-7 text-white"></iconify-icon>
                             </div>
@@ -26,7 +27,8 @@
                 <div class="col">
                     <div class="card secondary-gradient">
                         <div class="card-body text-center px-9 pb-4">
-                            <div class="d-flex align-items-center justify-content-center round-48 rounded text-bg-secondary flex-shrink-0 mb-3 mx-auto">
+                            <div
+                                class="d-flex align-items-center justify-content-center round-48 rounded text-bg-secondary flex-shrink-0 mb-3 mx-auto">
                                 <iconify-icon icon="ic:outline-backpack" class="fs-7 text-white"></iconify-icon>
                             </div>
                             <h6 class="fw-normal fs-3 mb-1">محصولات</h6>
@@ -39,7 +41,8 @@
                 <div class="col">
                     <div class="card danger-gradient">
                         <div class="card-body text-center px-9 pb-4">
-                            <div class="d-flex align-items-center justify-content-center round-48 rounded text-bg-danger flex-shrink-0 mb-3 mx-auto">
+                            <div
+                                class="d-flex align-items-center justify-content-center round-48 rounded text-bg-danger flex-shrink-0 mb-3 mx-auto">
                                 <iconify-icon icon="ic:baseline-sync-problem" class="fs-7 text-white"></iconify-icon>
                             </div>
                             <h6 class="fw-normal fs-3 mb-1">انبار</h6>
@@ -52,7 +55,8 @@
                 <div class="col">
                     <div class="card success-gradient">
                         <div class="card-body text-center px-9 pb-4">
-                            <div class="d-flex align-items-center justify-content-center round-48 rounded text-bg-success flex-shrink-0 mb-3 mx-auto">
+                            <div
+                                class="d-flex align-items-center justify-content-center round-48 rounded text-bg-success flex-shrink-0 mb-3 mx-auto">
                                 <iconify-icon icon="ic:outline-forest" class="fs-7 text-white"></iconify-icon>
                             </div>
                             <h6 class="fw-normal fs-3 mb-1">فروش</h6>

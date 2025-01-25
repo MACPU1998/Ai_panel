@@ -26,4 +26,10 @@ class UserController extends Controller
             ->rawColumns(['action'])
             ->make(true);
     }
+
+    public function datatable(UsersDataTable $dataTable)
+    {
+        return $dataTable->ajax();
+    }
+
 }
