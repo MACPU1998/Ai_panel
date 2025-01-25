@@ -20,22 +20,22 @@ class UsersDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('updated_at', function ($user) {
-                if ($user->updated_at) {
-                    return Jalalian::fromCarbon($user->updated_at)->format('Y/m/d - H:i');
-                }
-                return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
-            })
             ->addColumn('created_at', function ($user) {
                 if ($user->created_at) {
                     return Jalalian::fromCarbon($user->created_at)->format('Y/m/d - H:i');
                 }
                 return '-';
             })
+            ->addColumn('updated_at', function ($user) {
+                if ($user->updated_at) {
+                    return Jalalian::fromCarbon($user->updated_at)->format('Y/m/d - H:i');
+                }
+                return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
+            })
             ->addColumn('action', function ($user) {
                 return '
-                <a href="'.route('users.edit', $user->id).'" class="btn btn-sm btn-primary">ویرایش</a>
-               <button class="btn btn-sm btn-danger" onclick="deleteUser('.$user->id.')">حذف</button>
+                <a href="' . route('users.edit', $user->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
+               <button class="btn btn-sm btn-danger" onclick="deleteUser(' . $user->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action

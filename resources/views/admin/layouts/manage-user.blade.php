@@ -3,6 +3,7 @@
 @section('title', 'مدیریت کاربران')
 
 @section('content')
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 
     <div class="col-lg-12">
         <div class="card">
