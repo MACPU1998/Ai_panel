@@ -135,9 +135,9 @@
                           <img src= '../assets/images/profile/user-1.jpg' class="rounded-circle" width="56" height="56"
                             alt="matdash-img"  id="header-avatar"  />
                           <div>
-                            <h5 class="mb-0 fs-12">name</h5>
+                              <h5 class="mb-0 fs-12">{{auth()->guard('admin')->user()->first_name}} {{auth()->guard('admin')->user()->last_name}}</h5>
                             <p class="mb-0 text-dark">
-                              email@email.com
+                                {{auth()->guard('admin')->user()->email}}
                             </p>
                           </div>
                         </div>

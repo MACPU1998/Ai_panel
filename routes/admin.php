@@ -13,7 +13,8 @@ Route::prefix('admin')->group(function () {
 
     Route::get('users', [UserController::class, 'index'])->name('users.index');
     Route::get('users/datatable', [UserController::class, 'datatable'])->name('users.datatable');
-    Route::put('users/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::get('users/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+    Route::put('users/{user}/edit', [UserController::class, 'update'])->name('users.update');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
     // داشبورد (محافظت‌شده)

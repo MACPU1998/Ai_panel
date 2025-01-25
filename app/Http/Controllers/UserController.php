@@ -42,4 +42,23 @@ class UserController extends Controller
         }
     }
 
+    public function edit(User $user)
+    {
+        return view('admin.layouts.edit-user', compact('user'));
+    }
+
+    public function update(Request $request, User $user)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'password' => 'nullable|string|min:8'
+        ]);
+        $user->update([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => $validated['password'] ? bcrypt($validated['password']) : $user->password,
+        ]);
+        return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
+    }
 }
