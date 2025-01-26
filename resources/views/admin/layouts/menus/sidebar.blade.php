@@ -77,7 +77,7 @@
                                 </a>
                             </li>
                             <li class="sidebar-item">
-                                <a class="sidebar-link" href="" aria-expanded="false">
+                                <a class="sidebar-link" href="#" aria-expanded="false">
                                     <iconify-icon icon=""></iconify-icon>
                                     <span class="hide-menu">سفارشات</span>
                                 </a>

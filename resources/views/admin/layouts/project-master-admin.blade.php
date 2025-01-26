@@ -38,8 +38,8 @@
             <!--  Header Start -->
             @include('admin.layouts.menus.header')
 
-            <!--end header -- >
-            <!--earch Bar -->
+            <!--end header -->
+            <!--search Bar -->
             @include('admin.layouts.menus.searchbar')
 
             <!--end Search Bar-->

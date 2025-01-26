@@ -39,7 +39,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">رمز عبور</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                               id="password" name="password" autocomplete="off" required>
+                               id="password" name="password" autocomplete="new-password" required>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

@@ -123,7 +123,7 @@
                   <li class="nav-item dropdown">
                     <a class="nav-link" href="javascript:void(0)" id="drop1" aria-expanded="false">
                       <div class="d-flex align-items-center gap-2 lh-base">
-                        <img src= '../assets/images/profile/user-1.jpg' class="rounded-circle" width="35" height="35"
+                        <img src= '{{asset("assets/images/profile/user-1.jpg")}}' class="rounded-circle" width="35" height="35"
                           alt="matdash-img" id="topbar-avatar"  />
                         <iconify-icon icon="solar:alt-arrow-down-bold" class="fs-2"></iconify-icon>
                       </div>
@@ -132,7 +132,7 @@
                       aria-labelledby="drop1">
                       <div class="position-relative px-4 pt-3 pb-2">
                         <div class="d-flex align-items-center mb-3 pb-3 border-bottom gap-6">
-                          <img src= '../assets/images/profile/user-1.jpg' class="rounded-circle" width="56" height="56"
+                          <img src= '{{asset("assets/images/profile/user-1.jpg")}}' class="rounded-circle" width="56" height="56"
                             alt="matdash-img"  id="header-avatar"  />
                           <div>
                               <h5 class="mb-0 fs-12">{{auth()->guard('admin')->user()->first_name}} {{auth()->guard('admin')->user()->last_name}}</h5>
