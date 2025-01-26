@@ -50,7 +50,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-primary">ویرایش</button>
+                    <button type="submit" class="btn btn-success">ویرایش</button>
                 </form>
             </div>
         </div>

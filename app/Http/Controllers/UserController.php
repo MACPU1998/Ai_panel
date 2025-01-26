@@ -61,4 +61,26 @@ class UserController extends Controller
         ]);
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
     }
+
+    public function create()
+    {
+        session()->forget('_old_input'); // حذف اطلاعات ورودی قبلی
+
+        return view('admin.layouts.add-user');
+    }
+
+    public function store(Request $request)
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|min:3|max:255',
+            'email' => 'required|email|unique:users,email',
+            'password' => 'nullable|string|min:8'
+        ]);
+        User::create([
+            'name' => $validated['name'],
+            'email' => $validated['email'],
+            'password' => bcrypt($validated['password']),
+        ]);
+        return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد');
+    }
 }

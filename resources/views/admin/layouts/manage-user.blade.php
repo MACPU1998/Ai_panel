@@ -9,7 +9,7 @@
         <div class="card">
             <div class="container mt-8">
                 <h5 class="mb-4">مدیریت کاربران</h5>
-                <a href="#" class="btn btn-success mb-3">اضافه کردن کاربر جدید</a>
+                <a href="{{route('users.create')}}" class="btn btn-success mb-3">اضافه کردن کاربر جدید</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>
