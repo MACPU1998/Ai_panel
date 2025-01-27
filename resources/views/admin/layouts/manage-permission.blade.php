@@ -68,7 +68,7 @@
         function deletePermission(permissionId) {
             if (confirm("آیا مطمئن هستید که می‌خواهید این مجوز را حذف کنید؟")) {
                 $.ajax({
-                    url: '/admin/permissions/' + permissionId, // مسیر روت حذف کاربر
+                    url: '/admin/permissions/' + permissionId,
                     type: 'DELETE',
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -83,6 +83,7 @@
                         }
                     },
                     error: function(xhr, status, error) {
+                        console.log(error);
                         alert('خطا در ارسال درخواست!');
                     }
                 });

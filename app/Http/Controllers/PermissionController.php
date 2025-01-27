@@ -78,7 +78,8 @@ class PermissionController extends Controller
             $permission->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'خطا در حذف کاربر'], 500);
+            dd($e->getMessage());
+            return response()->json(['success' => false, 'message' => 'خطا در حذف نقش'], 500);
         }
     }
 
