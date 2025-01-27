@@ -72,6 +72,13 @@
                                 <span class="hide-menu">مجوزها</span>
                             </a>
                         </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
+                                <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>
+                                <span class="hide-menu">نقش ها</span>
+                            </a>
+                        </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="#" aria-expanded="false">
                                 <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>

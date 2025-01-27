@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -28,6 +29,15 @@ Route::prefix('admin')->group(function () {
     Route::get('permissions/create', [PermissionController::class, 'create'])->name('permissions.create');
     Route::post('permissions/store', [PermissionController::class, 'store'])->name('permissions.store');
     Route::delete('permissions/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+
+    Route::get('roles', [RoleController::class, 'index'])->name('roles.index');
+    Route::get('roles/data', [RoleController::class, 'getRolesData'])->name('roles.getData');
+    Route::get('roles/datatable', [RoleController::class, 'datatable'])->name('roles.datatable');
+    Route::get('roles/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+    Route::put('roles/{role}/edit', [RoleController::class, 'update'])->name('roles.update');
+    Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
+    Route::post('roles/store', [RoleController::class, 'store'])->name('roles.store');
+    Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
 
 
 

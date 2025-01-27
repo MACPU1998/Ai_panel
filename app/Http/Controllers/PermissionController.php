@@ -49,12 +49,6 @@ class PermissionController extends Controller
         ]);
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
-
-
-    }
-
-    public function show()
-    {
     }
 
     public function edit(Permission $permission)
@@ -79,6 +73,8 @@ class PermissionController extends Controller
     public function destroy(Permission $permission)
     {
         try {
+            // جدا کردن وابستگی‌ها (در صورت وجود)
+            $permission->roles()->detach(); // جدا کردن ارتباط با نقش‌ها
             $permission->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
