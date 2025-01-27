@@ -10,7 +10,7 @@ use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class permissionsDataTable extends DataTable
+class PermissionsDataTable extends DataTable
 {
     /**
      * Build the DataTable class.

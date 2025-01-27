@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\permissionsDataTable;
+use App\DataTables\PermissionsDataTable;
 use Illuminate\Http\Request;
 use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\DataTables;
 
 class PermissionController extends Controller
 {
-    public function index(permissionsDataTable $dataTable)
+    public function index(PermissionsDataTable $dataTable)
     {
         return $dataTable->render('admin.layouts.manage-permission');
 
@@ -27,7 +27,7 @@ class PermissionController extends Controller
             ->make(true);
     }
 
-    public function datatable(permissionsDataTable $dataTable)
+    public function datatable(PermissionsDataTable $dataTable)
     {
         return $dataTable->ajax();
     }
