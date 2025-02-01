@@ -38,7 +38,8 @@ Route::prefix('admin')->group(function () {
     Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('roles/store', [RoleController::class, 'store'])->name('roles.store');
     Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
-
+    Route::get('list', [RoleController::class, 'showList'])->name('roles.list');
+    Route::post('list', [RoleController::class, 'assignPermissions'])->name('roles.assign');
 
 
     // داشبورد (محافظت‌شده)

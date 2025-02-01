@@ -26,9 +26,11 @@
 
                     <div class="mb-3">
                         <label for="guard_name" class="form-label">نام گارد</label>
-                        <input type="text" class="form-control @error('guard_name') is-invalid @enderror" id="guard_name"
-                               name="guard_name" autocomplete="new-password"
-                               required>
+                        <select name="guard_name" id="guard_name" class="form-control">
+                            @foreach($guards as $guard)
+                                <option value="{{$guard}}">{{$guard}}</option>
+                            @endforeach
+                        </select>
                         @error('guard_name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

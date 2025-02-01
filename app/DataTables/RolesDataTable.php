@@ -35,7 +35,9 @@ class RolesDataTable extends DataTable
             ->addColumn('action', function ($role) {
                 return '
                 <a href="' . route('roles.edit', $role->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteRole(' . $role->id . ')"><i class="bi bi-trash"></i></button>
+                <button class="btn btn-sm btn-danger" onclick="deleteRole(' . $role->id . ')"><i class="bi bi-trash"></i></button>
+                <a href="' . route('roles.list', $role->id) . '" class="btn btn-sm btn-primary">دسترسی</a>
+
         ';
             })
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action

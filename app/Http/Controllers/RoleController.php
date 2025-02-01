@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\DataTables\RolesDataTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
@@ -34,7 +36,10 @@ class RoleController extends Controller
 
     public function create()
     {
-        return view('admin.layouts.add-role');
+        //گرفتن نام گاردهای موجود در سیستم
+        $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
+        $guards = is_array($guards) ? array_keys($guards) : [];
+        return view('admin.layouts.add-role', compact('guards'));
     }
 
     public function store(Request $request)
@@ -53,7 +58,10 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        return view('admin.layouts.edit-role', compact('role'));
+        //گرفتن نام گاردهای موجود در سیستم
+        $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
+        $guards = is_array($guards) ? array_keys($guards) : [];
+        return view('admin.layouts.edit-role', compact('role', 'guards'));
     }
 
     public function update(Request $request, Role $role)
@@ -80,6 +88,28 @@ class RoleController extends Controller
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'خطا در حذف کاربر'], 500);
         }
+    }
+
+    public function showList()
+    {
+        $roles = Role::all();
+        $permissions=Permission::all();
+        return view('admin.layouts.list-role', compact('roles', 'permissions'));
+    }
+
+    public function assignPermissions(Request $request)
+    {
+        $request->validate([
+            'role_id' => 'required|exists:roles,id',
+            'permissions' => 'array', // لیستی از مجوزها باید ارسال شود
+            'permissions.*' => 'exists:permissions,id', // بررسی اینکه همه مجوزها معتبر باشند
+        ]);
+        $role = Role::findOrFail($request->role_id); // پیدا کردن نقش انتخاب شده
+
+        // اختصاص مجوزهای انتخاب‌شده به نقش (مجوزهای قبلی حذف می‌شوند)
+        $role->syncPermissions($request->permissions);
+
+        return back()->with('success', 'مجوزها با موفقیت اختصاص داده شدند.');
     }
 
 }
