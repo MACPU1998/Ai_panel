@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\PermissionsDataTable;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Permission;
 use Yajra\DataTables\DataTables;
 
@@ -34,7 +35,10 @@ class PermissionController extends Controller
 
     public function create()
     {
-        return view('admin.layouts.add-permission');
+        //گرفتن نام گاردهای موجود در سیستم
+        $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
+        $guards = is_array($guards) ? array_keys($guards) : [];
+        return view('admin.layouts.add-permission', compact('guards'));
     }
 
     public function store(Request $request)
