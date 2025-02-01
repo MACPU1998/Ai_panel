@@ -57,7 +57,10 @@ class PermissionController extends Controller
 
     public function edit(Permission $permission)
     {
-        return view('admin.layouts.edit-permission', compact('permission'));
+        //گرفتن نام گاردهای موجود در سیستم
+        $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
+        $guards = is_array($guards) ? array_keys($guards) : [];
+        return view('admin.layouts.edit-permission', compact('permission', 'guards'));
     }
 
     public function update(Request $request, Permission $permission)
