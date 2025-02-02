@@ -21,7 +21,7 @@ Route::prefix('admin')->group(function () {
     Route::post('users/store', [UserController::class, 'store'])->name('users.store');
     Route::delete('users/{user}', [UserController::class, 'destroy'])->name('users.destroy');
 
-    Route::get('permissions', [PermissionController::class, 'index'])->name('permissions.index');
+    Route::get('permissions/', [PermissionController::class, 'index'])->name('permissions.index');
     Route::get('permissions/data', [PermissionController::class, 'getPermissionsData'])->name('permissions.getData');
     Route::get('permissions/datatable', [PermissionController::class, 'datatable'])->name('permissions.datatable');
     Route::get('permissions/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
     Route::get('roles/create', [RoleController::class, 'create'])->name('roles.create');
     Route::post('roles/store', [RoleController::class, 'store'])->name('roles.store');
     Route::delete('roles/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
-    Route::get('list', [RoleController::class, 'showList'])->name('roles.list');
+    Route::get('list/{role}', [RoleController::class, 'showList'])->name('roles.list');
     Route::post('list', [RoleController::class, 'assignPermissions'])->name('roles.assign');
 
 

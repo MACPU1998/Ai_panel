@@ -90,9 +90,9 @@ class RoleController extends Controller
         }
     }
 
-    public function showList()
+    public function showList($roleId)
     {
-        $roles = Role::all();
+        $roles = Role::findOrFail($roleId); // دریافت نقش از دیتابیس
         $permissions=Permission::all();
         return view('admin.layouts.list-role', compact('roles', 'permissions'));
     }
@@ -101,13 +101,22 @@ class RoleController extends Controller
     {
         $request->validate([
             'role_id' => 'required|exists:roles,id',
-            'permissions' => 'array', // لیستی از مجوزها باید ارسال شود
-            'permissions.*' => 'exists:permissions,id', // بررسی اینکه همه مجوزها معتبر باشند
+            'permissions' => 'array',
+            'permissions.*' => 'exists:permissions,id',
         ]);
         $role = Role::findOrFail($request->role_id); // پیدا کردن نقش انتخاب شده
+        if($request->has('permissions')){
+            $permissions = Permission::whereIn("id",$request->permissions)
+                ->pluck('name')->toArray();
+            // اختصاص مجوزهای انتخاب‌شده به نقش (مجوزهای قبلی حذف می‌شوند)
+            if($permissions)
+                $role->syncPermissions($permissions);
+        }
+        else{
+            $role->syncPermissions([]);
+        }
 
-        // اختصاص مجوزهای انتخاب‌شده به نقش (مجوزهای قبلی حذف می‌شوند)
-        $role->syncPermissions($request->permissions);
+
 
         return back()->with('success', 'مجوزها با موفقیت اختصاص داده شدند.');
     }

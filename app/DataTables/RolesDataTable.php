@@ -36,7 +36,7 @@ class RolesDataTable extends DataTable
                 return '
                 <a href="' . route('roles.edit', $role->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
                 <button class="btn btn-sm btn-danger" onclick="deleteRole(' . $role->id . ')"><i class="bi bi-trash"></i></button>
-                <a href="' . route('roles.list', $role->id) . '" class="btn btn-sm btn-primary">دسترسی</a>
+                <a href="' . route('roles.list', $role->id) . '" class="btn btn-sm btn-secondary">دسترسی</a>
 
         ';
             })
