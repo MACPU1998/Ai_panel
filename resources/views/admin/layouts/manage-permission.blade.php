@@ -7,9 +7,9 @@
 
     <div class="col-lg-12">
         <div class="card">
-            <div class="container mt-8">
-                <h5 class="mb-4">مدیریت مجوزها</h5>
-                <a href="{{route('permissions.create')}}" class="btn btn-success mb-3">اضافه کردن مجوز جدید</a>
+            <div class="container mt-8 my-10">
+                <h5 class="mb-4">{{__("general.manage_permission")}}</h5>
+                <a href="{{route('permissions.create')}}" class="btn btn-success mb-3">{{__("general.add_permission")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

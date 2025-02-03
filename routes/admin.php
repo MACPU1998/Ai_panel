@@ -13,38 +13,41 @@ Route::prefix('admin')->group(function () {
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+    //Route User
     Route::prefix('users')->group(function () {
-      Route::get('/', [UserController::class, 'index'])->name('users.index');
-      Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable');
-      Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-      Route::put('/{user}/edit', [UserController::class, 'update'])->name('users.update');
-      Route::get('/create', [UserController::class, 'create'])->name('users.create');
-      Route::post('/store', [UserController::class, 'store'])->name('users.store');
-      Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
+        Route::get('/', [UserController::class, 'index'])->name('users.index');
+        Route::get('/create', [UserController::class, 'create'])->name('users.create');
+        Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable');
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{user}/edit', [UserController::class, 'update'])->name('users.update');
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 
+    //Route Role
     Route::prefix('roles')->group(function () {
-      Route::get('/', [RoleController::class, 'index'])->name('roles.index');
-      Route::get('/data', [RoleController::class, 'getRolesData'])->name('roles.getData');
-      Route::get('/datatable', [RoleController::class, 'datatable'])->name('roles.datatable');
-      Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
-      Route::put('/{role}/update', [RoleController::class, 'update'])->name('roles.update');
-      Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
-      Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
-      Route::delete('/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
-      Route::get('/list/{role}', [RoleController::class, 'showList'])->name('roles.list');
-      Route::post('/list', [RoleController::class, 'assignPermissions'])->name('roles.assign');
+        Route::get('/', [RoleController::class, 'index'])->name('roles.index');
+        Route::get('/create', [RoleController::class, 'create'])->name('roles.create');
+        Route::post('/store', [RoleController::class, 'store'])->name('roles.store');
+        Route::get('/data', [RoleController::class, 'getRolesData'])->name('roles.getData');
+        Route::get('/datatable', [RoleController::class, 'datatable'])->name('roles.datatable');
+        Route::get('/{role}/edit', [RoleController::class, 'edit'])->name('roles.edit');
+        Route::put('/{role}/update', [RoleController::class, 'update'])->name('roles.update');
+        Route::delete('/{role}', [RoleController::class, 'destroy'])->name('roles.destroy');
+        Route::get('/list/{role}', [RoleController::class, 'showList'])->name('roles.list');
+        Route::post('/list', [RoleController::class, 'assignPermissions'])->name('roles.assign');
     });
 
+    //Route Permission
     Route::prefix('permissions')->group(function () {
-      Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
-      Route::get('/data', [PermissionController::class, 'getPermissionsData'])->name('permissions.getData');
-      Route::get('/datatable', [PermissionController::class, 'datatable'])->name('permissions.datatable');
-      Route::get('/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
-      Route::put('/{permission}/update', [PermissionController::class, 'update'])->name('permissions.update');
-      Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
-      Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
-      Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
+        Route::get('/', [PermissionController::class, 'index'])->name('permissions.index');
+        Route::get('/create', [PermissionController::class, 'create'])->name('permissions.create');
+        Route::post('/store', [PermissionController::class, 'store'])->name('permissions.store');
+        Route::get('/data', [PermissionController::class, 'getPermissionsData'])->name('permissions.getData');
+        Route::get('/datatable', [PermissionController::class, 'datatable'])->name('permissions.datatable');
+        Route::get('/{permission}/edit', [PermissionController::class, 'edit'])->name('permissions.edit');
+        Route::put('/{permission}/update', [PermissionController::class, 'update'])->name('permissions.update');
+        Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
     });
 
     // داشبورد (محافظت‌شده)

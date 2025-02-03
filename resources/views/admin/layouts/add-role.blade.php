@@ -7,13 +7,13 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">اضافه کردن نقش</h5>
+                <h5 class="mb-4">{{__("general.add_role")}}</h5>
 
-                <form action="{{route('roles.store')}}" method="POST">
+                <form action="{{route('roles.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">نام</label>
+                        <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name"
                                required>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="guard_name" class="form-label">نام گارد</label>
+                        <label for="guard_name" class="form-label">{{__("general.guard_name")}}</label>
                         <select name="guard_name" id="guard_name" class="form-control">
                             @foreach($guards as $guard)
                                 <option value="{{$guard}}">{{$guard}}</option>

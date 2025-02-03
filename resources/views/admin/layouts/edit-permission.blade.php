@@ -7,9 +7,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">ویرایش مجوز</h5>
+                <h5 class="mb-4">{{__("general.edit_permission")}}</h5>
 
-                <form action="{{route('permissions.update',$permission->id)}}" method="POST">
+                <form action="{{route('permissions.update',$permission->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
 
@@ -26,7 +26,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="guard_name" class="form-label">نام گارد </label>
+                        <label for="guard_name" class="form-label">{{__("general.guard_name")}} </label>
                         <select name="guard_name" id="guard_name" class="form-control">
                             @foreach($guards as $guard)
                                 <option value="{{$guard}}">{{$guard}}</option>
@@ -39,7 +39,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">ویرایش</button>
+                    <button type="submit" class="btn btn-success">{{__("general.edit_btn")}}</button>
                 </form>
             </div>
         </div>

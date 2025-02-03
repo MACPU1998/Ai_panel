@@ -5,20 +5,20 @@
 @section('content')
 
     <div class="col-lg-12">
-        <div class="card">
-            <div class="container mt-8">
+        <div class="card ">
+            <div class="container mt-8 ">
 
-                <form action="{{ route('roles.assign') }}" method="POST">
+                <form action="{{ route('roles.assign') }}" method="POST" class="my-10 mx-2">
                     @csrf
 
                     <div class="mb-3">
-                        <label for="role" class="form-label">نقش فعلی: </label>
+                        <label for="role" class="form-label">{{__("general.current_role")}}</label>
                         <span class="fw-bold">{{ $roles->name }}</span> <!-- نمایش نام نقش انتخاب شده -->
                         <input type="hidden" name="role_id" value="{{ $roles->id }}"> <!-- ارسال آیدی نقش -->
                     </div>
 
                     <div class="mb-3">
-                        <label class="form-label">انتخاب مجوزها:</label>
+                        <label class="form-label">{{__("general.select_permission")}}</label>
                         <div class="d-flex flex-column gap-2">
                             @foreach($permissions as $permission)
                                 <div class="form-check">
@@ -34,12 +34,12 @@
 
                     <!-- نمایش مجوزهای انتخاب‌شده -->
                     <div class="mt-3">
-                        <label class="form-label">مجوزهای انتخاب‌شده:</label>
+                        <label class="form-label">{{__("general.selected_permission")}}</label>
                         <div id="selected-permissions" class="d-flex flex-wrap gap-2 my-3"></div> <!-- نمایش به صورت افقی -->
                     </div>
 
 
-                    <button type="submit" class="btn btn-success">{{__("general.submit_btn")}}</button>
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
 
                 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

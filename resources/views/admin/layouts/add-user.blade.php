@@ -7,13 +7,13 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">اضافه کردن کاربر جدید</h5>
+                <h5 class="mb-4">{{__("general.add_user")}}</h5>
 
-                <form action="{{route('users.store')}}" method="POST">
+                <form action="{{route('users.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">نام</label>
+                        <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name" autocomplete="off"
                                required>
@@ -25,7 +25,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="email" class="form-label">ایمیل</label>
+                        <label for="email" class="form-label">{{__("general.email")}}</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                name="email" autocomplete="off"
                                required>
@@ -37,7 +37,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">رمز عبور</label>
+                        <label for="password" class="form-label">{{__("general.password")}}</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
                                id="password" name="password" autocomplete="new-password" required>
                         @error('password')
@@ -47,7 +47,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">ایجاد</button>
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
             </div>
         </div>

@@ -17,23 +17,6 @@ class RoleController extends Controller
 
     }
 
-    public function getRolesData(Request $request)
-    {
-        $role = Role::query();
-
-        return DataTables::of($role)
-            ->addColumn('action', function ($role) {
-                return '<a href="' . route('roles.edit', $role->id) . '" class="btn btn-primary">ویرایش</a>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
-
-    public function datatable(RolesDataTable $dataTable)
-    {
-        return $dataTable->ajax();
-    }
-
     public function create()
     {
         //گرفتن نام گاردهای موجود در سیستم
@@ -54,6 +37,23 @@ class RoleController extends Controller
         ]);
         return redirect()->route('roles.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
+    }
+
+    public function getRolesData(Request $request)
+    {
+        $role = Role::query();
+
+        return DataTables::of($role)
+            ->addColumn('action', function ($role) {
+                return '<a href="' . route('roles.edit', $role->id) . '" class="btn btn-primary">ویرایش</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function datatable(RolesDataTable $dataTable)
+    {
+        return $dataTable->ajax();
     }
 
     public function edit(Role $role)
@@ -93,8 +93,8 @@ class RoleController extends Controller
     public function showList($roleId)
     {
         $roles = Role::findOrFail($roleId); // دریافت نقش از دیتابیس
-        $permissions=Permission::all();
-        return view('admin.layouts.list-role', compact('roles', 'permissions'));
+        $permissions = Permission::all();
+        return view('admin.layouts.role-list', compact('roles', 'permissions'));
     }
 
     public function assignPermissions(Request $request)
@@ -105,17 +105,15 @@ class RoleController extends Controller
             'permissions.*' => 'exists:permissions,id',
         ]);
         $role = Role::findOrFail($request->role_id); // پیدا کردن نقش انتخاب شده
-        if($request->has('permissions')){
-            $permissions = Permission::whereIn("id",$request->permissions)
+        if ($request->has('permissions')) {
+            $permissions = Permission::whereIn("id", $request->permissions)
                 ->pluck('name')->toArray();
             // اختصاص مجوزهای انتخاب‌شده به نقش (مجوزهای قبلی حذف می‌شوند)
-            if($permissions)
+            if ($permissions)
                 $role->syncPermissions($permissions);
-        }
-        else{
+        } else {
             $role->syncPermissions([]);
         }
-
 
 
         return back()->with('success', 'مجوزها با موفقیت اختصاص داده شدند.');

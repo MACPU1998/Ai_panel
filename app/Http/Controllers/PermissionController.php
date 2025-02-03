@@ -16,23 +16,6 @@ class PermissionController extends Controller
 
     }
 
-    public function getPermissionsData(Request $request)
-    {
-        $permission = Permission::query();
-
-        return DataTables::of($permission)
-            ->addColumn('action', function ($permission) {
-                return '<a href="' . route('permissions.edit', $permission->id) . '" class="btn btn-primary">ویرایش</a>';
-            })
-            ->rawColumns(['action'])
-            ->make(true);
-    }
-
-    public function datatable(PermissionsDataTable $dataTable)
-    {
-        return $dataTable->ajax();
-    }
-
     public function create()
     {
         //گرفتن نام گاردهای موجود در سیستم
@@ -53,6 +36,23 @@ class PermissionController extends Controller
         ]);
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
+    }
+
+    public function getPermissionsData(Request $request)
+    {
+        $permission = Permission::query();
+
+        return DataTables::of($permission)
+            ->addColumn('action', function ($permission) {
+                return '<a href="' . route('permissions.edit', $permission->id) . '" class="btn btn-primary">ویرایش</a>';
+            })
+            ->rawColumns(['action'])
+            ->make(true);
+    }
+
+    public function datatable(PermissionsDataTable $dataTable)
+    {
+        return $dataTable->ajax();
     }
 
     public function edit(Permission $permission)
@@ -85,7 +85,6 @@ class PermissionController extends Controller
             $permission->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            dd($e->getMessage());
             return response()->json(['success' => false, 'message' => 'خطا در حذف نقش'], 500);
         }
     }
