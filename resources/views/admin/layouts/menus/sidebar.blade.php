@@ -60,6 +60,13 @@
                         </li>
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('menus.index')}}" aria-expanded="false">
+                                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                <span class="hide-menu">مدیریت منوها</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
                                 <span class="hide-menu">مدیریت کاربران</span>

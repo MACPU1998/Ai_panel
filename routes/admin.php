@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -12,6 +13,13 @@ Route::prefix('admin')->group(function () {
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+
+    // داشبورد (محافظت‌شده)
+    Route::middleware('auth:admin')->group(function () {
+        Route::get('/dashboard', function () {
+            return view('admin.dashboard'); // نمایش داشبورد
+        })->name('admin.dashboard');
+    });
 
     //Route User
     Route::prefix('users')->group(function () {
@@ -50,10 +58,17 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{permission}', [PermissionController::class, 'destroy'])->name('permissions.destroy');
     });
 
-    // داشبورد (محافظت‌شده)
-    Route::middleware('auth:admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard'); // نمایش داشبورد
-        })->name('admin.dashboard');
+    //Route Menu
+    Route::prefix('menus')->group(function () {
+    Route::get('/', [MenuController::class, 'index'])->name('menus.index');
+        Route::get('/create', [MenuController::class, 'create'])->name('menus.create');
+        Route::post('/store', [MenuController::class, 'store'])->name('menus.store');
+        Route::get('/data', [MenuController::class, 'getMenuData'])->name('menus.getData');
+        Route::get('/datatable', [MenuController::class, 'datatable'])->name('menus.datatable');
+        Route::get('/{menu}/edit', [MenuController::class, 'edit'])->name('menus.edit');
+        Route::put('/{menu}/update', [MenuController::class, 'update'])->name('menus.update');
+        Route::delete('/{menu}', [MenuController::class, 'destroy'])->name('menus.destroy');
+
     });
+
 });
