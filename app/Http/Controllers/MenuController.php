@@ -17,7 +17,7 @@ class MenuController extends Controller
     public function create()
     {
         $menus = Menu::all();
-        return view('admin.layouts.menu-data-tables.menu', compact('menus'));
+        return view('admin.layouts.menu-data-tables.add-menu', compact('menus'));
     }
 
     public function store(Request $request)

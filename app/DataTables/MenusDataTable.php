@@ -20,6 +20,18 @@ class MenusDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('status', function ($menu) {
+                return $menu->status == 1
+                    ? 'فعال'
+                    : 'غیرفعال';
+            })
+            ->editColumn('parent_id', function ($menu) {
+                return optional($menu->parent)->title ?? 'ندارد';
+            })
+            ->rawColumns(['status','parent_id'])
+
+
+
             ->addColumn('created_at', function ($menu) {
                 if ($menu->created_at) {
                     return Jalalian::fromCarbon($menu->created_at)->format('Y/m/d - H:i');
@@ -72,21 +84,21 @@ class MenusDataTable extends DataTable
      */
     public function getColumns(): array
     {
-    return [
-        Column::make('id')->title('شناسه'),
-        Column::make('title')->title('عنوان'),
-        Column::make('icon')->title('آیکون'),
-        Column::make('parent_id')->title('آی دی والد'),
-        Column::make('link')->title('لینک'),
-        Column::make('status')->title('وضعیت'),
-        Column::make('created_at')->title('تاریخ ایجاد'),
-        Column::make('updated_at')->title('تاریخ آپدیت'),
-        Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->addClass('text-center')
-            ->title('عملیات'),
-    ];
+        return [
+            Column::make('id')->title('شناسه'),
+            Column::make('title')->title('عنوان'),
+            Column::make('icon')->title('آیکون'),
+            Column::make('parent_id')->title('آی دی والد'),
+            Column::make('link')->title('لینک'),
+            Column::make('status')->title('وضعیت'),
+            Column::make('created_at')->title('تاریخ ایجاد'),
+            Column::make('updated_at')->title('تاریخ آپدیت'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center')
+                ->title('عملیات'),
+        ];
     }
 
     /**
