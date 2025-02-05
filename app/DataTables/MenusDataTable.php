@@ -88,7 +88,7 @@ class MenusDataTable extends DataTable
             Column::make('id')->title('شناسه'),
             Column::make('title')->title('عنوان'),
             Column::make('icon')->title('آیکون'),
-            Column::make('parent_id')->title('آی دی والد'),
+            Column::make('parent_id')->title('زیرمنو'),
             Column::make('link')->title('لینک'),
             Column::make('status')->title('وضعیت'),
             Column::make('created_at')->title('تاریخ ایجاد'),

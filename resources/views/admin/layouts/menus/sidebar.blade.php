@@ -73,6 +73,7 @@
                             </a>
                         </li>
 
+
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
                                 <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>
@@ -92,6 +93,30 @@
                                 <span class="hide-menu">دسترسی ها</span>
                             </a>
                         </li>
+
+
+                        <!-- داینامیک کردن منوها -->
+                        @foreach($menus->where('parent_id', null) as $parent)
+                            <li class="sidebar-item">
+                                <a class="sidebar-link" href="{{ $parent->link }}" aria-expanded="false">
+                                    <iconify-icon icon="{{ $parent->icon }}"></iconify-icon>
+                                    <span class="hide-menu">{{ $parent->title }}</span>
+                                </a>
+
+                                @if($menus->where('parent_id', $parent->id)->count())
+                                    <ul class="sidebar-submenu">
+                                        @foreach($menus->where('parent_id', $parent->id) as $child)
+                                            <li>
+                                                <a href="{{ $child->link }}">
+                                                    <iconify-icon icon="{{ $child->icon }}"></iconify-icon>
+                                                    {{ $child->title }}
+                                                </a>
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                @endif
+                            </li>
+                        @endforeach
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="#" aria-expanded="false">

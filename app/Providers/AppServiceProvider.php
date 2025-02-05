@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Admin\Menu;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -34,6 +36,12 @@ class AppServiceProvider extends ServiceProvider
 
         Gate::after(function ($user, $ability) {
             return $user->hasRole('Super Admin'); // note this returns boolean
+        });
+
+        // 🔹 ارسال منوهای فعال به همه‌ی ویوها
+        View::composer('*', function ($view) {
+            $menus = Menu::where('status', 1)->orderBy('parent_id')->orderBy('title')->get();
+            $view->with('menus', $menus);
         });
     }
 }
