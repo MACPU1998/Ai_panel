@@ -54,7 +54,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('admin.dashboard')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                <iconify-icon icon="mdi-light:home"></iconify-icon>
                                 <span class="hide-menu">داشبورد</span>
                             </a>
                         </li>
@@ -68,7 +68,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                <iconify-icon icon="mdi-light:account"></iconify-icon>
                                 <span class="hide-menu">مدیریت کاربران</span>
                             </a>
                         </li>
@@ -97,14 +97,19 @@
 
                         <!-- داینامیک کردن منوها -->
                         @foreach($menus->where('parent_id', null) as $parent)
-                            <li class="sidebar-item">
-                                <a class="sidebar-link" href="{{ $parent->link }}" aria-expanded="false">
+                            <li class="sidebar-item {{ $menus->where('parent_id', $parent->id)->count() ? 'has-submenu' : '' }}">
+                                <a class="sidebar-link" href="{{ $parent->link ?? 'javascript:void(0)' }}"
+                                   aria-expanded="false"
+                                   onclick="toggleSubMenu(event, 'submenu-{{ $parent->id }}')">
                                     <iconify-icon icon="{{ $parent->icon }}"></iconify-icon>
                                     <span class="hide-menu">{{ $parent->title }}</span>
+                                    @if($menus->where('parent_id', $parent->id)->count())
+                                        <iconify-icon id="icon-{{ $parent->id }}" icon="solar:chevron-down-circle-line-duotone" class="submenu-toggle-icon"></iconify-icon>
+                                    @endif
                                 </a>
 
                                 @if($menus->where('parent_id', $parent->id)->count())
-                                    <ul class="sidebar-submenu">
+                                    <ul class="sidebar-submenu" id="submenu-{{ $parent->id }}" style="display: none; opacity: 0; transition: opacity 0.3s ease;">
                                         @foreach($menus->where('parent_id', $parent->id) as $child)
                                             <li>
                                                 <a href="{{ $child->link }}">
@@ -154,3 +159,39 @@
     </div>
 </aside>
 <!--  Sidebar End -->
+
+{{-- script for dynamic menu--}}
+<script>
+    function toggleSubMenu(event, submenuId) {
+        event.preventDefault();
+        let submenu = document.getElementById(submenuId);
+        let icon = document.getElementById("icon-" + submenuId.replace("submenu-", ""));
+
+        console.log("Toggling submenu:", submenuId); // چک کن که شناسه درست ارسال شده
+        console.log("Icon element:", icon); // بررسی کن که آیکون درست انتخاب شده
+
+        if (submenu.style.display === "none" || submenu.style.opacity === "0") {
+            submenu.style.display = "block";
+            setTimeout(() => {
+                submenu.style.opacity = "1";
+            }, 10);
+
+            if (icon) {
+                icon.setAttribute("icon", "solar:chevron-up-circle-line-duotone");
+                console.log("Icon changed to up"); // تایید تغییر آیکون
+            }
+        } else {
+            submenu.style.opacity = "0";
+            setTimeout(() => {
+                submenu.style.display = "none";
+            }, 300);
+
+            if (icon) {
+                icon.setAttribute("icon", "solar:chevron-down-circle-line-duotone");
+                console.log("Icon changed to down"); // تایید تغییر آیکون
+            }
+        }
+    }
+</script>
+
+
