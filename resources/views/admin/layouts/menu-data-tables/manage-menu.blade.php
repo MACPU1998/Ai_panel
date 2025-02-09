@@ -69,7 +69,7 @@
 
     <script>
         function deleteMenu(menuId) {
-            if (confirm("آیا مطمئن هستید که می‌خواهید این نقش را حذف کنید؟")) {
+            if (confirm("آیا مطمئن هستید که می‌خواهید این منو را حذف کنید؟")) {
                 $.ajax({
                     url: '/admin/menus/' + menuId, // مسیر روت حذف منو
                     type: 'DELETE',
@@ -79,6 +79,10 @@
                     success: function(response) {
                         if (response.success) {
                             alert('منو با موفقیت حذف شد!');
+
+                            // حذف منو از سایدبار
+                            $('#menu-item-' + menuId).remove();
+
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#menus-table').DataTable().ajax.reload();
                         } else {
@@ -91,5 +95,6 @@
                 });
             }
         }
+
     </script>
 @endsection

@@ -32,10 +32,10 @@ class MenuController extends Controller
         ]);
         Menu::create([
             'title' => $request->title,
-            'icon' => $request->icon,
+            'icon' => $request->icon ?: '#',
             'parent_id' => $request->parent_id ?: null,
-            'link' => $request->link,
-            'status' =>(int) $request->status,
+            'link' => $request->link ?: '#',
+            'status' => (int)$request->status,
         ]);
         return redirect('admin/menus')->with('success', 'منو با موفقیت اضافه شد');
     }
@@ -74,7 +74,7 @@ class MenuController extends Controller
         ]);
         $menu->update([
             'title' => $validated['title'],
-            'icon' => $validated['icon']?? null,
+            'icon' => $validated['icon'] ?? null,
             'parent_id' => $validated['parent_id'] ?: null, // مقدار null را به‌درستی ذخیره می‌کند
             'link' => $validated['link'] ?? null,
             'status' => $validated['status'],
@@ -89,6 +89,7 @@ class MenuController extends Controller
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'خطا در حذف منو'], 500);
-        }    }
+        }
+    }
 
 }
