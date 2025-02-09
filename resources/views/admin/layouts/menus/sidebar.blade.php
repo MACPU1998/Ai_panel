@@ -54,7 +54,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('admin.dashboard')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:home"></iconify-icon>
+                                <iconify-icon icon="hugeicons:home-09"></iconify-icon>
                                 <span class="hide-menu">داشبورد</span>
                             </a>
                         </li>
@@ -85,12 +85,6 @@
                             <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
                                 <span class="hide-menu">نقش ها</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
-                                <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>
-                                <span class="hide-menu">دسترسی ها</span>
                             </a>
                         </li>
 
@@ -134,33 +128,6 @@
                                 @endif
                             </li>
                         @endforeach
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
-                                <iconify-icon icon="et:documents"></iconify-icon>
-                                <span class="hide-menu">انبار</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
-                                <iconify-icon icon=""></iconify-icon>
-                                <span class="hide-menu">سفارشات</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" aria-expanded="false" href="#">
-                                <iconify-icon icon=""></iconify-icon>
-                                <span class="hide-menu">محصولات</span>
-                            </a>
-                        </li>
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" aria-expanded="false" href="#">
-                                <iconify-icon icon="mdi-light:chart-areaspline"></iconify-icon>
-                                <span class="hide-menu">آمار هوشمند</span>
-                            </a>
-                        </li>
-
 
                         <li>
                             <span class="sidebar-divider"></span>
