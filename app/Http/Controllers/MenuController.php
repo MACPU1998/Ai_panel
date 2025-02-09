@@ -76,7 +76,7 @@ class MenuController extends Controller
             'title' => $validated['title'],
             'icon' => $validated['icon'] ?? '#',
             'parent_id' => $validated['parent_id'] ?: null, // مقدار null را به‌درستی ذخیره می‌کند
-            'link' => $validated['link'] ?? null,
+            'link' => $validated['link'] ?? '#',
             'status' => $validated['status'],
         ]);
         return redirect()->route('menus.index')->with('success', 'منو با موفقیت ویرایش شد.');
