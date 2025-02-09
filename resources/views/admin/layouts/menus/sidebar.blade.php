@@ -94,24 +94,37 @@
                             </a>
                         </li>
 
+                        {{--  ردیف بودن منوهای اضافه شده--}}
+                        @php
+                            $menus = $menus ?? collect();
+                            $menus = $menus->sortBy(function($menu) {
+                            return $menu->parent_id ? 999999 + $menu->id : $menu->id;
+                        });
+                        @endphp
 
-                        <!-- داینامیک کردن منوها -->
+
+                            <!-- داینامیک کردن منوها -->
                         @foreach($menus->where('parent_id', null) as $parent)
-                            <li class="sidebar-item {{ $menus->where('parent_id', $parent->id)->count() ? 'has-submenu' : '' }}" id="menu-item-{{ $parent->id }}">
+                            <li class="sidebar-item {{ $menus->where('parent_id', $parent->id)->count() ? 'has-submenu' : '' }}"
+                                id="menu-item-{{ $parent->id }}">
                                 <a class="sidebar-link" href="{{ $parent->link ?? 'javascript:void(0)' }}"
                                    aria-expanded="false"
                                    onclick="toggleSubMenu(event, 'submenu-{{ $parent->id }}')">
                                     <iconify-icon icon="{{ $parent->icon }}"></iconify-icon>
                                     <span class="hide-menu">{{ $parent->title }}</span>
                                     @if($menus->where('parent_id', $parent->id)->count())
-                                        <iconify-icon id="icon-{{ $parent->id }}" icon="solar:chevron-down-circle-line-duotone" class="submenu-toggle-icon"></iconify-icon>
+                                        <iconify-icon id="icon-{{ $parent->id }}"
+                                                      icon="solar:chevron-down-circle-line-duotone"
+                                                      class="submenu-toggle-icon"></iconify-icon>
                                     @endif
                                 </a>
+
                                 @if($menus->where('parent_id', $parent->id)->count())
-                                    <ul class="sidebar-submenu" id="submenu-{{ $parent->id }}" style="display: none; opacity: 0; transition: opacity 0.3s ease;">
+                                    <ul class="sidebar-submenu" id="submenu-{{ $parent->id }}"
+                                        style="display: none; opacity: 0; transition: opacity 0.3s ease;">
                                         @foreach($menus->where('parent_id', $parent->id) as $child)
                                             <li>
-                                                <a href="{{ $child->link }}" data-id="{{ $child->id }}">
+                                                <a href="{{ $child->link }}">
                                                     <iconify-icon icon="{{ $child->icon }}"></iconify-icon>
                                                     {{ $child->title }}
                                                 </a>
