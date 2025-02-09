@@ -25,6 +25,18 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="name" class="form-label">{{__("general.slug")}}</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
+                               name="slug"
+                               required>
+                        @error('slug')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="guard_name" class="form-label">{{__("general.guard_name")}}</label>
                         <select name="guard_name" id="guard_name" class="form-control">
                             @foreach($guards as $guard)
@@ -38,7 +50,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">ایجاد</button>
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
             </div>
         </div>

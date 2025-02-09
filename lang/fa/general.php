@@ -24,6 +24,7 @@ return [
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
     'name' => 'نام',
+    'slug' => 'نامک',
     'email' => 'ایمیل',
     'password' => 'رمز عبور',
     'new_password' => 'رمز عبور جدید',

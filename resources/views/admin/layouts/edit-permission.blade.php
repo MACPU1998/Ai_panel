@@ -14,7 +14,7 @@
                     @method('PUT')
 
                     <div class="mb-3">
-                        <label for="name" class="form-label">نام</label>
+                        <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name"
                                value="{{ old('name', $permission->name) }}" required>
@@ -26,11 +26,24 @@
                     </div>
 
                     <div class="mb-3">
+                        <label for="slug" class="form-label">{{__("general.slug")}}</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
+                               name="slug"
+                               value="{{ old('slug', $permission->slug) }}" required>
+                        @error('slug')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
                         <label for="guard_name" class="form-label">{{__("general.guard_name")}} </label>
                         <select name="guard_name" id="guard_name" class="form-control">
-                            @foreach($guards as $guard)
-                                <option value="{{$guard}}">{{$guard}}</option>
-                            @endforeach
+
+                            <option value="web" {{$permission->guard_name == 'web' ? 'selected' :'admin'}}>web</option>
+                            <option value="admin" {{$permission->guard_name == 'admin' ? 'selected' :''}}>admin</option>
+
                         </select>
                         @error('guard_name')
                         <span class="invalid-feedback" role="alert">

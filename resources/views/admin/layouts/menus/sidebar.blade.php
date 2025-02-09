@@ -61,7 +61,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('menus.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:chart-line-duotone"></iconify-icon>
+                                <iconify-icon icon="mdi-light:menu"></iconify-icon>
                                 <span class="hide-menu">مدیریت منوها</span>
                             </a>
                         </li>
@@ -76,14 +76,14 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>
+                                <iconify-icon icon="mdi-light:file-plus"></iconify-icon>
                                 <span class="hide-menu">مجوزها</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:screencast-2-line-duotone"></iconify-icon>
+                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
                                 <span class="hide-menu">نقش ها</span>
                             </a>
                         </li>
@@ -143,7 +143,7 @@
                         </li>
                         <li class="sidebar-item">
                             <a class="sidebar-link" aria-expanded="false" href="#">
-                                <iconify-icon icon=""></iconify-icon>
+                                <iconify-icon icon="mdi-light:chart-areaspline"></iconify-icon>
                                 <span class="hide-menu">آمار هوشمند</span>
                             </a>
                         </li>

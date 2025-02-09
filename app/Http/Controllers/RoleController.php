@@ -58,10 +58,8 @@ class RoleController extends Controller
 
     public function edit(Role $role)
     {
-        //گرفتن نام گاردهای موجود در سیستم
-        $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
-        $guards = is_array($guards) ? array_keys($guards) : [];
-        return view('admin.layouts.edit-role', compact('role', 'guards'));
+
+        return view('admin.layouts.edit-role', compact('role'));
     }
 
     public function update(Request $request, Role $role)

@@ -38,7 +38,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">ایجاد</button>
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
             </div>
         </div>

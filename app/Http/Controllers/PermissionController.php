@@ -28,10 +28,12 @@ class PermissionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:255',
+            'slug' => 'required|string|min:3|max:255',
             'guard_name' => 'required|string|min:3|max:255',
         ]);
         Permission::create([
             'name' => $validated['name'],
+            'slug' => $validated['slug'],
             'guard_name' => $validated['guard_name'],
         ]);
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
@@ -67,10 +69,12 @@ class PermissionController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:255',
+            'slug' => 'required|string|min:3|max:255',
             'guard_name' => 'required|string|min:3|max:255',
         ]);
         $permission->update([
             'name' => $validated['name'],
+            'slug' => $validated['slug'],
             'guard_name' => $validated['guard_name'],
         ]);
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');

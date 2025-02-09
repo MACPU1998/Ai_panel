@@ -32,45 +32,8 @@
                         </div>
                     </div>
 
-                    <!-- نمایش مجوزهای انتخاب‌شده -->
-                    <div class="mt-3">
-                        <label class="form-label">{{__("general.selected_permission")}}</label>
-                        <div id="selected-permissions" class="d-flex flex-wrap gap-2 my-3"></div> <!-- نمایش به صورت افقی -->
-                    </div>
-
-
                     <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
-
-                <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                <script>
-                    $(document).ready(function() {
-                        function updateSelectedPermissions() {
-                            let selected = [];
-                            $(".permission-checkbox:checked").each(function() {
-                                selected.push($(this).next("label").text()); // دریافت نام مجوز انتخاب‌شده
-                            });
-
-                            let list = $("#selected-permissions");
-                            list.empty(); // لیست را خالی کن
-                            if (selected.length > 0) {
-                                selected.forEach(function(name) {
-                                    list.append(`<span class="badge bg-light text-dark p-2 border ">${name}</span>`); // نمایش در یک خط
-                                });
-                            } else {
-                                list.append(`<span class="text-muted">هیچ مجوزی انتخاب نشده</span>`);
-                            }
-                        }
-
-                        // اجرای تابع هنگام تغییر در چک‌باکس‌ها
-                        $(".permission-checkbox").on("change", updateSelectedPermissions);
-
-                        // نمایش مقدارهای تیک خورده در بارگذاری اولیه صفحه
-                        updateSelectedPermissions();
-                    });
-                </script>
-
-
 
             </div>
         </div>
