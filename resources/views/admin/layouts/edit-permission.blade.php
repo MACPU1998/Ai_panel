@@ -41,7 +41,7 @@
                         <label for="guard_name" class="form-label">{{__("general.guard_name")}} </label>
                         <select name="guard_name" id="guard_name" class="form-control">
 
-                            <option value="web" {{$permission->guard_name == 'web' ? 'selected' :'admin'}}>web</option>
+                            <option value="web" {{$permission->guard_name == 'web' ? 'selected' :''}}>web</option>
                             <option value="admin" {{$permission->guard_name == 'admin' ? 'selected' :''}}>admin</option>
 
                         </select>
