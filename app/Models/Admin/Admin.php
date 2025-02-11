@@ -10,7 +10,7 @@ class Admin extends Authenticatable
 {
     use HasRoles;
     protected $table = 'admins';
-    protected $guard_name = 'admin'; // این قسمت مهم است
+    protected $guard_name = 'admin';
 
     protected $fillable = ['name', 'email', 'password'];
     protected $hidden = ['password', 'remember_token'];
