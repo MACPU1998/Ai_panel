@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\RoleController;
@@ -68,6 +69,19 @@ Route::prefix('admin')->group(function () {
         Route::get('/{menu}/edit', [MenuController::class, 'edit'])->name('menus.edit');
         Route::put('/{menu}/update', [MenuController::class, 'update'])->name('menus.update');
         Route::delete('/{menu}', [MenuController::class, 'destroy'])->name('menus.destroy');
+
+    });
+
+    //Route category
+    Route::prefix('categories')->group(function () {
+    Route::get('/', [CategoryController::class, 'index'])->name('categories.index');
+        Route::get('/create', [CategoryController::class, 'create'])->name('categories.create');
+        Route::post('/store', [CategoryController::class, 'store'])->name('categories.store');
+        Route::get('/data', [CategoryController::class, 'getCategoryData'])->name('categories.getData');
+        Route::get('/datatable', [CategoryController::class, 'datatable'])->name('categories.datatable');
+        Route::get('/{category}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+        Route::put('/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
+        Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     });
 

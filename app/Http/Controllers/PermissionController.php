@@ -36,7 +36,7 @@ class PermissionController extends Controller
             'slug' => $validated['slug'],
             'guard_name' => $validated['guard_name'],
         ]);
-        return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
+        return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
 
     }
 
@@ -89,7 +89,7 @@ class PermissionController extends Controller
             $permission->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'خطا در حذف نقش'], 500);
+            return response()->json(['success' => false, 'message' => 'خطا در حذف مجوز'], 500);
         }
     }
 

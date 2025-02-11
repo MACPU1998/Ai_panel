@@ -32,9 +32,19 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'title', name: 'title'},
-                    {data: 'icon', name: 'icon'},
+                    {data: 'icon', name: 'icon', render: function (data, type, row) {
+                            if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
+                                return `<span title="${data}">${data.substring(0, 10)}...</span>`;
+                            }
+                            return data;
+                        }},
                     {data: 'parent_id', name: 'parent_id'},
-                    {data: 'link', name: 'link'},
+                    {data: 'link', name: 'link', render: function (data, type, row) {
+                            if (data.length > 10) {
+                                return `<span title="${data}">${data.substring(0, 10)}...</span>`;
+                            }
+                            return data;
+                        }},
                     {data: 'status', name: 'status'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},

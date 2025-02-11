@@ -21,6 +21,11 @@ return [
     'edit_menu' => 'ویرایش منو',
     'delete_menu' => 'حذف منو',
 
+    'manage_category' => 'مدیریت محصولات',
+    'add_category' => 'اضافه کردن محصول',
+    'edit_category' => 'ویرایش محصول',
+    'delete_category' => 'حذف محصول',
+
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
     'name' => 'نام',
