@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -84,5 +85,19 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{category}', [CategoryController::class, 'destroy'])->name('categories.destroy');
 
     });
+
+    //Route product currency
+    Route::prefix('product-currencies')->group(function () {
+    Route::get('/', [ProductCurrencyController::class, 'index'])->name('productCurrencies.index');
+        Route::get('/create', [ProductCurrencyController::class, 'create'])->name('productCurrencies.create');
+        Route::post('/store', [ProductCurrencyController::class, 'store'])->name('productCurrencies.store');
+        Route::get('/data', [ProductCurrencyController::class, 'getProductCurrencyData'])->name('productCurrencies.getData');
+        Route::get('/datatable', [ProductCurrencyController::class, 'datatable'])->name('productCurrencies.datatable');
+        Route::get('/{productCurrency}/edit', [ProductCurrencyController::class, 'edit'])->name('productCurrencies.edit');
+        Route::put('/{productCurrency}/update', [ProductCurrencyController::class, 'update'])->name('productCurrencies.update');
+        Route::delete('/{productCurrency}', [ProductCurrencyController::class, 'destroy'])->name('productCurrencies.destroy');
+
+    });
+
 
 });

@@ -21,10 +21,20 @@ return [
     'edit_menu' => 'ویرایش منو',
     'delete_menu' => 'حذف منو',
 
-    'manage_category' => 'مدیریت محصولات',
-    'add_category' => 'اضافه کردن محصول',
-    'edit_category' => 'ویرایش محصول',
-    'delete_category' => 'حذف محصول',
+    'manage_category' => 'مدیریت دسته بندی محصولات',
+    'add_category' => 'اضافه کردن دسته بندی محصول',
+    'edit_category' => 'ویرایش دسته بندی محصول',
+    'delete_category' => 'حذف دسته بندی محصول',
+
+    'manage_product' => 'مدیریت محصولات',
+    'add_product' => 'اضافه کردن محصولات',
+    'edit_product' => 'ویرایش محصولات',
+    'delete_product' => 'حذف محصولات',
+
+    'manage_product_currency' => 'مدیریت ارز محصولات',
+    'add_product_currency' => 'اضافه کردن ارز',
+    'edit_product_currency' => 'ویرایش ارز',
+    'delete_product_currency' => 'حذف ارز',
 
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',

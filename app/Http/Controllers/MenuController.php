@@ -11,13 +11,13 @@ class MenuController extends Controller
 {
     public function index(MenusDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.menu-data-tables.manage-menu');
+        return $dataTable->render('admin.layouts.menu_data_tables.manage_menu');
     }
 
     public function create()
     {
         $menus = Menu::all();
-        return view('admin.layouts.menu-data-tables.add-menu', compact('menus'));
+        return view('admin.layouts.menu_data_tables.add_menu', compact('menus'));
     }
 
     public function store(Request $request)
@@ -60,7 +60,7 @@ class MenuController extends Controller
     public function edit(Menu $menu)
     {
         $menus = Menu::all();
-        return view('admin.layouts.menu-data-tables.edit-menu', compact('menu', 'menus'));
+        return view('admin.layouts.menu_data_tables.edit_menu', compact('menu', 'menus'));
     }
 
     public function update(Request $request, Menu $menu)

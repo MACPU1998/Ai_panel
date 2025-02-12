@@ -14,7 +14,7 @@ class CategoryController extends Controller
      */
     public function index(CategoriesDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.categories.manage-category');
+        return $dataTable->render('admin.layouts.categories.manage_category');
     }
 
     /**
@@ -22,7 +22,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        return view('admin.layouts.categories.add-category');
+        return view('admin.layouts.categories.add_category');
     }
 
     /**
@@ -40,7 +40,7 @@ class CategoryController extends Controller
             'slug' => $validated['slug'],
             'status' => $validated['status'],
         ]);
-        return redirect()->route('categories.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
+        return redirect()->route('categories.index')->with('success', 'دسته بندی با موفقیت ایجاد شد.');
 
     }
 
@@ -67,7 +67,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
 
-        return view('admin.layouts.categories.edit-category', ['category' => $category]);
+        return view('admin.layouts.categories.edit_category', ['category' => $category]);
     }
 
     /**
@@ -85,7 +85,7 @@ class CategoryController extends Controller
             'slug' => $validated['slug'],
             'status' => $validated['status'],
         ]);
-        return redirect()->route('categories.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
+        return redirect()->route('categories.index')->with('success', 'دسته بندی با موفقیت ویرایش شد.');
 
     }
 
