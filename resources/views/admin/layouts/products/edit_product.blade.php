@@ -1,0 +1,108 @@
+@extends('admin.layouts.project-master-admin')
+
+@section('title', 'ویرایش محصول')
+
+@section('content')
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="container mt-8">
+                <h5 class="mb-4">{{__("general.edit_product")}}</h5>
+
+                <form action="{{route('products.update',$product->id)}}" method="POST" class="my-10" enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+
+                    <div class="mb-3">
+                        <label for="name" class="form-label">{{__("general.name")}}</label>
+                        <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
+                               name="name"
+                               value="{{ old('name', $product->name) }}" required>
+                        @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="description" class="form-label">{{__("general.description")}}</label>
+                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description"
+                               name="description"
+                               value="{{ old('description', $product->description) }}" >
+                        @error('description')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="status" class="form-label">{{__("general.status")}} </label>
+                        <select name="status" id="status" class="form-control">
+
+                            <option value="0" {{$product->status == '0' ? 'selected' :''}}>0</option>
+                            <option value="1" {{$product->status == '1' ? 'selected' :''}}>1</option>
+
+                        </select>
+                        @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="image" class="form-label">{{__("general.image")}}</label>
+                        <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
+                               name="image"
+                               value="{{ old('image', $product->image) }}" required>
+                        @error('image')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
+                        <input type="text" class="form-control @error('currency_id') is-invalid @enderror" id="currency_id"
+                               name="currency_id"
+                               value="{{ old('currency_id', $product->currency_id) }}" required>
+                        @error('currency_id')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="price" class="form-label">{{__("general.price")}}</label>
+                        <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
+                               name="price"
+                               value="{{ old('price', $product->price) }}" required>
+                        @error('price')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
+                        <input type="text" class="form-control @error('final_price') is-invalid @enderror" id="final_price"
+                               name="final_price"
+                               value="{{ old('final_price', $product->final_price) }}">
+                        @error('final_price')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <button type="submit" class="btn btn-success">{{__("general.edit_btn")}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection

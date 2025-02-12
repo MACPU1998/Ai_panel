@@ -12,7 +12,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class Product
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string|null $description
@@ -23,8 +23,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int|null $final_price
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
- * @property ProductCurrency $product_currency
+ *
+ * @property ProductCurrency $product_currencies
  * @property Collection|ProductAttribute[] $product_attributes
  * @property Collection|ProductCategory[] $product_categories
  *

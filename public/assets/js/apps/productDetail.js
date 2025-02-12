@@ -1,5 +1,5 @@
 $(function () {
-  // product detail
+  // products detail
 
   var sync1 = $("#sync1");
   var sync2 = $("#sync2");

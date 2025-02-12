@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class product_currency
+ * Class product_currencies
  *
  * @property int $id
  * @property string $name

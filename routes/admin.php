@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -86,7 +87,7 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Route product currency
+    //Route products currency
     Route::prefix('product-currencies')->group(function () {
     Route::get('/', [ProductCurrencyController::class, 'index'])->name('productCurrencies.index');
         Route::get('/create', [ProductCurrencyController::class, 'create'])->name('productCurrencies.create');
@@ -99,5 +100,17 @@ Route::prefix('admin')->group(function () {
 
     });
 
+    //Route products
+    Route::prefix('products')->group(function () {
+        Route::get('/', [ProductController::class, 'index'])->name('products.index');
+        Route::get('/create', [ProductController::class, 'create'])->name('products.create');
+        Route::post('/store', [ProductController::class, 'store'])->name('products.store');
+        Route::get('/data', [ProductController::class, 'getProductData'])->name('products.getData');
+        Route::get('/datatable', [ProductController::class, 'datatable'])->name('products.datatable');
+        Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
+        Route::put('/{product}/update', [ProductController::class, 'update'])->name('products.update');
+        Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    });
 
 });

@@ -30,6 +30,9 @@ return [
     'add_product' => 'اضافه کردن محصولات',
     'edit_product' => 'ویرایش محصولات',
     'delete_product' => 'حذف محصولات',
+    'currency_id' => 'آی دی ارز',
+    'price' => 'قیمت',
+    'final_price' => 'قیمت نهایی',
 
     'manage_product_currency' => 'مدیریت ارز محصولات',
     'add_product_currency' => 'اضافه کردن ارز',
@@ -41,6 +44,8 @@ return [
     'name' => 'نام',
     'slug' => 'نامک',
     'email' => 'ایمیل',
+    'description' => 'توضیحات',
+    'image' => 'تصویر',
     'password' => 'رمز عبور',
     'new_password' => 'رمز عبور جدید',
     'your_new_password' => 'اگر می‌خواهید رمز عبور را تغییر دهید، در اینجا وارد',

@@ -25,7 +25,7 @@
 
     <script>
         $(document).ready(function () {
-            $('#product-currencies-table').DataTable({
+            $('#products-currencies-table').DataTable({
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('productCurrencies.datatable') }}',
@@ -78,7 +78,7 @@
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
-                            $('#product-currencies-table').DataTable().ajax.reload();
+                            $('#products-currencies-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف !');
                         }

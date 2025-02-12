@@ -11,7 +11,7 @@ use Illuminate\Database\Eloquent\Model;
 
 /**
  * Class ProductAttribute
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $value
@@ -19,8 +19,8 @@ use Illuminate\Database\Eloquent\Model;
  * @property int $product_id
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
- * 
- * @property Product $product
+ *
+ * @property Product $products
  *
  * @package App\Models
  */

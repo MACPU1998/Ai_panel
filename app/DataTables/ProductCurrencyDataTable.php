@@ -20,8 +20,8 @@ class ProductCurrencyDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->editColumn('status', function ($menu) {
-                return $menu->status == 1
+            ->editColumn('status', function ($productCurrency) {
+                return $productCurrency->status == 1
                     ? 'فعال'
                     : 'غیرفعال';
             })
@@ -61,7 +61,7 @@ class ProductCurrencyDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('product-currencies-table')
+            ->setTableId('products-currencies-table')
             ->columns($this->getColumns())
             ->minifiedAjax(route('productCurrencies.datatable')) // مسیر ajax
             ->orderBy(0)

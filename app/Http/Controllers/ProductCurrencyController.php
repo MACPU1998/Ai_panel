@@ -12,12 +12,12 @@ class ProductCurrencyController extends Controller
 
     public function index(ProductCurrencyDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.product_currency.manage_Product_currency');
+        return $dataTable->render('admin.layouts.product_currencies.manage_product_currency');
     }
 
     public function create()
     {
-        return view('admin.layouts.product_currency.add_product_currency');
+        return view('admin.layouts.product_currencies.add_product_currency');
     }
 
 
@@ -57,7 +57,7 @@ class ProductCurrencyController extends Controller
     public function edit(ProductCurrency $productCurrency)
     {
 
-        return view('admin.layouts.product_currency.edit_product_currency', ['productCurrency' => $productCurrency]);
+        return view('admin.layouts.product_currencies.edit_product_currency', ['productCurrency' => $productCurrency]);
     }
 
     public function update(Request $request, ProductCurrency  $productCurrency)
