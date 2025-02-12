@@ -86,7 +86,7 @@
 
     <script>
         function deleteProduct(productId) {
-            if (confirm("آیا مطمئن هستید که می‌خواهید این ارز را حذف کنید؟")) {
+            if (confirm("آیا مطمئن هستید که می‌خواهید این محصول را حذف کنید؟")) {
                 $.ajax({
                     url: '/admin/products/' + productId,
                     type: 'DELETE',
