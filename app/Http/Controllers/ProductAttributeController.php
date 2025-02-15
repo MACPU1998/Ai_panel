@@ -59,7 +59,7 @@ class ProductAttributeController extends Controller
     public function edit(ProductAttribute $productAttribute)
     {
 
-        return view('admin.layouts.product_attributes.edit_product_attributes', ['productAttribute' => $productAttribute]);
+        return view('admin.layouts.product_attributes.edit_product_attribute', ['productAttribute' => $productAttribute]);
     }
 
     public function update(Request $request, ProductAttribute $productAttribute)
