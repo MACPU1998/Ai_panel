@@ -7,9 +7,9 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_product_currency")}}</h5>
+                <h5 class="mb-4">{{__("general.edit_product_attribute")}}</h5>
 
-                <form action="{{route('productCurrencies.update',$productCurrency->id)}}" method="POST" class="my-10">
+                <form action="{{route('productAttributes.update',$productAttribute->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
 
@@ -17,7 +17,7 @@
                         <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name"
-                               value="{{ old('name', $productCurrency->name) }}" required>
+                               value="{{ old('name', $productAttribute->name) }}" required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -26,11 +26,11 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="slug" class="form-label">{{__("general.slug")}}</label>
-                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                               name="slug"
-                               value="{{ old('slug', $productCurrency->slug) }}" required>
-                        @error('slug')
+                        <label for="value" class="form-label">{{__("general.value")}}</label>
+                        <input type="text" class="form-control @error('value') is-invalid @enderror" id="value"
+                               name="value"
+                               value="{{ old('value', $productAttribute->value) }}" required>
+                        @error('value')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -41,11 +41,23 @@
                         <label for="status" class="form-label">{{__("general.status")}} </label>
                         <select name="status" id="status" class="form-control">
 
-                            <option value="0" {{$productCurrency->status == '0' ? 'selected' :''}}>0</option>
-                            <option value="1" {{$productCurrency->status == '1' ? 'selected' :''}}>1</option>
+                            <option value="1" {{$productAttribute->status == '1' ? 'selected' :''}}>فعال</option>
+                            <option value="0" {{$productAttribute->status == '0' ? 'selected' :''}}>غیرفعال</option>
 
                         </select>
                         @error('status')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="product_id" class="form-label">{{__("general.product_id")}}</label>
+                        <input type="text" class="form-control @error('product_id') is-invalid @enderror" id="product_id"
+                               name="product_id"
+                        value="{{ old('product_id', $productAttribute->product_id) }}" required>
+                        @error('product_id')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
