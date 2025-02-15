@@ -25,12 +25,12 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'description' => 'required|string|min:3|nullable',
+            'description' => 'string|min:3|nullable',
             'status' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'currency_id' => 'required',
             'price' => 'required',
-            'final_price' => 'required',
+            'final_price' => 'nullable',
         ]);
         Product::create([
             'name' => $validated['name'],
@@ -72,12 +72,12 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:255',
-            'description' => 'required|string|min:3|max:255|nullable',
+            'description' => 'string|min:3|max:255|nullable',
             'status' => 'required',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'currency_id' => 'required',
             'price' => 'required',
-            'final_price' => 'required',
+            'final_price' => 'nullable',
         ]);
         $product->update([
             'name' => $validated['name'],

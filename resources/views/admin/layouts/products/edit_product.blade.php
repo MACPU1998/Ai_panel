@@ -41,8 +41,8 @@
                         <label for="status" class="form-label">{{__("general.status")}} </label>
                         <select name="status" id="status" class="form-control">
 
-                            <option value="0" {{$product->status == '0' ? 'selected' :''}}>0</option>
-                            <option value="1" {{$product->status == '1' ? 'selected' :''}}>1</option>
+                            <option value="1" {{$product->status == '1' ? 'selected' :''}}>فعال</option>
+                            <option value="0" {{$product->status == '0' ? 'selected' :''}}>غیرفعال</option>
 
                         </select>
                         @error('status')

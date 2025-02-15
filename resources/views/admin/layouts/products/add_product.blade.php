@@ -26,9 +26,9 @@
 
                     <div class="mb-3">
                         <label for="description" class="form-label">{{__("general.description")}}</label>
-                        <input type="text" class="form-control @error('description') is-invalid @enderror" id="description"
-                               name="description"
-                               >
+                        <input type="text" class="form-control @error('description') is-invalid @enderror"
+                               id="description"
+                               name="description">
                         @error('description')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -39,8 +39,8 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">{{__("general.status")}}</label>
                         <select name="status" id="status" class="form-control">
-                            <option value="0">فعال</option>
-                            <option value="1">غیر فعال</option>
+                            <option value="1">فعال</option>
+                            <option value="0">غیر فعال</option>
                         </select>
                         @error('status')
                         <span class="invalid-feedback" role="alert">
@@ -63,7 +63,8 @@
 
                     <div class="mb-3">
                         <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
-                        <input type="text" class="form-control @error('currency_id') is-invalid @enderror" id="currency_id"
+                        <input type="text" class="form-control @error('currency_id') is-invalid @enderror"
+                               id="currency_id"
                                name="currency_id"
                                required>
                         @error('currency_id')
@@ -87,9 +88,9 @@
 
                     <div class="mb-3">
                         <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
-                        <input type="text" class="form-control @error('final_price') is-invalid @enderror" id="final_price"
-                               name="final_price"
-                               >
+                        <input type="text" class="form-control @error('final_price') is-invalid @enderror"
+                               id="final_price"
+                               name="final_price">
                         @error('final_price')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
