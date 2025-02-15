@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
@@ -87,7 +88,7 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Route products currency
+    //Route product currencies
     Route::prefix('product-currencies')->group(function () {
     Route::get('/', [ProductCurrencyController::class, 'index'])->name('productCurrencies.index');
         Route::get('/create', [ProductCurrencyController::class, 'create'])->name('productCurrencies.create');
@@ -110,6 +111,19 @@ Route::prefix('admin')->group(function () {
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit');
         Route::put('/{product}/update', [ProductController::class, 'update'])->name('products.update');
         Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy');
+
+    });
+
+    //Route product attributes
+    Route::prefix('product-attributes')->group(function () {
+        Route::get('/', [ProductAttributeController::class, 'index'])->name('productAttributes.index');
+        Route::get('/create', [ProductAttributeController::class, 'create'])->name('productAttributes.create');
+        Route::post('/store', [ProductAttributeController::class, 'store'])->name('productAttributes.store');
+        Route::get('/data', [ProductAttributeController::class, 'getProductAttributeData'])->name('productAttributes.getData');
+        Route::get('/datatable', [ProductAttributeController::class, 'datatable'])->name('productAttributes.datatable');
+        Route::get('/{productAttribute}/edit', [ProductAttributeController::class, 'edit'])->name('productAttributes.edit');
+        Route::put('/{productAttribute}/update', [ProductAttributeController::class, 'update'])->name('productAttributes.update');
+        Route::delete('/{productAttribute}', [ProductAttributeController::class, 'destroy'])->name('productAttributes.destroy');
 
     });
 

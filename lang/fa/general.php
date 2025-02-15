@@ -31,13 +31,20 @@ return [
     'edit_product' => 'ویرایش محصولات',
     'delete_product' => 'حذف محصولات',
     'currency_id' => 'آی دی ارز',
+    'product_id' => 'آی دی محصول',
     'price' => 'قیمت',
+    'value' => 'مقدار',
     'final_price' => 'قیمت نهایی',
 
     'manage_product_currency' => 'مدیریت ارز محصولات',
     'add_product_currency' => 'اضافه کردن ارز',
     'edit_product_currency' => 'ویرایش ارز',
     'delete_product_currency' => 'حذف ارز',
+
+    'manage_product_attribute' => 'مدیریت ویژگی محصولات',
+    'add_product_attribute' => 'اضافه کردن ویژگی',
+    'edit_product_attribute' => 'ویرایش ویژگی',
+    'delete_product_attribute' => 'حذف ویژگی',
 
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
