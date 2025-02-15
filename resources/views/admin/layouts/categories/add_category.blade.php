@@ -39,8 +39,8 @@
                     <div class="mb-3">
                         <label for="status" class="form-label">{{__("general.status")}}</label>
                         <select name="status" id="status" class="form-control">
-                            <option>0</option>
-                            <option>1</option>
+                            <option value="1">فعال</option>
+                            <option value="0">غیر فعال</option>
                         </select>
                         @error('status')
                         <span class="invalid-feedback" role="alert">
