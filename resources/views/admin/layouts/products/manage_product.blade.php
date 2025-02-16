@@ -45,8 +45,8 @@
                         }},
                     {data: 'status', name: 'status'},
                     {data: 'image', name: 'image',render: function (data, type, row) {
-                            if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
-                                return `<span title="${data}">${data.substring(0, 10)}...</span>`;
+                            if (data.length > 5) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
+                                return `<span title="${data}">${data.substring(0, 5)}...</span>`;
                             }
                             return data;
                         }},

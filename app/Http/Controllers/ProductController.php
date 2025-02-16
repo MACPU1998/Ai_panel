@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\ProductDataTable;
 use App\Models\Product;
+use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -31,8 +32,14 @@ class ProductController extends Controller
             'currency_id' => 'required',
             'price' => 'required',
             'final_price' => 'nullable',
+
+            'attributes' => 'nullable|string', // بررسی نوع داده‌ها
         ]);
-        Product::create([
+
+        // بررسی و تبدیل رشته JSON به آرایه
+        $attributes = json_decode($request->input('attributes'), true);
+
+        $product = Product::create([
             'name' => $validated['name'],
             'description' => $validated['description'],
             'status' => $validated['status'],
@@ -41,9 +48,22 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'final_price' => $validated['final_price'],
         ]);
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت ایجاد شد.');
 
+        // ذخیره ویژگی‌ها
+        if (is_array($attributes)) {
+            foreach ($attributes as $attribute) {
+                $product->attributes()->create([
+                    'name' => $attribute['name'],
+                    'value' => $attribute['value'],
+                    'status' => 1,
+                ]);
+            }
+        }
+
+        return redirect()->route('products.index')->with('success', 'محصول با موفقیت ایجاد شد.');
     }
+
+
 
     public function getProductData(Request $request)
     {
@@ -64,11 +84,18 @@ class ProductController extends Controller
 
     public function edit(Product $product)
     {
+        $product = Product::with('attributes')->find($product->id);
+        $attributes = json_decode($product->attributes, true);
 
-        return view('admin.layouts.products.edit_product', ['product' => $product]);
+        return view('admin.layouts.products.edit_product', [
+            'product' => $product,
+            'attributes' => $attributes,
+            'image_url' => asset('storage/' . $product->image) // مسیر تصویر را ارسال می‌کنیم
+        ]);
     }
 
-    public function update(Request $request, Product  $product)
+
+    public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'name' => 'required|string|min:3|max:255',
@@ -78,7 +105,13 @@ class ProductController extends Controller
             'currency_id' => 'required',
             'price' => 'required',
             'final_price' => 'nullable',
+
+            'attributes' => 'nullable|string',
         ]);
+
+        // بررسی و تبدیل رشته JSON به آرایه
+        $attributes = json_decode($request->input('attributes'), true);
+
         $product->update([
             'name' => $validated['name'],
             'description' => $validated['description'],
@@ -88,6 +121,21 @@ class ProductController extends Controller
             'price' => $validated['price'],
             'final_price' => $validated['final_price'],
         ]);
+
+        // حذف ویژگی‌های قبلی
+        $product->attributes()->delete();
+
+        // ذخیره ویژگی‌های جدید
+        if (is_array($attributes)) {
+            foreach ($attributes as $attribute) {
+                $product->attributes()->create([
+                    'name' => $attribute['name'],
+                    'value' => $attribute['value'],
+                    'status' => 1,
+                ]);
+            }
+        }
+
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت ویرایش شد.');
     }
 

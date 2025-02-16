@@ -51,7 +51,13 @@ class Product extends Model
 		'final_price'
 	];
 
-	public function product_currency()
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class);
+    }
+
+
+    public function product_currency()
 	{
 		return $this->belongsTo(ProductCurrency::class, 'currency_id');
 	}
