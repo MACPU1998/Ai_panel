@@ -12,6 +12,7 @@
                 <form action="{{route('products.store')}}" method="POST" class="my-10" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="name" class="form-label">{{__("general.name")}}</label>
@@ -42,6 +43,51 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
+                                <input type="text" class="form-control @error('currency_id') is-invalid @enderror"
+                                       id="currency_id"
+                                       name="currency_id"
+                                       required>
+                                @error('currency_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="price" class="form-label">{{__("general.price")}}</label>
+                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
+                                       name="price"
+                                       required>
+                                @error('price')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+
+                            <div class="mb-3">
+                                <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
+                                <input type="text" class="form-control @error('final_price') is-invalid @enderror"
+                                       id="final_price"
+                                       name="final_price">
+                                @error('final_price')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="status" class="form-label">{{__("general.status")}}</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="1">فعال</option>
@@ -58,59 +104,22 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="image" class="form-label">{{__("general.image")}}</label>
-                                <input type="file" class="form-control @error('image') is-invalid @enderror" id="image"
+                                <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
+                                       id="image"
                                        name="image"
+                                       @if(isset($product) && $product->image)
+                                           data-default-file="{{ asset('storage/'.$product->image) }}"
+                                       @endif
                                        required>
                                 @error('image')
                                 <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
+                                    <strong>{{ $message }}</strong>
+                                   </span>
                                 @enderror
                             </div>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
-                                <input type="text" class="form-control @error('currency_id') is-invalid @enderror"
-                                       id="currency_id"
-                                       name="currency_id"
-                                       required>
-                                @error('currency_id')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
 
-                            <div class="mb-3">
-                                <label for="price" class="form-label">{{__("general.price")}}</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
-                                       name="price"
-                                       required>
-                                @error('price')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-
-                            <div class="mb-3">
-                                <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
-                                <input type="text" class="form-control @error('final_price') is-invalid @enderror"
-                                       id="final_price"
-                                       name="final_price">
-                                @error('final_price')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
                     </div>
 
                     <div id="attr-action" class="col-md-5">
@@ -152,6 +161,17 @@
         $(function () {
 
             $(document).ready(function () {
+
+                // فعال‌سازی Dropify
+                $('.dropify').dropify({
+                    messages: {
+                        'default': 'یک فایل را اینجا بکشید و رها کنید یا کلیک کنید',
+                        'replace': 'برای جایگزینی، فایل جدید را بکشید و رها کنید یا کلیک کنید',
+                        'remove': 'حذف',
+                        'error': 'متاسفانه مشکلی پیش آمد'
+                    }
+                });
+
                 var attrs = [];
                 // افزودن ویژگی جدید
                 $("#attr-action #attr-add").on("click", function () {
@@ -195,9 +215,7 @@
                     return value != null;
                 }
             });
-
         });
-
 
         function GetDynamicTextBox(value) {
             return '<div class="d-flex gap-3 mb-3">' +
@@ -209,3 +227,4 @@
     </script>
 
 @endsection
+

@@ -46325,7 +46325,6 @@ html:has(.leaflet-container:fullscreen) {
     z-index: 10; /* در صورت نیاز */
 }
 
-/* تغییر رنگ هنگام هاور روی آیکن */
 .edit-icon:hover {
     background-color: #f0f0f0;
 }
@@ -46335,3 +46334,6 @@ html:has(.leaflet-container:fullscreen) {
     object-fit: cover; /* جلوگیری از کشیدگی عکس */
 }
 
+.dataTable thead th {
+    text-align: center !important;
+}

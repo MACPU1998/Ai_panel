@@ -51,9 +51,18 @@ class Product extends Model
 		'final_price'
 	];
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($product) {
+            $product->attributes()->delete();
+        });
+    }
+
     public function attributes()
     {
-        return $this->hasMany(ProductAttribute::class);
+        return $this->hasMany(ProductAttribute::class, 'product_id');
     }
 
 
@@ -71,4 +80,5 @@ class Product extends Model
 	{
 		return $this->hasMany(ProductCategory::class);
 	}
+
 }

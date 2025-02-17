@@ -2,6 +2,9 @@
 <html lang="en" dir="rtl" data-bs-theme="light" data-color-theme="Orange_Theme" data-layout="vertical">
 
 <head>
+    <!-- Dropify CSS -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/JeremyFagis/dropify@master/dist/css/dropify.min.css">
+
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
     <!-- Required meta tags -->
@@ -18,8 +21,6 @@
     <link rel="stylesheet" href="{{ asset('assets/libs/leaflet/leaflet.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
     <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
-
     <title>@yield('title')</title>
 </head>
 
@@ -60,10 +61,6 @@
             </div>
             <!-- end content-->
 
-            <!--btn setting-->
-{{--            @include('layouts.menus.setting')--}}
-            <!--end btn setting-->
-
         </div>
     </div>
 
@@ -90,10 +87,14 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
 
-    <!-- DataTables JS -->
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+
+    <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.11.5/js/dataTables.bootstrap5.min.js"></script>
+
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
 
     <!-- Custom scripts pushed from specific pages -->
     @stack('scripts')
@@ -101,6 +102,10 @@
     <!-- custom js -->
     @yield('customjs')
     <!-- end coustom js-->
+
+    <!-- Dropify JS -->
+    <script src="https://cdn.jsdelivr.net/gh/JeremyFagis/dropify@master/dist/js/dropify.min.js"></script>
+
 </body>
 
 </html>
