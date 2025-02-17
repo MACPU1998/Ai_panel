@@ -132,7 +132,7 @@
                             <div class="card-header">مشخصات</div>
                             <div class="card-body">
                                 <div class="col-md-12">
-                                    <small><span class="text-white">حداقل یک مشخصه باید برای محصول تعریف شود!</span></small>
+                                    <small><span class="text-white">میتوانید برای محصول ویژگی تعریف کنید</span></small>
                                 </div>
                                 <br>
                                 <input type="text" id="map_data" value="51" name="id" hidden="">

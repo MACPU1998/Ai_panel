@@ -46337,3 +46337,6 @@ html:has(.leaflet-container:fullscreen) {
 .dataTable thead th {
     text-align: center !important;
 }
+.dropify-wrapper .dropify-message span {
+    font-size: 18px !important;
+}
