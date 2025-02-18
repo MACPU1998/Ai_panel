@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_product")}}</h5>
 
-                <form action="{{route('products.update',$product->id)}}" method="POST" class="my-10" enctype="multipart/form-data">
+                <form action="{{route('products.update',$product->id)}}" method="POST" class="my-10"
+                      enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -45,12 +46,18 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
-                                <input type="text" class="form-control @error('currency_id') is-invalid @enderror"
-                                       id="currency_id"
-                                       value="{{ old('image', $product->currency_id) }}"
-                                       name="currency_id"
-                                       required>
+                                <label for="currency_id" class="form-label">{{__("general.currency")}}</label>
+                                <select type="text" class="form-control @error('currency_id') is-invalid @enderror"
+                                        id="currency_id"
+                                        name="currency_id"
+                                        required>
+                                    @foreach($currencies as $currency)
+                                        <option
+                                            value="{{ $currency->id }}" {{ $product->currency_id == $currency->id ? 'selected' : '' }}>
+                                            {{ $currency->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
                                 @error('currency_id')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -231,6 +238,16 @@
                 '</div>';
         }
 
+    </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+        });
     </script>
 
 @endsection

@@ -13,15 +13,6 @@
                 </div>
                 <ul class="mini-nav-ul" data-simplebar>
 
-                    <!-- --------------------------------------------------------------------------------------------------------- -->
-                    <!-- Dashboards -->
-                    <!-- --------------------------------------------------------------------------------------------------------- -->
-                    <li class="mini-nav-item" id="mini-1">
-                        <a href="javascript:void(0)" data-bs-toggle="tooltip" data-bs-custom-class="custom-tooltip"
-                           data-bs-placement="right" data-bs-title="داشبورد">
-                            <iconify-icon icon="solar:layers-line-duotone" class="fs-7"></iconify-icon>
-                        </a>
-                    </li>
 
                     <li>
                         <span class="sidebar-divider lg"></span>
@@ -114,10 +105,10 @@
                                 </a>
 
                                 @if($menus->where('parent_id', $parent->id)->count())
-                                    <ul class="sidebar-submenu" id="submenu-{{ $parent->id }}"
+                                    <ul class="sidebar-submenu mt-3" id="submenu-{{ $parent->id }}"
                                         style="display: none; opacity: 0; transition: opacity 0.3s ease;">
                                         @foreach($menus->where('parent_id', $parent->id) as $child)
-                                            <li>
+                                            <li class="mt-1 mb-2     ms-4">
                                                 <a href="{{ $child->link }}">
                                                     <iconify-icon icon="{{ $child->icon }}"></iconify-icon>
                                                     {{ $child->title }}

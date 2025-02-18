@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductAttributeDataTable;
+use App\Models\Product;
 use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -17,7 +18,8 @@ class ProductAttributeController extends Controller
 
     public function create()
     {
-        return view('admin.layouts.product_attributes.add_product_attribute');
+        $products = Product::where('status', 1)->get();
+        return view('admin.layouts.product_attributes.add_product_attribute', compact('products'));
     }
 
 
@@ -58,8 +60,9 @@ class ProductAttributeController extends Controller
 
     public function edit(ProductAttribute $productAttribute)
     {
-
-        return view('admin.layouts.product_attributes.edit_product_attribute', ['productAttribute' => $productAttribute]);
+        $products = Product::where('status', 1)->get();
+        return view('admin.layouts.product_attributes.edit_product_attribute',
+            ['productAttribute' => $productAttribute, 'products' => $products]);
     }
 
     public function update(Request $request, ProductAttribute $productAttribute)

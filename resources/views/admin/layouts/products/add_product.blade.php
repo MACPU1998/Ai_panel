@@ -43,11 +43,17 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="currency_id" class="form-label">{{__("general.currency_id")}}</label>
-                                <input type="text" class="form-control @error('currency_id') is-invalid @enderror"
-                                       id="currency_id"
-                                       name="currency_id"
-                                       required>
+                                <label for="currency_id" class="form-label">{{__("general.currency")}}</label>
+                                <select type="text" class="form-control @error('currency_id') is-invalid @enderror"
+                                        id="currency_id"
+                                        name="currency_id"
+                                        required>
+                                    <option value="">یک ارز را انتخاب کنید</option>
+                                    @foreach($currencies as $currency)
+                                        <option value="{{$currency->id}}">{{$currency->slug}}</option>
+
+                                @endforeach
+                                </select>
                                 @error('currency_id')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -107,9 +113,6 @@
                                 <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
                                        id="image"
                                        name="image"
-                                       @if(isset($product) && $product->image)
-                                           data-default-file="{{ asset('storage/'.$product->image) }}"
-                                       @endif
                                        required>
                                 @error('image')
                                 <span class="invalid-feedback" role="alert">
@@ -225,6 +228,17 @@
         }
 
     </script>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+
 
 @endsection
 

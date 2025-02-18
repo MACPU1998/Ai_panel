@@ -40,7 +40,7 @@
                         <label for="guard_name" class="form-label">{{__("general.guard_name")}}</label>
                         <select name="guard_name" id="guard_name" class="form-control">
                             @foreach($guards as $guard)
-                            <option value="{{$guard}}">{{$guard}}</option>
+                                <option value="{{$guard}}">{{$guard}}</option>
                             @endforeach
                         </select>
                         @error('guard_name')
@@ -56,3 +56,12 @@
         </div>
     </div>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("form").addEventListener("keypress", function (event) {
+            if (event.key === "Enter") {
+                event.preventDefault();
+            }
+        });
+    });
+</script>

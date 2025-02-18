@@ -71,15 +71,4 @@
         </div>
     </div>
 @endsection
-@section('customjs')
-    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
-            integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-    <script>
-        const map = L.map('map').setView([36.5659, 53.0586], 7);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {}).addTo(map);
-        window.onload = () => {
-            chart('chartActiveDevices', 'success', "43, 38, 47, 31, 45, 30");
-            chart('chartInactiveDevices', 'danger', "40, 50, 36, 40, 38, 43");
-        };
-    </script>
-@endsection
+

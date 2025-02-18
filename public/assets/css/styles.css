@@ -17530,7 +17530,7 @@
 }
 
 [data-bs-theme=dark][data-color-theme=Orange_Theme]:root, [data-bs-theme=light][data-color-theme=Orange_Theme]:root {
-    --bs-primary: #004acf;
+    --bs-primary: #FF6500;
     --bs-primary-rgb: 215, 52, 0;
     --bs-light-primary: rgba(250, 137, 107, 0.1);
     --bs-primary-bg-subtle: rgba(250, 137, 107, 0.1);
@@ -46263,43 +46263,42 @@ html:has(.leaflet-container:fullscreen) {
     scrollbar-gutter: unset;
 }
 
-#map {
+.leaflet-control-attribution {
+    display: none !important;
+}
+.map {
     aspect-ratio: 16/9;
-    max-height: 100vh;
     -webkit-user-select: none;
     -moz-user-select: none;
     user-select: none;
     width: 100%;
+    height: 100%;
     z-index: 1;
 }
 
 @media (max-width: 75.04875em) {
-    #map {
+    .map {
         aspect-ratio: 5/4;
     }
 }
 
 @media (max-width: 51.29875em) {
-    #map {
+    .map {
         aspect-ratio: initial;
         aspect-ratio: unset;
-        height: 100vh;
     }
 }
 
 @media (max-width: 75.04875em) {
-    #map {
+    .map {
         aspect-ratio: 5/4;
     }
 }
 
-@media (max-width: 51.29875em) {
-    #map {
-        aspect-ratio: initial;
-        aspect-ratio: unset;
-        height: 100vh;
-    }
+.leaflet-routing-container {
+    display: none !important;
 }
+
 
 .leaflet-div-icon {
     background-color: transparent !important;
@@ -46325,6 +46324,7 @@ html:has(.leaflet-container:fullscreen) {
     z-index: 10; /* در صورت نیاز */
 }
 
+/* تغییر رنگ هنگام هاور روی آیکن */
 .edit-icon:hover {
     background-color: #f0f0f0;
 }
@@ -46334,9 +46334,42 @@ html:has(.leaflet-container:fullscreen) {
     object-fit: cover; /* جلوگیری از کشیدگی عکس */
 }
 
-.dataTable thead th {
-    text-align: center !important;
-}
-.dropify-wrapper .dropify-message span {
-    font-size: 18px !important;
-}
+/*code section */
+code[class*=language-],pre[class*=language-]{color:#ccc;background:0 0;font-family:Consolas,Monaco,'Andale Mono','Ubuntu Mono',monospace;font-size:1em;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.5;-moz-tab-size:4;-o-tab-size:4;tab-size:4;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:1em;margin:.5em 0;overflow:auto}:not(pre)>code[class*=language-],pre[class*=language-]{background:#2d2d2d}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal}.token.block-comment,.token.cdata,.token.comment,.token.doctype,.token.prolog{color:#999}.token.punctuation{color:#ccc}.token.attr-name,.token.deleted,.token.namespace,.token.tag{color:#e2777a}.token.function-name{color:#6196cc}.token.boolean,.token.function,.token.number{color:#f08d49}.token.class-name,.token.constant,.token.property,.token.symbol{color:#f8c555}.token.atrule,.token.builtin,.token.important,.token.keyword,.token.selector{color:#cc99cd}.token.attr-value,.token.char,.token.regex,.token.string,.token.variable{color:#7ec699}.token.entity,.token.operator,.token.url{color:#67cdcc}.token.bold,.token.important{font-weight:700}.token.italic{font-style:italic}.token.entity{cursor:help}.token.inserted{color:green}
+
+
+pre[class*="language-"] {
+    position: relative;
+    overflow: auto;
+    margin: 5px 0;
+    padding: 1.75rem 0 1.75rem 1rem;
+    border-radius: 10px;
+  }
+  
+  pre[class*="language-"] button {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+  
+    font-size: 0.9rem;
+    padding: 0.15rem;
+    background-color: #828282;
+  
+    border: ridge 1px #7b7b7c;
+    border-radius: 5px;
+    text-shadow: #c4c4c4 0 0 2px;
+  }
+  
+  pre[class*="language-"] button:hover {
+    cursor: pointer;
+    background-color: #bcbabb;
+  }
+  
+  .code-container {
+    display: grid;
+    max-width: 600px;
+    direction: ltr;
+ }
+
+
+  /*end code section */
