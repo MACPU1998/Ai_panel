@@ -7,8 +7,6 @@
 
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet">
 
-    <!-- Required meta tags -->
-    <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
@@ -17,11 +15,11 @@
 
     <!-- Core Css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
+    <meta charset="UTF-8" />
     <meta name="csrf-token" content="{{ csrf_token() }}">
     <link rel="stylesheet" href="{{ asset('assets/libs/leaflet/leaflet.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/styles.css') }}" />
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.11.5/css/dataTables.bootstrap5.min.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <title>@yield('title')</title>
 </head>
@@ -77,24 +75,20 @@
             document.documentElement.setAttribute("data-color-theme", e);
         }
     </script>
-
-    <script src="{{ asset('assets/libs/bootstrap/dist/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     <script src="{{ asset('assets/libs/simplebar/dist/simplebar.min.js') }}"></script>
     <script src="{{ asset('assets/libs/apexcharts/dist/apexcharts.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme/app.init.js') }}"></script>
     <script src="{{ asset('assets/js/theme/theme.js') }}"></script>
     <script src="{{ asset('assets/js/theme/app.min.js') }}"></script>
     <script src="{{ asset('assets/js/theme/sidebarmenu.js') }}"></script>
+{{--    Toastify--}}
+    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
 
     <!-- solar icons -->
     <script src="https://cdn.jsdelivr.net/npm/iconify-icon@1.0.8/dist/iconify-icon.min.js"></script>
     <script src="{{ asset('assets/js/vendor.min.js') }}"></script>
     <!--end script-->
-
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-
-    <!-- DataTables CSS -->
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
 
     <!-- jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>

@@ -66,16 +66,16 @@
 
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{__("general.permissions")}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:file-plus"></iconify-icon>
-                                <span class="hide-menu">{{__("general.product")}}</span>
+                                <span class="hide-menu">{{__("general.permissions")}}</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{__("general.roles")}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
-                                <span class="hide-menu">{{__("general.product")}}</span>
+                                <span class="hide-menu">{{__("general.roles")}}</span>
                             </a>
                         </li>
 
