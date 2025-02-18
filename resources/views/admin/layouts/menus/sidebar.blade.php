@@ -60,22 +60,22 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:account"></iconify-icon>
-                                <span class="hide-menu">مدیریت کاربران</span>
+                                <span class="hide-menu">{{__("general.manage_user")}}</span>
                             </a>
                         </li>
 
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{__("general.permissions")}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:file-plus"></iconify-icon>
-                                <span class="hide-menu">مجوزها</span>
+                                <span class="hide-menu">{{__("general.product")}}</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
+                            <a class="sidebar-link" href="{{__("general.roles")}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
-                                <span class="hide-menu">نقش ها</span>
+                                <span class="hide-menu">{{__("general.product")}}</span>
                             </a>
                         </li>
 
@@ -108,7 +108,7 @@
                                     <ul class="sidebar-submenu mt-3" id="submenu-{{ $parent->id }}"
                                         style="display: none; opacity: 0; transition: opacity 0.3s ease;">
                                         @foreach($menus->where('parent_id', $parent->id) as $child)
-                                            <li class="mt-1 mb-2     ms-4">
+                                            <li class="mt-1 mb-2 ms-4">
                                                 <a href="{{ $child->link }}">
                                                     <iconify-icon icon="{{ $child->icon }}"></iconify-icon>
                                                     {{ $child->title }}

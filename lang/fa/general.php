@@ -2,12 +2,14 @@
 
 return [
     'manage_permission' => 'مدیریت مجوزها',
+    'permissions' => 'مجوزها',
     'add_permission' => 'اضافه کردن مجوز',
     'select_permission' => 'انتخاب مجوز',
     'selected_permission' => 'مجوزهای انتخاب شده:',
     'edit_permission' => 'ویرایش مجوز',
 
     'manage_role' => 'مدیریت نقش',
+    'roles' => 'نقش ها',
     'add_role' => 'اضافه کردن نقش',
     'current_role' => 'نقش فعلی: ',
     'edit_role' => 'ویرایش نقش',
