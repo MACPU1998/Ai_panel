@@ -92,7 +92,7 @@ class RoleController extends Controller
     {
         $roles = Role::findOrFail($roleId); // دریافت نقش از دیتابیس
         $permissions = Permission::all();
-        return view('admin.layouts.role-list', compact('roles', 'permissions'));
+        return view('admin.layouts.role_list', compact('roles', 'permissions'));
     }
 
     public function assignPermissions(Request $request)

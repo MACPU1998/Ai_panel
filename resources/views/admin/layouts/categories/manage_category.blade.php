@@ -74,7 +74,7 @@
                     data: {
                         _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
@@ -83,7 +83,7 @@
                             alert('خطا در حذف !');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.log(error);
                         alert('خطا در ارسال درخواست!');
                     }

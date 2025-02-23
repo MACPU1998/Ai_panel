@@ -39,6 +39,7 @@
                                 <label for="barcode" class="form-label">{{__("general.barcode")}}</label>
                                 <input type="number" class="form-control @error('barcode') is-invalid @enderror"
                                        id="barcode"
+                                       min="0"
                                        name="barcode"
                                        required>
                                 @error('barcode')

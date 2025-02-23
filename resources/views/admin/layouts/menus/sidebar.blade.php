@@ -108,7 +108,7 @@
                                     <ul class="sidebar-submenu mt-3" id="submenu-{{ $parent->id }}"
                                         style="display: none; opacity: 0; transition: opacity 0.3s ease;">
                                         @foreach($menus->where('parent_id', $parent->id) as $child)
-                                            <li class="mt-1 mb-2 ms-4">
+                                            <li class="mt-3 mb-3 ms-4">
                                                 <a href="{{ $child->link }}">
                                                     <iconify-icon icon="{{ $child->icon }}"></iconify-icon>
                                                     {{ $child->title }}

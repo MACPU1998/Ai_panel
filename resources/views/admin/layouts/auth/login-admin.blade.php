@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fa" dir="ltr" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
+<html lang="fa" dir="rtl" data-bs-theme="light" data-color-theme="Blue_Theme" data-layout="vertical">
 
 <head>
   <!-- Required meta tags -->
@@ -35,7 +35,6 @@
                   <div class="row justify-content-center py-4">
                     <div class="col-lg-11">
                       <div class="card-body">
-                          <img src="../assets/images/logos/logo.png" class="dark-logo" alt="Logo-Dark" dir="ltr" style="width:200px"/>
 
                         <h2 class="lh-base mb-4">صفحه ورود</h2>
 
