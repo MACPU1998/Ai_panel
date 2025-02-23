@@ -13,7 +13,7 @@ class RoleController extends Controller
 {
     public function index(RolesDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.manage-role');
+        return $dataTable->render('admin.layouts.manage_role');
 
     }
 
@@ -22,7 +22,7 @@ class RoleController extends Controller
         //گرفتن نام گاردهای موجود در سیستم
         $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
         $guards = is_array($guards) ? array_keys($guards) : [];
-        return view('admin.layouts.add-role', compact('guards'));
+        return view('admin.layouts.add_role', compact('guards'));
     }
 
     public function store(Request $request)
@@ -59,7 +59,7 @@ class RoleController extends Controller
     public function edit(Role $role)
     {
 
-        return view('admin.layouts.edit-role', compact('role'));
+        return view('admin.layouts.edit_role', compact('role'));
     }
 
     public function update(Request $request, Role $role)

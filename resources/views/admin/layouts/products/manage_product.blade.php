@@ -1,4 +1,4 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
 @section('title', 'مدیریت  محصولات')
 
@@ -31,25 +31,31 @@
                 ajax: '{{ route('products.datatable') }}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name',render: function (data, type, row) {
+                    {
+                        data: 'name', name: 'name', render: function (data, type, row) {
                             if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
                             return data;
-                        }},
-                    {data: 'description', name: 'description',render: function (data, type, row) {
+                        }
+                    },
+                    {
+                        data: 'description', name: 'description', render: function (data, type, row) {
                             if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
                             return data;
-                        }},
+                        }
+                    },
                     {data: 'status', name: 'status'},
-                    {data: 'image', name: 'image',render: function (data, type, row) {
+                    {
+                        data: 'image', name: 'image', render: function (data, type, row) {
                             if (data.length > 5) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
                                 return `<span title="${data}">${data.substring(0, 5)}...</span>`;
                             }
                             return data;
-                        }},
+                        }
+                    },
                     {data: 'currency_id', name: 'currency_id'},
                     {data: 'price', name: 'price'},
                     {data: 'final_price', name: 'final_price'},
@@ -93,7 +99,7 @@
                     data: {
                         _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
@@ -102,7 +108,7 @@
                             alert('خطا در حذف !');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.log(error);
                         alert('خطا در ارسال درخواست!');
                     }

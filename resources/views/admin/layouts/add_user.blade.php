@@ -1,23 +1,22 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
-@section('title', 'ویرایش کاربر')
+@section('title', 'اضافه کردن کاربر جدید')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_user")}}</h5>
+                <h5 class="mb-4">{{__("general.add_user")}}</h5>
 
-                <form action="{{route('users.update',$user->id)}}" method="POST" class="my-10">
+                <form action="{{route('users.store')}}" method="POST" class="my-10">
                     @csrf
-                    @method('PUT')
 
                     <div class="mb-3">
                         <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                               name="name"
-                               value="{{ old('name', $user->name) }}" required>
+                               name="name" autocomplete="off"
+                               required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -28,8 +27,8 @@
                     <div class="mb-3">
                         <label for="email" class="form-label">{{__("general.email")}}</label>
                         <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                               name="email"
-                               value="{{ old('email', $user->email) }}" required>
+                               name="email" autocomplete="off"
+                               required>
                         @error('email')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -38,11 +37,9 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="password" class="form-label">{{__("general.new_password")}}</label>
+                        <label for="password" class="form-label">{{__("general.password")}}</label>
                         <input type="password" class="form-control @error('password') is-invalid @enderror"
-                               id="password" name="password">
-                        <small class="form-text text-muted">{{__("general.your_new_password")}}
-                            کنید.</small>
+                               id="password" name="password" autocomplete="new-password" required>
                         @error('password')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -50,7 +47,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">{{__("general.edit_btn")}}</button>
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
             </div>
         </div>

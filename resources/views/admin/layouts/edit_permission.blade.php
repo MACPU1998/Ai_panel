@@ -1,15 +1,15 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
-@section('title', 'ویرایش نقش')
+@section('title', 'ویرایش مجوز')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_role")}}</h5>
+                <h5 class="mb-4">{{__("general.edit_permission")}}</h5>
 
-                <form action="{{route('roles.update',$role->id)}}" method="POST" class="my-10">
+                <form action="{{route('permissions.update',$permission->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
 
@@ -17,8 +17,20 @@
                         <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name"
-                               value="{{ old('name', $role->name) }}" required>
+                               value="{{ old('name', $permission->name) }}" required>
                         @error('name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                        @enderror
+                    </div>
+
+                    <div class="mb-3">
+                        <label for="slug" class="form-label">{{__("general.slug")}}</label>
+                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
+                               name="slug"
+                               value="{{ old('slug', $permission->slug) }}" required>
+                        @error('slug')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -29,8 +41,8 @@
                         <label for="guard_name" class="form-label">{{__("general.guard_name")}} </label>
                         <select name="guard_name" id="guard_name" class="form-control">
 
-                            <option value="web" {{$role->guard_name == 'web' ? 'selected' :''}}>web</option>
-                            <option value="admin" {{$role->guard_name == 'admin' ? 'selected' :''}}>admin</option>
+                            <option value="web" {{$permission->guard_name == 'web' ? 'selected' :''}}>web</option>
+                            <option value="admin" {{$permission->guard_name == 'admin' ? 'selected' :''}}>admin</option>
 
                         </select>
                         @error('guard_name')

@@ -1,4 +1,4 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
 @section('title', 'اضافه کردن کالای جدید')
 
@@ -40,7 +40,7 @@
                                 <input type="number" class="form-control @error('barcode') is-invalid @enderror"
                                        id="barcode"
                                        name="barcode"
-                                required>
+                                       required>
                                 @error('barcode')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>

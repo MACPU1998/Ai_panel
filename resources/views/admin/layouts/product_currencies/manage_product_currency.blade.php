@@ -1,4 +1,4 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
 @section('title', 'مدیریت ارز محصولات')
 
@@ -9,7 +9,8 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_product_currency")}}</h5>
-                <a href="{{route('productCurrencies.create')}}" class="btn btn-success mb-3">{{__("general.add_product_currency")}}</a>
+                <a href="{{route('productCurrencies.create')}}"
+                   class="btn btn-success mb-3">{{__("general.add_product_currency")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>
@@ -74,7 +75,7 @@
                     data: {
                         _token: '{{ csrf_token() }}'
                     },
-                    success: function(response) {
+                    success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
@@ -83,7 +84,7 @@
                             alert('خطا در حذف !');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function (xhr, status, error) {
                         console.log(error);
                         alert('خطا در ارسال درخواست!');
                     }

@@ -1,22 +1,23 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
-@section('title', 'اضافه کردن نقش جدید')
+@section('title', 'ویرایش نقش')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.add_role")}}</h5>
+                <h5 class="mb-4">{{__("general.edit_role")}}</h5>
 
-                <form action="{{route('roles.store')}}" method="POST" class="my-10">
+                <form action="{{route('roles.update',$role->id)}}" method="POST" class="my-10">
                     @csrf
+                    @method('PUT')
 
                     <div class="mb-3">
                         <label for="name" class="form-label">{{__("general.name")}}</label>
                         <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
                                name="name"
-                               required>
+                               value="{{ old('name', $role->name) }}" required>
                         @error('name')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -25,11 +26,12 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="guard_name" class="form-label">{{__("general.guard_name")}}</label>
+                        <label for="guard_name" class="form-label">{{__("general.guard_name")}} </label>
                         <select name="guard_name" id="guard_name" class="form-control">
-                            @foreach($guards as $guard)
-                                <option value="{{$guard}}">{{$guard}}</option>
-                            @endforeach
+
+                            <option value="web" {{$role->guard_name == 'web' ? 'selected' :''}}>web</option>
+                            <option value="admin" {{$role->guard_name == 'admin' ? 'selected' :''}}>admin</option>
+
                         </select>
                         @error('guard_name')
                         <span class="invalid-feedback" role="alert">
@@ -38,7 +40,7 @@
                         @enderror
                     </div>
 
-                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
+                    <button type="submit" class="btn btn-success">{{__("general.edit_btn")}}</button>
                 </form>
             </div>
         </div>

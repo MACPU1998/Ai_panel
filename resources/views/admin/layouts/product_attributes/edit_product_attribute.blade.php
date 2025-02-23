@@ -1,4 +1,4 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
 @section('title', 'ویرایش محصول')
 
@@ -70,7 +70,7 @@
                                         required>
                                     @foreach($products as $product)
                                         <option
-                                            value="{{ $product->id }}" {{ $productAttribute->product_id == $product->id ? 'selected' : '' }}>
+                                                value="{{ $product->id }}" {{ $productAttribute->product_id == $product->id ? 'selected' : '' }}>
                                             {{ $product->name }}
                                         </option>
                                     @endforeach

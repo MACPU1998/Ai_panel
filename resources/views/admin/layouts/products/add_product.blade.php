@@ -1,4 +1,4 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
 @section('title', 'اضافه کردن محصول جدید')
 
@@ -52,7 +52,7 @@
                                     @foreach($currencies as $currency)
                                         <option value="{{$currency->id}}">{{$currency->slug}}</option>
 
-                                @endforeach
+                                    @endforeach
                                 </select>
                                 @error('currency_id')
                                 <span class="invalid-feedback" role="alert">
@@ -238,7 +238,6 @@
             });
         });
     </script>
-
 
 @endsection
 

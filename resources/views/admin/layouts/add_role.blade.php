@@ -1,15 +1,15 @@
-@extends('admin.layouts.project-master-admin')
+@extends('admin.layouts.project_master_admin')
 
-@section('title', 'اضافه کردن مجوز جدید')
+@section('title', 'اضافه کردن نقش جدید')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.add_permission")}}</h5>
+                <h5 class="mb-4">{{__("general.add_role")}}</h5>
 
-                <form action="{{route('permissions.store')}}" method="POST" class="my-10">
+                <form action="{{route('roles.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="mb-3">
@@ -18,18 +18,6 @@
                                name="name"
                                required>
                         @error('name')
-                        <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                        @enderror
-                    </div>
-
-                    <div class="mb-3">
-                        <label for="name" class="form-label">{{__("general.slug")}}</label>
-                        <input type="text" class="form-control @error('slug') is-invalid @enderror" id="slug"
-                               name="slug"
-                               required>
-                        @error('slug')
                         <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

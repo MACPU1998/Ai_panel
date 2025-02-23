@@ -12,14 +12,14 @@ class UserController extends Controller
 
     public function index(usersDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.manage-user');
+        return $dataTable->render('admin.layouts.manage_user');
     }
 
     public function create()
     {
         session()->forget('_old_input'); // حذف اطلاعات ورودی قبلی
 
-        return view('admin.layouts.add-user');
+        return view('admin.layouts.add_user');
     }
 
     public function store(Request $request)
@@ -57,7 +57,7 @@ class UserController extends Controller
 
     public function edit(User $user)
     {
-        return view('admin.layouts.edit-user', compact('user'));
+        return view('admin.layouts.edit_user', compact('user'));
     }
 
     public function update(Request $request, User $user)

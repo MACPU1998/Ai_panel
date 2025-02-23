@@ -12,7 +12,7 @@ class PermissionController extends Controller
 {
     public function index(PermissionsDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.manage-permission');
+        return $dataTable->render('admin.layouts.manage_permission');
 
     }
 
@@ -21,7 +21,7 @@ class PermissionController extends Controller
         //گرفتن نام گاردهای موجود در سیستم
         $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
         $guards = is_array($guards) ? array_keys($guards) : [];
-        return view('admin.layouts.add-permission', compact('guards'));
+        return view('admin.layouts.add_permission', compact('guards'));
     }
 
     public function store(Request $request)
@@ -62,7 +62,7 @@ class PermissionController extends Controller
         //گرفتن نام گاردهای موجود در سیستم
         $guards = Config::get('auth.guards', []); // مقدار پیش‌فرض آرایه خالی
         $guards = is_array($guards) ? array_keys($guards) : [];
-        return view('admin.layouts.edit-permission', compact('permission', 'guards'));
+        return view('admin.layouts.edit_permission', compact('permission', 'guards'));
     }
 
     public function update(Request $request, Permission $permission)
