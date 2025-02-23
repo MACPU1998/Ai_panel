@@ -66,7 +66,7 @@ class Product extends Model
     }
 
 
-    public function product_currency()
+    public function currency()
 	{
 		return $this->belongsTo(ProductCurrency::class, 'currency_id');
 	}

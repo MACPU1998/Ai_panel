@@ -25,6 +25,9 @@ class ProductDataTable extends DataTable
                     ? 'فعال'
                     : 'غیرفعال';
             })
+            ->editColumn('currency_id', function ($product) {
+                return $product->currency_id ? $product->currency->slug : '-';
+            })
             ->addColumn('created_at', function ($product) {
                 if ($product->created_at) {
                     return Jalalian::fromCarbon($product->created_at)->format('Y/m/d - H:i');
@@ -52,7 +55,7 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $product): QueryBuilder
     {
-        return $product->newQuery();
+        return $product->newQuery()->with('currency');
     }
 
     /**
