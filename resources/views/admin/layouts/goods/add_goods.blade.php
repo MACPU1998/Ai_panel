@@ -16,7 +16,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product_id")}}</label>
-                                <select type="text" class="form-control @error('product_id') is-invalid @enderror"
+                                <select class="form-control select2 @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>
@@ -37,7 +37,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="barcode" class="form-label">{{__("general.barcode")}}</label>
-                                <input type="number" class="form-control @error('barcode') is-invalid @enderror"
+                                <input type="number" class="form-control select2 @error('barcode') is-invalid @enderror"
                                        id="barcode"
                                        min="0"
                                        name="barcode"
@@ -101,3 +101,16 @@
         </div>
     </div>
 @endsection
+@section('customjs')
+    <script>
+        $(document).ready(function () {
+            $('#product_id').select2({
+                placeholder: "یک محصول را انتخاب کنید",
+                allowClear: true,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+    </script>
+@endsection
+
