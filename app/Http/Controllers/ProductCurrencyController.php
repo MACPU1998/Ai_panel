@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductCurrencyDataTable;
+use App\Http\Requests\ProductCurrencyRequest;
 use App\Models\ProductCurrency;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -21,18 +22,9 @@ class ProductCurrencyController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ProductCurrencyRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'status' => 'required',
-        ]);
-        ProductCurrency::create([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'status' => $validated['status'],
-        ]);
+        ProductCurrency::create($request->validated());
         return redirect()->route('productCurrencies.index')->with('success', 'ارز با موفقیت ایجاد شد.');
 
     }
@@ -62,16 +54,7 @@ class ProductCurrencyController extends Controller
 
     public function update(Request $request, ProductCurrency  $productCurrency)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'status' => 'required',
-        ]);
-        $productCurrency->update([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'status' => $validated['status'],
-        ]);
+        $productCurrency->update($request->validated());
         return redirect()->route('productCurrencies.index')->with('success', 'ارز با موفقیت ویرایش شد.');
     }
 

@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_product_attribute")}}</h5>
 
-                <form action="{{route('productAttributes.store')}}" method="POST" class="my-10">
+                <form id="add_product_attribute" action="{{route('productAttributes.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="row">
@@ -60,7 +60,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product")}}</label>
-                                <select type="text" class="form-control @error('value') is-invalid @enderror"
+                                <select type="text" class="form-control @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>
@@ -83,6 +83,7 @@
         </div>
     </div>
 @endsection
+@section('customjs')
 
 <script>
     document.addEventListener("DOMContentLoaded", function () {
@@ -93,4 +94,6 @@
         });
     });
 </script>
-
+<script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\ProductAttributeRequest', '#add_product_attribute') !!}
+@endsection

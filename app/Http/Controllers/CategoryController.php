@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\CategoriesDataTable;
+use App\Http\Requests\CategoryRequest;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -28,18 +29,9 @@ class CategoryController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(CategoryRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'status' => 'required',
-        ]);
-        Category::create([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'status' => $validated['status'],
-        ]);
+        Category::create($request->validated());
         return redirect()->route('categories.index')->with('success', 'دسته بندی با موفقیت ایجاد شد.');
 
     }
@@ -73,18 +65,9 @@ class CategoryController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Category $category)
+    public function update(CategoryRequest $request, Category $category)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'status' => 'required',
-        ]);
-        $category->update([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'status' => $validated['status'],
-        ]);
+        $category->update($request->validated());
         return redirect()->route('categories.index')->with('success', 'دسته بندی با موفقیت ویرایش شد.');
 
     }

@@ -42470,7 +42470,6 @@ html[dir=rtl] .circle-bottom {
     right: unset
 }
 
-
 html[dir=rtl] .wizard > .steps > ul > li {
     float: right
 }
@@ -44643,7 +44642,6 @@ body .select2-container--classic .select2-selection--single .select2-selection__
 }
 
 
-
 body .select2-container .select2-search--inline .select2-search__field {
     height: 24px
 }
@@ -44655,7 +44653,6 @@ body .select2-container .select2-search--inline .select2-search__field::-moz-pla
 body .select2-container .select2-search--inline .select2-search__field::placeholder {
     color: var(--bs-body-color)
 }
-
 
 
 body .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable, body .select2-container--default .select2-results__option--selected {
@@ -44689,8 +44686,6 @@ body .select2-container--classic .select2-selection--multiple .select2-selection
     border-color: var(--bs-primary);
     color: #fff
 }
-
-
 
 body .select2-container--default .select2-selection--multiple .select2-selection__choice {
     border-radius: var(--bs-border-radius-sm)

@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_goods")}}</h5>
 
-                <form action="{{route('goods.update',$goods->id)}}" method="POST" class="my-10"
+                <form id="edit_goods" action="{{route('goods.update',$goods->id)}}" method="POST" class="my-10"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -18,7 +18,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product_id")}}</label>
-                                <select type="text" class="form-control @error('product_id') is-invalid @enderror"
+                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>
@@ -106,4 +106,19 @@
             </div>
         </div>
     </div>
+@endsection
+
+@section('customjs')
+    <script>
+        $(document).ready(function () {
+            $('#product_id').select2({
+                placeholder: "یک محصول را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+    </script>
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\GoodsRequest', '#edit_goods') !!}
 @endsection

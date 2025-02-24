@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_product_currency")}}</h5>
 
-                <form action="{{route('productCurrencies.store')}}" method="POST" class="my-10">
+                <form id="add_product_currency" action="{{route('productCurrencies.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="row">
@@ -61,12 +61,16 @@
         </div>
     </div>
 @endsection
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector("form").addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-            }
+@section('customjs')
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
         });
-    });
-</script>
+    </script>
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\ProductCurrencyRequest', '#add_product_currency') !!}
+@endsection

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductAttributeDataTable;
+use App\Http\Requests\ProductAttributeRequest;
 use App\Models\Product;
 use App\Models\ProductAttribute;
 use Illuminate\Http\Request;
@@ -23,20 +24,9 @@ class ProductAttributeController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(ProductAttributeRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'value' => 'required|string',
-            'status' => 'required',
-            'product_id' => 'required',
-        ]);
-        ProductAttribute::create([
-            'name' => $validated['name'],
-            'value' => $validated['value'],
-            'status' => $validated['status'],
-            'product_id' => $validated['product_id'],
-        ]);
+        ProductAttribute::create($request->validated());
         return redirect()->route('productAttributes.index')->with('success', 'ویژگی محصول با موفقیت ایجاد شد.');
 
     }
@@ -67,18 +57,7 @@ class ProductAttributeController extends Controller
 
     public function update(Request $request, ProductAttribute $productAttribute)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'value' => 'required|string',
-            'status' => 'required',
-            'product_id' => 'required',
-        ]);
-        $productAttribute->update([
-            'name' => $validated['name'],
-            'value' => $validated['value'],
-            'status' => $validated['status'],
-            'product_id' => $validated['product_id'],
-        ]);
+        $productAttribute->update($request->validated());
         return redirect()->route('productAttributes.index')->with('success', 'ویژگی محصول با موفقیت ویرایش شد.');
     }
 

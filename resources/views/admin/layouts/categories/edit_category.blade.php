@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_category")}}</h5>
 
-                <form action="{{route('categories.update',$category->id)}}" method="POST" class="my-10">
+                <form id="edit_category" action="{{route('categories.update',$category->id)}}" method="POST"
+                      class="my-10">
                     @csrf
                     @method('PUT')
                     <div class="row">
@@ -66,12 +67,18 @@
         </div>
     </div>
 @endsection
-<script>
-    document.addEventListener("DOMContentLoaded", function () {
-        document.querySelector("form").addEventListener("keypress", function (event) {
-            if (event.key === "Enter") {
-                event.preventDefault();
-            }
+@section('customjs')
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
         });
-    });
-</script>
+    </script>
+
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\CategoryRequest', '#edit_category') !!}
+@endsection
