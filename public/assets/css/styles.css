@@ -42470,10 +42470,6 @@ html[dir=rtl] .circle-bottom {
     right: unset
 }
 
-html[dir=rtl] .select2-container--classic .select2-selection--single .select2-selection__arrow, html[dir=rtl] .select2-container--default .select2-selection--single .select2-selection__arrow {
-    left: -20px;
-    right: unset
-}
 
 html[dir=rtl] .wizard > .steps > ul > li {
     float: right
@@ -44646,11 +44642,7 @@ body .select2-container--classic .select2-selection--single .select2-selection__
     border: 0
 }
 
-body .select2-container--classic .select2-selection--single .select2-selection__arrow, body .select2-container--default .select2-selection--single .select2-selection__arrow {
-    top: -2px;
-    right: 20px;
-    width: auto
-}
+
 
 body .select2-container .select2-search--inline .select2-search__field {
     height: 24px
@@ -44664,9 +44656,7 @@ body .select2-container .select2-search--inline .select2-search__field::placehol
     color: var(--bs-body-color)
 }
 
-body .select2-container .flag-icon {
-    margin-right: 6px
-}
+
 
 body .select2-container--default .select2-results__option--highlighted.select2-results__option--selectable, body .select2-container--default .select2-results__option--selected {
     background-color: var(--bs-primary);
@@ -44685,7 +44675,8 @@ body .select2-container--classic .select2-selection--single, body .select2-conta
     border-color: var(--bs-border-color);
     color: var(--bs-body-color);
     height: 40px;
-    line-height: 40px
+    line-height: 40px;
+    left:10px !important;
 }
 
 body .select2-container--default .select2-selection--multiple {
@@ -44699,9 +44690,7 @@ body .select2-container--classic .select2-selection--multiple .select2-selection
     color: #fff
 }
 
-body .select2-container {
-    display: inline
-}
+
 
 body .select2-container--default .select2-selection--multiple .select2-selection__choice {
     border-radius: var(--bs-border-radius-sm)
