@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductDataTable;
+use App\Http\Requests\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCurrency;
 use Illuminate\Http\Request;
@@ -23,35 +24,28 @@ class ProductController extends Controller
         return view('admin.layouts.products.add_product', compact('currencies'));
     }
 
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'description' => 'nullable|string|min:3',
-            'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'currency_id' => 'required',
-            'price' => 'required',
-            'final_price' => 'nullable',
-            'attributes' => 'nullable|string',
-        ]);
+//        $validated = $request->validate([
+//            'name' => 'required|string|min:3|max:255',
+//            'description' => 'nullable|string|min:3',
+//            'status' => 'required',
+//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+//            'currency_id' => 'required',
+//            'price' => 'required',
+//            'final_price' => 'nullable',
+//            'attributes' => 'nullable|string',
+//        ]);
 
         // بررسی و تبدیل رشته JSON به آرایه
         $attributes = json_decode($request->input('attributes'), true);
 
-        // ذخیره تصویر در storage/app/public/images/
-        $imagePath = $request->file('image')->store('images', 'public');
+        $product = Product::create($request->validated());
 
-        // ایجاد محصول در دیتابیس
-        $product = Product::create([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'status' => $validated['status'],
-            'image' => $imagePath,
-            'currency_id' => $validated['currency_id'],
-            'price' => $validated['price'],
-            'final_price' => $validated['final_price'],
-        ]);
+        // ذخیره تصویر با Spatie Media Library
+        if ($request->hasFile('image')) {
+            $product->addMediaFromRequest('image')->toMediaCollection('product_images');
+        }
 
         // ذخیره ویژگی‌ها
         if (is_array($attributes)) {
@@ -94,51 +88,25 @@ class ProductController extends Controller
             'currencies' => $currencies,
             'product' => $product,
             'attributes' => $attributes,
-            'image_url' => asset('storage/' . $product->image)
+            'image_url' => $product->getFirstMediaUrl('product_images')
+
         ]);
     }
 
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request, Product $product)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'description' => 'nullable|string|min:3|max:255',
-            'status' => 'required',
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048', // تغییر به nullable
-            'currency_id' => 'required',
-            'price' => 'required',
-            'final_price' => 'nullable',
-            'attributes' => 'nullable|string',
-        ]);
-
         // بررسی و تبدیل رشته JSON به آرایه
         $attributes = json_decode($request->input('attributes'), true);
 
-        // بررسی اینکه آیا تصویر جدید آپلود شده است
-        if ($request->hasFile('image')) {
-            // حذف تصویر قبلی از storage
-            if ($product->image) {
-                Storage::delete('public/' . $product->image);
-            }
-
-            // ذخیره تصویر جدید در storage/app/public/images/
-            $imagePath = $request->file('image')->store('images', 'public');
-            $validated['image'] = $imagePath; // ذخیره مسیر در دیتابیس
-        } else {
-            // اگر تصویری جدید آپلود نشده باشد، مقدار قبلی را نگه می‌داریم
-            $validated['image'] = $product->image;
-        }
-
         // به‌روزرسانی اطلاعات محصول
-        $product->update([
-            'name' => $validated['name'],
-            'description' => $validated['description'],
-            'status' => $validated['status'],
-            'image' => $validated['image'], // ذخیره مسیر صحیح تصویر
-            'currency_id' => $validated['currency_id'],
-            'price' => $validated['price'],
-            'final_price' => $validated['final_price'],
-        ]);
+        $product->update($request->validated());
+         // حذف تصویر قبلی و آپلود جدید
+        if ($request->hasFile('image')) {
+            if ($product->hasMedia('product_images')) {
+                $product->clearMediaCollection('product_images');
+            }
+            $product->addMediaFromRequest('image')->toMediaCollection('product_images');
+        }
 
         // حذف ویژگی‌های قبلی
         $product->attributes()->delete();
@@ -160,10 +128,12 @@ class ProductController extends Controller
     public function destroy(Product $product)
     {
         try {
+            $product->clearMediaCollection('product_images'); // حذف تصویر
             $product->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
             return response()->json(['success' => false, 'message' => 'خطا در حذف محصول'], 500);
         }
     }
+
 }

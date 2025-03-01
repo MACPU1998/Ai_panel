@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_product")}}</h5>
 
-                <form action="{{route('products.store')}}" method="POST" class="my-10" enctype="multipart/form-data">
+                <form id="add_product" action="{{route('products.store')}}" method="POST" class="my-10" enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -66,7 +66,7 @@
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">{{__("general.price")}}</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
+                                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
                                        name="price"
                                        required>
                                 @error('price')
@@ -81,7 +81,7 @@
 
                             <div class="mb-3">
                                 <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
-                                <input type="text" class="form-control @error('final_price') is-invalid @enderror"
+                                <input type="number" class="form-control @error('final_price') is-invalid @enderror"
                                        id="final_price"
                                        name="final_price">
                                 @error('final_price')
@@ -112,8 +112,7 @@
                                 <label for="image" class="form-label">{{__("general.image")}}</label>
                                 <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
                                        id="image"
-                                       name="image"
-                                       required>
+                                       name="image">
                                 @error('image')
                                 <span class="invalid-feedback" role="alert">
                                     <strong>{{ $message }}</strong>
@@ -238,6 +237,9 @@
             });
         });
     </script>
+
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\ProductRequest', '#add_product') !!}
 
 @endsection
 

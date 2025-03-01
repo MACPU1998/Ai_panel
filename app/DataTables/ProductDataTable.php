@@ -20,6 +20,11 @@ class ProductDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->addColumn('image', function ($product) {
+                $media = $product->getFirstMediaUrl('product_images');
+                return $media ? '<img src="'.$media.'" class="img-thumbnail" width="50">' : 'بدون تصویر';
+            })
+            ->rawColumns(['image', 'action'])
             ->editColumn('status', function ($product) {
                 return $product->status == 1
                     ? 'فعال'
@@ -46,7 +51,7 @@ class ProductDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteProduct(' . $product->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
-            ->rawColumns(['action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['image','action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
 

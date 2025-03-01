@@ -8,7 +8,10 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
 
 /**
  * Class Product
@@ -30,26 +33,28 @@ use Illuminate\Database\Eloquent\Model;
  *
  * @package App\Models
  */
-class Product extends Model
+class Product extends Model implements HasMedia
 {
-	protected $table = 'products';
+    use InteractsWithMedia,HasFactory;
 
-	protected $casts = [
-		'status' => 'bool',
-		'currency_id' => 'int',
-		'price' => 'int',
-		'final_price' => 'int'
-	];
+    protected $table = 'products';
 
-	protected $fillable = [
-		'name',
-		'description',
-		'status',
-		'image',
-		'currency_id',
-		'price',
-		'final_price'
-	];
+    protected $casts = [
+        'status' => 'bool',
+        'currency_id' => 'int',
+        'price' => 'int',
+        'final_price' => 'int'
+    ];
+
+    protected $fillable = [
+        'name',
+        'description',
+        'status',
+      //  'image',
+        'currency_id',
+        'price',
+        'final_price'
+    ];
 
     protected static function boot()
     {
@@ -67,18 +72,13 @@ class Product extends Model
 
 
     public function currency()
-	{
-		return $this->belongsTo(ProductCurrency::class, 'currency_id');
-	}
+    {
+        return $this->belongsTo(ProductCurrency::class, 'currency_id');
+    }
 
-	public function product_attributes()
-	{
-		return $this->hasMany(ProductAttribute::class);
-	}
-
-	public function product_categories()
-	{
-		return $this->hasMany(ProductCategory::class);
-	}
+    public function registerMediaCollections(): void
+    {
+        $this->addMediaCollection('product_images')->singleFile(); // ذخیره فقط یک عکس
+    }
 
 }

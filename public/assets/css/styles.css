@@ -46364,3 +46364,6 @@ pre[class*="language-"] {
 
 
   /*end code section */
+.dropify-wrapper .dropify-message span {
+    font-size: 18px !important;
+}

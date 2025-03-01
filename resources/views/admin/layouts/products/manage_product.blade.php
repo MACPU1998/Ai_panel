@@ -49,11 +49,11 @@
                     },
                     {data: 'status', name: 'status'},
                     {
-                        data: 'image', name: 'image', render: function (data, type, row) {
-                            if (data.length > 5) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
-                                return `<span title="${data}">${data.substring(0, 5)}...</span>`;
-                            }
-                            return data;
+                        data: 'image',
+                        name: 'image',
+                        searchable: false,
+                        render: function (data, type, row) {
+                            return data; // مقدار HTML که از سرور ارسال شده است نمایش داده می‌شود
                         }
                     },
                     {data: 'currency_id', name: 'currency_id'},

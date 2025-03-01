@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_product")}}</h5>
 
-                <form action="{{route('products.update',$product->id)}}" method="POST" class="my-10"
+                <form id="edit_product" action="{{route('products.update',$product->id)}}" method="POST" class="my-10"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -70,9 +70,9 @@
 
                             <div class="mb-3">
                                 <label for="price" class="form-label">{{__("general.price")}}</label>
-                                <input type="text" class="form-control @error('price') is-invalid @enderror" id="price"
+                                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
                                        name="price"
-                                       value="{{ old('image', $product->price) }}"
+                                       value="{{ old('price', $product->price) }}"
                                        required>
                                 @error('price')
                                 <span class="invalid-feedback" role="alert">
@@ -86,9 +86,9 @@
 
                             <div class="mb-3">
                                 <label for="final_price" class="form-label">{{__("general.final_price")}}</label>
-                                <input type="text" class="form-control @error('final_price') is-invalid @enderror"
+                                <input type="number" class="form-control @error('final_price') is-invalid @enderror"
                                        id="final_price"
-                                       value="{{ old('image', $product->final_price) }}"
+                                       value="{{ old('final_price', $product->final_price) }}"
                                        name="final_price">
                                 @error('final_price')
                                 <span class="invalid-feedback" role="alert">
@@ -115,26 +115,22 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="image" class="form-label">{{__("general.image")}}</label>
+                                <label for="image" class="form-label">{{ __("general.image") }}</label>
                                 <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
-                                       id="image"
-                                       name="image"
-                                       @if(isset($product) && $product->image)
-                                           data-default-file="{{ asset('storage/'.$product->image) }}"
-                                       @endif
-                                       required>
+                                       id="image" name="image"
+                                       data-default-file="{{ $product->getFirstMediaUrl('product_images') ?? '' }}">
                                 @error('image')
                                 <span class="invalid-feedback" role="alert">
-                                    <strong>{{ $message }}</strong>
-                                   </span>
+                                <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
 
+
                     </div>
 
                     <div id="attr-action" class="col-md-5">
-
                         <div class="card card-inverse card-success text-white bg-success">
                             <div class="card-header">مشخصات</div>
                             <div class="card-body">
@@ -142,22 +138,30 @@
                                     <small><span class="text-white">میتوانید برای محصول ویژگی تعریف کنید</span></small>
                                 </div>
                                 <br>
-                                <input type="text" id="map_data" value="51" name="id" hidden="">
-                                <input type="text" id="attributes" name="attributes" hidden="">
-                                <a id="attr-add" style="float:right;margin-left: 5px;" class="btn btn-warning">تایید</a>
-                                <input id="attr-name" class="form-control"
-                                       style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
-                                <input id="attr-value" class="form-control"
-                                       style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
+                                <input type="hidden" id="attributes" name="attributes" value="{{ json_encode($product->attributes) }}">
+
+                                <!-- فیلدهای اضافه کردن ویژگی جدید -->
+                                <input id="attr-name" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
+                                <input id="attr-value" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
+                                <a id="attr-add" style="float:right;margin-left: 5px;" class="btn btn-warning">افزودن</a>
+
                                 <div id="list-attrs" class="form-group">
                                     <ul>
-
-
+                                        @foreach($product->attributes as $key => $attribute)
+                                            <li data-index="{{ $key }}">
+                                                <div>
+                                                    <input type="text" name="attributes[{{ $key }}][name]" value="{{ $attribute['name'] }}" class="form-control">
+                                                    <input type="text" name="attributes[{{ $key }}][value]" value="{{ $attribute['value'] }}" class="form-control">
+                                                    <a href="#" class="remove-attr btn btn-danger btn-sm">حذف</a>
+                                                </div>
+                                            </li>
+                                        @endforeach
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
+
 
                     <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
@@ -209,6 +213,13 @@
                     return false;
                 });
 
+                $("form#edit_product").on("submit", function () {
+                    $("#attr-action #attributes").val(JSON.stringify(attrs));
+
+                });
+
+
+
                 function generateList(data) {
                     $("#attr-action #list-attrs ul").empty();
                     if (data != null) {
@@ -249,5 +260,8 @@
             });
         });
     </script>
+
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\ProductRequest', '#edit_product') !!}
 
 @endsection

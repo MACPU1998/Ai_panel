@@ -55,7 +55,7 @@ class ProductAttributeController extends Controller
             ['productAttribute' => $productAttribute, 'products' => $products]);
     }
 
-    public function update(Request $request, ProductAttribute $productAttribute)
+    public function update(ProductAttributeRequest $request, ProductAttribute $productAttribute)
     {
         $productAttribute->update($request->validated());
         return redirect()->route('productAttributes.index')->with('success', 'ویژگی محصول با موفقیت ویرایش شد.');

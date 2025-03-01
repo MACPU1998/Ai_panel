@@ -52,7 +52,7 @@ class ProductCurrencyController extends Controller
         return view('admin.layouts.product_currencies.edit_product_currency', ['productCurrency' => $productCurrency]);
     }
 
-    public function update(Request $request, ProductCurrency  $productCurrency)
+    public function update(ProductCurrencyRequest $request, ProductCurrency  $productCurrency)
     {
         $productCurrency->update($request->validated());
         return redirect()->route('productCurrencies.index')->with('success', 'ارز با موفقیت ویرایش شد.');

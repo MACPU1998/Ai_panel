@@ -21,16 +21,23 @@ class ProductRequest extends FormRequest
      */
     public function rules(): array
     {
-
-        return [
+        $rules = [
             'name' => 'required|string|min:3|max:255',
             'description' => 'nullable|string|min:3',
             'status' => 'required',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'currency_id' => 'required',
             'price' => 'required',
             'final_price' => 'nullable',
             'attributes' => 'nullable|string',
         ];
+
+        if ($this->isMethod('post')) {
+            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        } else if ($this->isMethod('put')) {
+            $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+        }
+
+        return $rules;
+
     }
 }
