@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\RolesDataTable;
+use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Permission;
@@ -25,16 +26,9 @@ class RoleController extends Controller
         return view('admin.layouts.add_role', compact('guards'));
     }
 
-    public function store(Request $request)
+    public function store(RoleRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'guard_name' => 'required|string|min:3|max:255',
-        ]);
-        Role::create([
-            'name' => $validated['name'],
-            'guard_name' => $validated['guard_name'],
-        ]);
+        Role::create($request->validated());
         return redirect()->route('roles.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
     }
@@ -62,16 +56,9 @@ class RoleController extends Controller
         return view('admin.layouts.edit_role', compact('role'));
     }
 
-    public function update(Request $request, Role $role)
+    public function update(RoleRequest $request, Role $role)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'guard_name' => 'required|string|min:3|max:255',
-        ]);
-        $role->update([
-            'name' => $validated['name'],
-            'guard_name' => $validated['guard_name'],
-        ]);
+        $role->update($request->validated());
         return redirect()->route('roles.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
     }
