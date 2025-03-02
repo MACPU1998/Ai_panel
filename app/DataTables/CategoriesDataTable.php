@@ -27,13 +27,13 @@ class CategoriesDataTable extends DataTable
             })
             ->addColumn('created_at', function ($category) {
                 if ($category->created_at) {
-                    return Jalalian::fromCarbon($category->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($category->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($category) {
                 if ($category->updated_at) {
-                    return Jalalian::fromCarbon($category->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($category->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })

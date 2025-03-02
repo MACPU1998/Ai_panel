@@ -35,13 +35,13 @@ class ProductDataTable extends DataTable
             })
             ->addColumn('created_at', function ($product) {
                 if ($product->created_at) {
-                    return Jalalian::fromCarbon($product->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($product->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($product) {
                 if ($product->updated_at) {
-                    return Jalalian::fromCarbon($product->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($product->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })

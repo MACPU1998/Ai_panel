@@ -34,13 +34,13 @@ class MenusDataTable extends DataTable
 
             ->addColumn('created_at', function ($menu) {
                 if ($menu->created_at) {
-                    return Jalalian::fromCarbon($menu->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($menu->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($menu) {
                 if ($menu->updated_at) {
-                    return Jalalian::fromCarbon($menu->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($menu->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })

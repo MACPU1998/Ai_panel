@@ -22,13 +22,13 @@ class PermissionsDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('created_at', function ($permission) {
                 if ($permission->created_at) {
-                    return Jalalian::fromCarbon($permission->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($permission->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($permission) {
                 if ($permission->updated_at) {
-                    return Jalalian::fromCarbon($permission->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($permission->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })

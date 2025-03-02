@@ -27,13 +27,13 @@ class ProductCurrencyDataTable extends DataTable
             })
             ->addColumn('created_at', function ($productCurrency) {
                 if ($productCurrency->created_at) {
-                    return Jalalian::fromCarbon($productCurrency->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($productCurrency->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($productCurrency) {
                 if ($productCurrency->updated_at) {
-                    return Jalalian::fromCarbon($productCurrency->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($productCurrency->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })

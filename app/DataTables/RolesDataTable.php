@@ -22,13 +22,13 @@ class RolesDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('created_at', function ($role) {
                 if ($role->created_at) {
-                    return Jalalian::fromCarbon($role->created_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($role->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
             ->addColumn('updated_at', function ($role) {
                 if ($role->updated_at) {
-                    return Jalalian::fromCarbon($role->updated_at)->format('Y/m/d - H:i');
+                    return Jalalian::fromCarbon($role->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })
