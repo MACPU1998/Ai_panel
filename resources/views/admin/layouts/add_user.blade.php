@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_user")}}</h5>
 
-                <form action="{{route('users.store')}}" method="POST" class="my-10">
+                <form id="add_user" action="{{route('users.store')}}" method="POST" class="my-10">
                     @csrf
 
                     <div class="mb-3">
@@ -53,6 +53,7 @@
         </div>
     </div>
 @endsection
+@section('customjs')
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("form").addEventListener("keypress", function (event) {
@@ -62,3 +63,8 @@
         });
     });
 </script>
+
+<script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\UserRequest', '#add_user') !!}
+
+@endsection

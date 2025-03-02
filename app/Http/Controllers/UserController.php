@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
+use App\Http\Requests\UpdateUserRequest;
+use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -18,22 +20,12 @@ class UserController extends Controller
     public function create()
     {
         session()->forget('_old_input'); // حذف اطلاعات ورودی قبلی
-
         return view('admin.layouts.add_user');
     }
 
-    public function store(Request $request)
+    public function store(UserRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'nullable|string|min:8'
-        ]);
-        User::create([
-            'name' => $validated['name'],
-            'email' => $validated['email'],
-            'password' => bcrypt($validated['password']),
-        ]);
+        User::create($request->validated());
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد');
     }
 
@@ -60,13 +52,9 @@ class UserController extends Controller
         return view('admin.layouts.edit_user', compact('user'));
     }
 
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, User $user)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id,
-            'password' => 'nullable|string|min:8'
-        ]);
+        $validated = $request->validated();
         $user->update([
             'name' => $validated['name'],
             'email' => $validated['email'],
