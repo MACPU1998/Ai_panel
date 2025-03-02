@@ -95,6 +95,7 @@
 
                             // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#menus-table').DataTable().ajax.reload();
+                            window.location.reload();
                         } else {
                             alert('خطا در حذف منو!');
                         }
