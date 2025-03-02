@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\MenusDataTable;
+use App\Http\Requests\MenuRequest;
 use App\Models\Admin\Menu;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -20,23 +21,9 @@ class MenuController extends Controller
         return view('admin.layouts.menu_data_tables.add_menu', compact('menus'));
     }
 
-    public function store(Request $request)
+    public function store(MenuRequest $request)
     {
-        // اعتبارسنجی داده‌ها
-        $request->validate([
-            'title' => 'required|string|min:3|max:255',
-            'icon' => 'nullable|string|max:255',
-            'parent_id' => 'nullable|exists:menus,id',
-            'link' => 'nullable|string|max:255',
-            'status' => 'required',
-        ]);
-        Menu::create([
-            'title' => $request->title,
-            'icon' => $request->icon ?: '#',
-            'parent_id' => $request->parent_id ?: null,
-            'link' => $request->link ?: '#',
-            'status' => (int)$request->status,
-        ]);
+        Menu::create($request->validated());
         return redirect('admin/menus')->with('success', 'منو با موفقیت اضافه شد');
     }
 
@@ -63,22 +50,9 @@ class MenuController extends Controller
         return view('admin.layouts.menu_data_tables.edit_menu', compact('menu', 'menus'));
     }
 
-    public function update(Request $request, Menu $menu)
+    public function update(MenuRequest $request, Menu $menu)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|min:3|max:255',
-            'icon' => 'nullable|string|max:255',
-            'parent_id' => 'nullable|exists:menus,id',
-            'link' => 'nullable|string|max:255',
-            'status' => 'required',
-        ]);
-        $menu->update([
-            'title' => $validated['title'],
-            'icon' => $validated['icon'] ?? '#',
-            'parent_id' => $validated['parent_id'] ?: null, // مقدار null را به‌درستی ذخیره می‌کند
-            'link' => $validated['link'] ?? '#',
-            'status' => $validated['status'],
-        ]);
+        $menu->update($request->validated());
         return redirect()->route('menus.index')->with('success', 'منو با موفقیت ویرایش شد.');
     }
 

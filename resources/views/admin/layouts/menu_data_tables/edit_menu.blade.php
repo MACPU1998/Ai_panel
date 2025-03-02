@@ -12,7 +12,7 @@
                 <div class="card">
 
                     <div class="card-body p-4">
-                        <form action="{{route('menus.update',$menu->id)}}" method="POST">
+                        <form id="edit_menu" action="{{route('menus.update',$menu->id)}}" method="POST">
                             @csrf
                             @method('PUT')
 
@@ -107,4 +107,8 @@
         </div>
     </div>
 
+@endsection
+@section('customjs')
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\MenuRequest', '#edit_menu') !!}
 @endsection
