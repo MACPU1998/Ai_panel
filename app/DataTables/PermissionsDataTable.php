@@ -74,6 +74,7 @@ class PermissionsDataTable extends DataTable
     return [
         Column::make('id')->title('شناسه'),
         Column::make('name')->title('نام'),
+        Column::make('slug')->title('نامک'),
         Column::make('guard_name')->title('نام گارد'),
         Column::make('created_at')->title('تاریخ ایجاد'),
         Column::make('updated_at')->title('تاریخ آپدیت'),

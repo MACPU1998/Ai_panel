@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_permission")}}</h5>
 
-                <form action="{{route('permissions.update',$permission->id)}}" method="POST" class="my-10">
+                <form id="edit_permission" action="{{route('permissions.update',$permission->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
 
@@ -58,6 +58,7 @@
         </div>
     </div>
 @endsection
+@section('customjs')
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         document.querySelector("form").addEventListener("keypress", function (event) {
@@ -67,3 +68,6 @@
         });
     });
 </script>
+<script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+{!! JsValidator::formRequest('App\Http\Requests\PermissionRequest', '#edit_permission') !!}
+@endsection

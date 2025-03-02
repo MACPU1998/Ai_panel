@@ -32,6 +32,7 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},
+                    {data: 'slug', name: 'slug'},
                     {data: 'guard_name', name: 'guard_name'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},

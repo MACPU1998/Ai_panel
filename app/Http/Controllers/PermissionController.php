@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\PermissionsDataTable;
+use App\Http\Requests\PermissionRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
 use Spatie\Permission\Models\Permission;
@@ -24,18 +25,9 @@ class PermissionController extends Controller
         return view('admin.layouts.add_permission', compact('guards'));
     }
 
-    public function store(Request $request)
+    public function store(PermissionRequest $request)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'guard_name' => 'required|string|min:3|max:255',
-        ]);
-        Permission::create([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'guard_name' => $validated['guard_name'],
-        ]);
+        Permission::create($request->validated());
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
 
     }
@@ -65,18 +57,9 @@ class PermissionController extends Controller
         return view('admin.layouts.edit_permission', compact('permission', 'guards'));
     }
 
-    public function update(Request $request, Permission $permission)
+    public function update(PermissionRequest $request, Permission $permission)
     {
-        $validated = $request->validate([
-            'name' => 'required|string|min:3|max:255',
-            'slug' => 'required|string|min:3|max:255',
-            'guard_name' => 'required|string|min:3|max:255',
-        ]);
-        $permission->update([
-            'name' => $validated['name'],
-            'slug' => $validated['slug'],
-            'guard_name' => $validated['guard_name'],
-        ]);
+        $permission->update($request->validated());
         return redirect()->route('permissions.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
 
     }
