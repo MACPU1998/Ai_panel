@@ -143,10 +143,10 @@
                         </div>
                         <div class="message-body">
 
-                          <a href="#" class="p-2 dropdown-item h6 rounded-1">
+                          <a href="{{route('admin.edit')}}" class="p-2 dropdown-item h6 rounded-1">
                             پروفایل من
                           </a>
-                            <a href="#" class="p-2 dropdown-item h6 rounded-1">
+                            <a href="{{route('admin.edit.password')}}" class="p-2 dropdown-item h6 rounded-1">
                                 تغییر رمز
                             </a>
                           <a href="javascript:void(0)" class="p-2 dropdown-item h6 rounded-1">

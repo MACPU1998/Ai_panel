@@ -1,6 +1,8 @@
 <?php
 
 return [
+    'edit_admin'=>'ویرایش مشخصات ادمین',
+    'edit_admin_password' => 'ویرایش رمز ادمین',
     'manage_permission' => 'مدیریت مجوزها',
     'permissions' => 'مجوزها',
     'add_permission' => 'اضافه کردن مجوز',
@@ -10,6 +12,7 @@ return [
 
     'manage_role' => 'مدیریت نقش',
     'roles' => 'نقش ها',
+    'role' => 'نقش',
     'add_role' => 'اضافه کردن نقش',
     'current_role' => 'نقش فعلی: ',
     'edit_role' => 'ویرایش نقش',
@@ -17,6 +20,7 @@ return [
     'manage_user' => 'مدیریت کاربران',
     'add_user' => 'اضافه کردن کاربر',
     'edit_user' => 'ویرایش کاربر',
+    'edit_user_password' => 'ویرایش رمز کاربر',
 
     'manage_menu' => 'مدیریت منوها',
     'add_menu' => 'اضافه کردن منو',
@@ -60,13 +64,17 @@ return [
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
     'name' => 'نام',
+    'last_name' => 'نام خانوادگی',
     'slug' => 'نامک',
     'email' => 'ایمیل',
+    'phone' => 'شماره تماس',
     'description' => 'توضیحات',
     'image' => 'تصویر',
     'password' => 'رمز عبور',
-    'new_password' => 'رمز عبور جدید',
-    'your_new_password' => 'اگر می‌خواهید رمز عبور را تغییر دهید، در اینجا وارد',
+    'current_password' => 'رمز عبور فعلی',
+    'new_password' => 'رمز جدید',
+    'confirm_password' => 'تایید رمز جدید',
+    'your_new_password' => 'اگر می‌خواهید رمز عبور را تغییر دهید، در اینجا وارد کنید',
     'create_btn' => 'ایجاد',
     'edit_btn' => 'ویرایش',
     'title' => 'عنوان',

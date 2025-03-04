@@ -8,10 +8,11 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Spatie\Permission\Traits\HasRoles;
 
 /**
  * Class User
- * 
+ *
  * @property int $id
  * @property string $name
  * @property string $email
@@ -25,6 +26,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class User extends Model
 {
+    use HasRoles;
 	protected $table = 'users';
 
 	protected $casts = [

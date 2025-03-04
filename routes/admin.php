@@ -17,6 +17,10 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
+    Route::get('/edit', [AdminAuthController::class, 'edit'])->name('admin.edit');
+    Route::put('/update', [AdminAuthController::class, 'update'])->name('admin.update');
+    Route::get('/password/edit', [AdminAuthController::class, 'editPassword'])->name('admin.edit.password');
+    Route::put('/password/update', [AdminAuthController::class, 'updatePassword'])->name('admin.update.password');
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
     // داشبورد (محافظت‌شده)
@@ -33,7 +37,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [UserController::class, 'store'])->name('users.store');
         Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable');
         Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('/{user}/edit', [UserController::class, 'update'])->name('users.update');
+        Route::put('/{user}/update', [UserController::class, 'update'])->name('users.update');
+        Route::get('password/{user}/edit', [UserController::class, 'editPassword'])->name('users.edit.password');
+        Route::put('password/{user}/update', [UserController::class, 'updatePassword'])->name('users.update.password');
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');
     });
 

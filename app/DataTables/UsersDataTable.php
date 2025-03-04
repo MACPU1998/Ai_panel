@@ -36,6 +36,7 @@ class UsersDataTable extends DataTable
                 return '
                 <a href="' . route('users.edit', $user->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
                <button class="btn btn-sm btn-danger" onclick="deleteUser(' . $user->id . ')"><i class="bi bi-trash"></i></button>
+                 <a href="' . route('users.edit.password', $user->id) . '" class="btn btn-sm btn-secondary">ویرایش رمز</a>
         ';
             })
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action

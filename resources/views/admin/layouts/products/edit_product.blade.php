@@ -47,14 +47,14 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="currency_id" class="form-label">{{__("general.currency")}}</label>
-                                <select type="text" class="form-control @error('currency_id') is-invalid @enderror"
+                                <select type="text" class="form-control select2 @error('currency_id') is-invalid @enderror"
                                         id="currency_id"
                                         name="currency_id"
                                         required>
                                     @foreach($currencies as $currency)
                                         <option
                                             value="{{ $currency->id }}" {{ $product->currency_id == $currency->id ? 'selected' : '' }}>
-                                            {{ $currency->name }}
+                                            {{ $currency->slug }}
                                         </option>
                                     @endforeach
                                 </select>
@@ -257,6 +257,17 @@
                 if (event.key === "Enter") {
                     event.preventDefault();
                 }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#currency_id').select2({
+                placeholder: "یک ارز را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
             });
         });
     </script>

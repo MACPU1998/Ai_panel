@@ -26,17 +26,6 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-//        $validated = $request->validate([
-//            'name' => 'required|string|min:3|max:255',
-//            'description' => 'nullable|string|min:3',
-//            'status' => 'required',
-//            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-//            'currency_id' => 'required',
-//            'price' => 'required',
-//            'final_price' => 'nullable',
-//            'attributes' => 'nullable|string',
-//        ]);
-
         // بررسی و تبدیل رشته JSON به آرایه
         $attributes = json_decode($request->input('attributes'), true);
 
