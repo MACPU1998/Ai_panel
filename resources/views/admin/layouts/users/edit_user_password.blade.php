@@ -43,7 +43,7 @@
                     <div class="col-md-6">
                         <div class="mb-3">
                             <label for="password_confirmation"
-                                   class="form-label">{{__("general.confirm_password")}}</label>
+                                   class="form-label">{{__("general.confirm_new_password")}}</label>
                             <input type="password" class="form-control" id="password_confirmation"
                                    name="password_confirmation" required>
                         </div>

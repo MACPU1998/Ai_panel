@@ -25,16 +25,16 @@ class UserController extends Controller
         return view('admin.layouts.users.add_user', compact('roles'));
     }
 
-    public function store(UserRequest $request)
+    public function store(UserRequest $request, User $user)
     {
         $validated = $request->validated();
-        $user = User::create([
+        $user->create([
             'name' => $validated['name'],
             'email' => $validated['email'],
             'password' => bcrypt($validated['password']),
         ]);
         // اختصاص نقش به کاربر
-        $user->assignRole($validated['role']);
+       $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد');
     }
@@ -90,7 +90,6 @@ class UserController extends Controller
 
     public function updatePassword(User $user, Request $request)
     {
-
         $request->validate([
             'current_password' => 'required',
             'password' => ['required', 'string', 'min:8', 'confirmed'],
@@ -108,6 +107,5 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', 'رمز عبور با موفقیت تغییر یافت.');
 
     }
-
 
 }

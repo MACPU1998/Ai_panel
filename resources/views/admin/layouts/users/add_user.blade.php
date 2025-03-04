@@ -56,6 +56,19 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="password" class="form-label">{{__("general.confirm_password")}}</label>
+                                <input type="password" class="form-control @error('password') is-invalid @enderror"
+                                       id="password_confirmation" name="password_confirmation" autocomplete="new-password" required>
+                                @error('confirm_password')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="role" class="form-label">{{__("general.role")}}</label>
                                 <select type="text" class="form-control select2 @error('role') is-invalid @enderror"
                                         id="role"
