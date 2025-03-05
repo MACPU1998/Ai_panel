@@ -35,9 +35,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [UserController::class, 'index'])->name('users.index');
         Route::get('/create', [UserController::class, 'create'])->name('users.create');
         Route::post('/store', [UserController::class, 'store'])->name('users.store');
+        Route::get('users/data', [UserController::class, 'getUsersData'])->name('users.getData');
         Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable');
-        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('users.edit');
-        Route::put('/{user}/update', [UserController::class, 'update'])->name('users.update');
+        Route::get('/{admin}/edit', [UserController::class, 'edit'])->name('users.edit');
+        Route::put('/{admin}/update', [UserController::class, 'update'])->name('users.update');
         Route::get('password/{user}/edit', [UserController::class, 'editPassword'])->name('users.edit.password');
         Route::put('password/{user}/update', [UserController::class, 'updatePassword'])->name('users.update.password');
         Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy');

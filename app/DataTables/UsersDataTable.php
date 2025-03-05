@@ -2,6 +2,7 @@
 
 namespace App\DataTables;
 
+use App\Models\Admin\Admin;
 use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Morilog\Jalali\Jalalian;
@@ -46,7 +47,7 @@ class UsersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(User $model): QueryBuilder
+    public function query(Admin $model): QueryBuilder
     {
         return $model->newQuery();
     }
@@ -74,8 +75,10 @@ class UsersDataTable extends DataTable
     {
     return [
         Column::make('id')->title('شناسه'),
-        Column::make('name')->title('نام'),
+        Column::make('first_name')->title('نام'),
+        Column::make('last_name')->title('نام خانوادگی'),
         Column::make('email')->title('ایمیل'),
+        Column::make('phone')->title('شماره تماس'),
         Column::make('created_at')->title('تاریخ ایجاد'),
         Column::make('updated_at')->title('تاریخ آپدیت'),
         Column::computed('action')

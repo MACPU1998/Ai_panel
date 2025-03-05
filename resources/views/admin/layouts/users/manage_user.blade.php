@@ -31,8 +31,10 @@
                 ajax: '{{ route('users.datatable') }}',
                 columns: [
                     {data: 'id', name: 'id'},
-                    {data: 'name', name: 'name'},
+                    {data: 'first_name', name: 'first_name'},
+                    {data: 'last_name', name: 'last_name'},
                     {data: 'email', name: 'email'},
+                    {data: 'phone', name: 'phone'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

@@ -13,13 +13,15 @@
                     @csrf
 
                     <div class="row">
-                        <div class="col-md-6">
+
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="name" class="form-label">{{__("general.name")}}</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                       name="name" autocomplete="off"
+                                <label for="first_name" class="form-label">{{__("general.name")}}</label>
+                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                       id="first_name"
+                                       name="first_name" autocomplete="off"
                                        required>
-                                @error('name')
+                                @error('first_name')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -27,10 +29,26 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
+                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                       id="last_name"
+                                       name="last_name" autocomplete="off"
+                                       required>
+                                @error('last_name')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{__("general.email")}}</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
+                                <input type="email" class="form-control @error('email') is-invalid @enderror"
+                                       id="email"
                                        name="email" autocomplete="off"
                                        required>
                                 @error('email')
@@ -41,7 +59,22 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">{{__("general.phone")}}</label>
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                       id="phone"
+                                       name="phone" autocomplete="off"
+                                       required>
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="password" class="form-label">{{__("general.password")}}</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
@@ -54,11 +87,12 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="password" class="form-label">{{__("general.confirm_password")}}</label>
                                 <input type="password" class="form-control @error('password') is-invalid @enderror"
-                                       id="password_confirmation" name="password_confirmation" autocomplete="new-password" required>
+                                       id="password_confirmation" name="password_confirmation"
+                                       autocomplete="new-password" required>
                                 @error('confirm_password')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -67,7 +101,7 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="role" class="form-label">{{__("general.role")}}</label>
                                 <select type="text" class="form-control select2 @error('role') is-invalid @enderror"
@@ -76,7 +110,7 @@
                                         required>
                                     <option value="">یک نقش را انتخاب کنید</option>
                                     @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
+                                        <option value="{{$role->name}}">{{$role->name}}</option>
 
                                     @endforeach
                                 </select>

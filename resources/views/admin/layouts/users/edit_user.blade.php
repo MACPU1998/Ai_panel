@@ -9,17 +9,18 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_user")}}</h5>
 
-                <form id="edit_user" action="{{route('users.update',$user->id)}}" method="POST" class="my-10">
+                <form id="edit_user" action="{{route('users.update',$admin->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
                     <div class="row">
-                        <div class="col-md-6">
+
+                        <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="name" class="form-label">{{__("general.name")}}</label>
-                                <input type="text" class="form-control @error('name') is-invalid @enderror" id="name"
-                                       name="name"
-                                       value="{{ old('name', $user->name) }}" required>
-                                @error('name')
+                                <label for="first_name" class="form-label">{{__("general.name")}}</label>
+                                <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
+                                       name="first_name"
+                                       value="{{ old('first_name', $admin->first_name) }}" required>
+                                @error('first_name')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -27,12 +28,26 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
+                                <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
+                                       name="last_name"
+                                       value="{{ old('last_name', $admin->last_name) }}" required>
+                                @error('last_name')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="email" class="form-label">{{__("general.email")}}</label>
                                 <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
                                        name="email"
-                                       value="{{ old('email', $user->email) }}" required>
+                                       value="{{ old('email', $admin->email) }}" required>
                                 @error('email')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -41,7 +56,21 @@
                             </div>
                         </div>
 
-                        <div class="col-md-6">
+                        <div class="col-md-3">
+                            <div class="mb-3">
+                                <label for="phone" class="form-label">{{__("general.phone")}}</label>
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                       name="phone"
+                                       value="{{ old('phone', $admin->phone) }}" required>
+                                @error('phone')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="role" class="form-label">{{__("general.role")}}</label>
                                 <select type="text" class="form-control select2 @error('role') is-invalid @enderror"
@@ -50,8 +79,9 @@
                                         required>
                                     <option value="">یک نقش را انتخاب کنید</option>
                                     @foreach($roles as $role)
-                                        <option value="{{$role->id}}">{{$role->name}}</option>
-
+                                        <option value="{{ $role->name }}" {{ isset($admin) && $admin->roles->pluck('name')->first() == $role->name ? 'selected' : '' }}>
+                                            {{ $role->name }}
+                                        </option>
                                     @endforeach
                                 </select>
                                 @error('role')

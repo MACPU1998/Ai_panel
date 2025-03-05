@@ -27,7 +27,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Model
 {
     use HasRoles;
-	protected $table = 'users';
+	protected $table = 'admins';
 
 	protected $casts = [
 		'email_verified_at' => 'datetime'
@@ -39,8 +39,10 @@ class User extends Model
 	];
 
 	protected $fillable = [
-		'name',
+		'first_name',
+		'last_name',
 		'email',
+		'phone',
 		'email_verified_at',
 		'password',
 		'remember_token'

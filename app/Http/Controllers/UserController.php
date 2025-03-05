@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserRequest;
+use App\Models\Admin\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -25,16 +26,18 @@ class UserController extends Controller
         return view('admin.layouts.users.add_user', compact('roles'));
     }
 
-    public function store(UserRequest $request, User $user)
+    public function store(UserRequest $request)
     {
         $validated = $request->validated();
-        $user->create([
-            'name' => $validated['name'],
+        $admin = Admin::create([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
             'email' => $validated['email'],
+            'phone' => $validated['phone'],
             'password' => bcrypt($validated['password']),
         ]);
         // اختصاص نقش به کاربر
-       $user->assignRole($validated['role']);
+        $admin->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد');
     }
@@ -57,19 +60,23 @@ class UserController extends Controller
     }
 
 
-    public function edit(User $user)
+    public function edit(Admin $admin)
     {
         $roles = Role::all();
-        return view('admin.layouts.users.edit_user', compact('user', 'roles'));
+        return view('admin.layouts.users.edit_user', compact('admin', 'roles'));
     }
 
-    public function update(UserUpdateRequest $request, User $user)
+    public function update(UserUpdateRequest $request, Admin $admin)
     {
         $validated = $request->validated();
-        $user->update([
-            'name' => $validated['name'],
+        $admin->update([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
             'email' => $validated['email'],
+            'phone' => $validated['phone'],
         ]);
+        $admin->assignRole($validated['role']);
+
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
     }
 
