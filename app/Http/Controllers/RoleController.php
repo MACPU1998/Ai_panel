@@ -6,6 +6,7 @@ use App\DataTables\RolesDataTable;
 use App\Http\Requests\RoleRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Config;
+use Illuminate\Support\Facades\DB;
 use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
@@ -66,8 +67,8 @@ class RoleController extends Controller
     public function destroy(Role $role)
     {
         try {
+            DB::table('model_has_roles')->where('role_id', $role->id)->delete();
             // جدا کردن وابستگی‌ها (در صورت وجود)
-            $role->roles()->detach(); // جدا کردن ارتباط با نقش‌ها
             $role->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {

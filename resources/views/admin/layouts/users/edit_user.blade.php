@@ -17,7 +17,8 @@
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">{{__("general.name")}}</label>
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
+                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                       id="first_name"
                                        name="first_name"
                                        value="{{ old('first_name', $admin->first_name) }}" required>
                                 @error('first_name')
@@ -31,7 +32,8 @@
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
-                                <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
+                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                       id="last_name"
                                        name="last_name"
                                        value="{{ old('last_name', $admin->last_name) }}" required>
                                 @error('last_name')
@@ -59,7 +61,8 @@
                         <div class="col-md-3">
                             <div class="mb-3">
                                 <label for="phone" class="form-label">{{__("general.phone")}}</label>
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
+                                <input type="number" class="form-control @error('phone') is-invalid @enderror"
+                                       id="phone"
                                        name="phone"
                                        value="{{ old('phone', $admin->phone) }}" required>
                                 @error('phone')
@@ -79,7 +82,8 @@
                                         required>
                                     <option value="">یک نقش را انتخاب کنید</option>
                                     @foreach($roles as $role)
-                                        <option value="{{ $role->name }}" {{ isset($admin) && $admin->roles->pluck('name')->first() == $role->name ? 'selected' : '' }}>
+                                        <option
+                                            value="{{ $role->name }}" {{ isset($admin) && $admin->roles->pluck('name')->first() == $role->name ? 'selected' : '' }}>
                                             {{ $role->name }}
                                         </option>
                                     @endforeach

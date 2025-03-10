@@ -23,13 +23,14 @@ class UserUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'firs_name' => 'required|string|min:3|max:255',
+            'first_name' => 'required|string|min:3|max:255',
             'last_name' => 'required|string|min:3|max:255',
             'email' => [
                 'required',
                 'email',
                 Rule::unique('admins', 'email')->ignore($this->admin->id), // اجازه میده ایمیل ادمین تغییر کنه
             ],
+            'phone' => 'required|numeric',
             'role' => 'required|exists:roles,name',
 
         ];

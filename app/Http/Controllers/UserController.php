@@ -75,7 +75,7 @@ class UserController extends Controller
             'email' => $validated['email'],
             'phone' => $validated['phone'],
         ]);
-        $admin->assignRole($validated['role']);
+        $admin->syncRoles($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
     }
