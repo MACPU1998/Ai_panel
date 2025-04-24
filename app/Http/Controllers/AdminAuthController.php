@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\AdminPasswordUpdateRequest;
 use App\Http\Requests\AdminUpdateRequest;
-use App\Models\Admin\Admin;
+use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
