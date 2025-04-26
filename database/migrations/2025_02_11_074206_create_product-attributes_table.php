@@ -18,6 +18,7 @@ return new class extends Migration
             $table->boolean('status')->default(0);
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

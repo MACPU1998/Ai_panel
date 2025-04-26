@@ -19,6 +19,7 @@ return new class extends Migration {
             $table->string('serie_month');
             $table->string('label');
             $table->tinyInteger('status');
+            $table->softDeletes();
             $table->timestamps();
         });
     }

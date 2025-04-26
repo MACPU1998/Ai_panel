@@ -16,11 +16,12 @@ return new class extends Migration
             $table->string('name');
             $table->string('description')->nullable();
             $table->boolean('status')->default(0);
-            $table->string('image');
             $table->unsignedBigInteger('currency_id')->unsigned();
             $table->foreign('currency_id')->references('id')->on('product_currencies');
             $table->integer('price');
+            $table->string('serial_prefix')->nullable();
             $table->integer('final_price')->nullable();
+            $table->softDeletes();
             $table->timestamps();
         });
 

@@ -7,7 +7,9 @@
 namespace App\Models;
 
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class ProductAttribute
@@ -26,6 +28,7 @@ use Illuminate\Database\Eloquent\Model;
  */
 class ProductAttribute extends Model
 {
+    use HasFactory,SoftDeletes;
 	protected $table = 'product_attributes';
 
 	protected $casts = [

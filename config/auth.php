@@ -74,12 +74,7 @@ return [
             'driver' => 'eloquent',
             'model' => Admin::class,
         ],
-        Spatie\Permission\PermissionServiceProvider::class,
 
-        // 'users' => [
-        //     'driver' => 'database',
-        //     'table' => 'users',
-        // ],
     ],
 
     /*

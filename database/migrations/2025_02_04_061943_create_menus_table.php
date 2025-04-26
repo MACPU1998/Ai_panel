@@ -16,8 +16,9 @@ return new class extends Migration
             $table->string('title');
             $table->string('icon');
             $table->unsignedBigInteger('parent_id')->nullable();
-            $table->string('link')->nullable(); // لینک منو
-            $table->boolean('status')->default(1); // وضعیت (فعال/غیرفعال)
+            $table->string('link')->nullable();
+            $table->boolean('status')->default(1);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

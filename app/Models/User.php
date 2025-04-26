@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Spatie\Permission\Traits\HasRoles;
 
 /**
@@ -26,7 +27,7 @@ use Spatie\Permission\Traits\HasRoles;
  */
 class User extends Model
 {
-    use HasRoles;
+    use HasRoles,SoftDeletes;
 	protected $table = 'admins';
 
 	protected $casts = [

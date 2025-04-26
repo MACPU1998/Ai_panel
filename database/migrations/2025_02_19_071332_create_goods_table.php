@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('serial_date')->nullable();
             $table->string('version')->nullable();
             $table->tinyInteger('status')->default(0);
+            $table->softDeletes();
             $table->timestamps();
         });
     }

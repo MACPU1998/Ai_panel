@@ -11,7 +11,7 @@ use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
-    public function showLoginForm()
+    public function index()
     {
         return view('admin.layouts.auth.login-admin');
     }
@@ -21,8 +21,6 @@ class AdminAuthController extends Controller
         $credentials = $request->only('email', 'password');
 
         if (Auth::guard('admin')->attempt($credentials)) {
-//            auth()->login(Auth::guard('admin')->user());
-//            dd(Auth::guard('admin')->check());
             return redirect()->route('admin.dashboard');
         }
         return back()->withErrors(['email' => 'ایمیل یا رمز عبور اشتباه است.'])->withInput($request->only('email', 'remember'));
