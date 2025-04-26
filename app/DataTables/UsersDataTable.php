@@ -2,8 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Admin\Admin;
-use App\Models\User;
+use App\Models\Admin;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Morilog\Jalali\Jalalian;
 use Yajra\DataTables\EloquentDataTable;
