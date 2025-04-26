@@ -2,7 +2,7 @@
 
 namespace App\Providers;
 
-use App\Models\Menu;
+use App\Models\Admin\Menu;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;

@@ -4,30 +4,22 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
+use Illuminate\Support\Facades\Auth;
 
 class AdminMiddleware
 {
     /**
      * Handle an incoming request.
      *
-     * @param \Closure(Request): (Response) $next
+     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
      */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        $user = auth()->user();
-
-
-        if (!$user || !($user instanceof \App\Models\Admin)) {
-            return response()->json(['message' => 'Unauthorized (Admin)'], 403);
+        // بررسی اینکه آیا ادمین وارد شده است یا خیر
+        if (Auth::guard('admin')->check()) {
+            return $next($request);
         }
-
-        $hasUserRole = $user->roles()->where('name', 'super admin')->where('guard_name', 'admin')->exists();
-
-        if (!$hasUserRole) {
-            return response()->json(['message' => 'You do not have the necessary access.'], 403);
-        }
-
-        return $next($request);
+        // dd('error');
+        return redirect()->route('login');
     }
 }

@@ -23,9 +23,10 @@ Route::prefix('admin')->group(function () {
     Route::put('/password/update', [AdminAuthController::class, 'updatePassword'])->name('admin.update.password');
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
 
+    // داشبورد (محافظت‌شده)
     Route::middleware('auth:admin')->group(function () {
         Route::get('/dashboard', function () {
-            return view('admin.dashboard');
+            return view('admin.dashboard'); // نمایش داشبورد
         })->name('admin.dashboard');
     });
 

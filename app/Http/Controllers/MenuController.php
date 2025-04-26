@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\DataTables\MenusDataTable;
 use App\Http\Requests\MenuRequest;
-use App\Models\Menu;
+use App\Models\Admin\Menu;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
