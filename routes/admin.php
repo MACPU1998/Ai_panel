@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login');
+    Route::get('/login', [AdminAuthController::class, 'showLoginForm'])->name('login')->middleware('AdminAuthenticated');
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
     Route::get('/edit', [AdminAuthController::class, 'edit'])->name('admin.edit');
     Route::put('/update', [AdminAuthController::class, 'update'])->name('admin.update');
