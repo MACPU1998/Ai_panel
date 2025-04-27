@@ -56,6 +56,14 @@ return [
     'edit_product_currency' => 'ویرایش ارز',
     'delete_product_currency' => 'حذف ارز',
 
+    'manage_sub_product' => 'مدیریت زیر محصولات',
+    'add_sub_product' => 'اضافه کردن زیر محصول',
+    'edit_sub_product' => 'ویرایش زیرمحصول',
+    'delete_sub_product' => 'حذف زیرمحصول',
+    'serie_year'=>'سری سال',
+    'serie_month'=>'سری ماه',
+    'label'=>'لیبل',
+
     'manage_product_attribute' => 'مدیریت ویژگی محصولات',
     'add_product_attribute' => 'اضافه کردن ویژگی',
     'edit_product_attribute' => 'ویرایش ویژگی',

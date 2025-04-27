@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductCurrencyRequest extends FormRequest
 {
@@ -22,7 +23,13 @@ class ProductCurrencyRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255',
+            'name' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('product_currencies')->whereNull('deleted_at')
+            ],
             'slug' => 'required|string|min:3|max:255',
             'status' => 'required',
         ];

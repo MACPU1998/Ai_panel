@@ -30,8 +30,6 @@ class MenusDataTable extends DataTable
             })
             ->rawColumns(['status','parent_id'])
 
-
-
             ->addColumn('created_at', function ($menu) {
                 if ($menu->created_at) {
                     return Jalalian::fromCarbon($menu->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
@@ -42,7 +40,7 @@ class MenusDataTable extends DataTable
                 if ($menu->updated_at) {
                     return Jalalian::fromCarbon($menu->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
-                return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
+                return '-';
             })
             ->addColumn('action', function ($menu) {
                 return '<div class="d-flex gap-1">
@@ -51,7 +49,7 @@ class MenusDataTable extends DataTable
                </div>
         ';
             })
-            ->rawColumns(['action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
@@ -71,7 +69,7 @@ class MenusDataTable extends DataTable
         return $this->builder()
             ->setTableId('menus-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('menus.datatable')) // مسیر ajax
+            ->minifiedAjax(route('menus.datatable'))
             ->orderBy(0)
             ->parameters([
                 'dom' => 'Bfrtip',

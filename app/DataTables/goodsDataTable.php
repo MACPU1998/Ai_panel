@@ -34,11 +34,17 @@ class goodsDataTable extends DataTable
                 }
                 return '-';
             })
+            ->editColumn('serial_date', function ($goods) {
+                return $goods->serial_date ? $goods->serial_date : '-';
+            })
+            ->editColumn('version', function ($goods) {
+                return $goods->version ? $goods->version : '-';
+            })
             ->addColumn('updated_at', function ($goods) {
                 if ($goods->updated_at) {
                     return Jalalian::fromCarbon($goods->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
-                return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
+                return '-';
             })
             ->addColumn('action', function ($goods) {
                 return '
@@ -46,7 +52,7 @@ class goodsDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteGoods(' . $goods->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
-            ->rawColumns(['action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
@@ -55,7 +61,7 @@ class goodsDataTable extends DataTable
      */
     public function query(Goods $goods): QueryBuilder
     {
-        return $goods->newQuery()->with('product'); // اضافه کردن رابطه محصول
+        return $goods->newQuery()->with('product');
     }
 
     /**
@@ -66,7 +72,7 @@ class goodsDataTable extends DataTable
         return $this->builder()
             ->setTableId('goods-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('goods.datatable')) // مسیر ajax
+            ->minifiedAjax(route('goods.datatable'))
             ->orderBy(0)
             ->parameters([
                 'dom' => 'Bfrtip',

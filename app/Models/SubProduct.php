@@ -8,8 +8,14 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class SubProduct extends Model
 {
-    use HasFactory,SoftDeletes;
+    use HasFactory, SoftDeletes;
+
     protected $table = 'sub_products';
-    protected $fillable = ['product_id','barcode','serie_year','serie_month','label','status'];
+    protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label', 'status'];
+
+    public function product()
+    {
+        return $this->belongsTo(Product::class);
+    }
 
 }

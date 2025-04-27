@@ -15,9 +15,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
             $table->string('barcode', 255);
-            $table->string('serie_year');
-            $table->string('serie_month');
-            $table->string('label');
+            $table->string('serie_year')->nullable();
+            $table->string('serie_month')->nullable();
+            $table->string('label')->nullable();
             $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();

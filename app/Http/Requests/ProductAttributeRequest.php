@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class ProductAttributeRequest extends FormRequest
 {
@@ -22,10 +23,16 @@ class ProductAttributeRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|min:3|max:255',
+            'title' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('product_attributes')->whereNull('deleted_at')
+            ],
             'value' => 'required|string',
             'status' => 'required',
-            'product_id' => 'required',
+            'product_id' => 'required|exists:products,id',
         ];
     }
 }

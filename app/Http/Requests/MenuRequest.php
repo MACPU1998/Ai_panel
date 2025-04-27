@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class MenuRequest extends FormRequest
 {
@@ -22,7 +23,13 @@ class MenuRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => 'required|string|min:3|max:255',
+            'title' => [
+                'required',
+                'string',
+                'min:3',
+                'max:255',
+                Rule::unique('menus')->whereNull('deleted_at')
+            ],
             'icon' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:menus,id',
             'link' => 'nullable|string|max:255',

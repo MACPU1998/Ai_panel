@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\goodsController;
+use App\Http\Controllers\GoodsController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -137,14 +138,27 @@ Route::prefix('admin')->group(function () {
 
     //Route goods
     Route::prefix('goods')->group(function () {
-        Route::get('/', [goodsController::class, 'index'])->name('goods.index');
-        Route::get('/create', [goodsController::class, 'create'])->name('goods.create');
-        Route::post('/store', [goodsController::class, 'store'])->name('goods.store');
-        Route::get('/data', [goodsController::class, 'getGoodsData'])->name('goods.getData');
-        Route::get('/datatable', [goodsController::class, 'datatable'])->name('goods.datatable');
-        Route::get('/{goods}/edit', [goodsController::class, 'edit'])->name('goods.edit');
-        Route::put('/{goods}/update', [goodsController::class, 'update'])->name('goods.update');
-        Route::delete('/{goods}', [goodsController::class, 'destroy'])->name('goods.destroy');
+        Route::get('/', [GoodsController::class, 'index'])->name('goods.index');
+        Route::get('/create', [GoodsController::class, 'create'])->name('goods.create');
+        Route::post('/store', [GoodsController::class, 'store'])->name('goods.store');
+        Route::get('/data', [GoodsController::class, 'getGoodsData'])->name('goods.getData');
+        Route::get('/datatable', [GoodsController::class, 'datatable'])->name('goods.datatable');
+        Route::get('/{goods}/edit', [GoodsController::class, 'edit'])->name('goods.edit');
+        Route::put('/{goods}/update', [GoodsController::class, 'update'])->name('goods.update');
+        Route::delete('/{goods}', [GoodsController::class, 'destroy'])->name('goods.destroy');
+
+    });
+
+    //Route subProduct
+    Route::prefix('sub-products')->group(function () {
+        Route::get('/', [SubProductController::class, 'index'])->name('subProducts.index');
+        Route::get('/create', [SubProductController::class, 'create'])->name('subProducts.create');
+        Route::post('/store', [SubProductController::class, 'store'])->name('subProducts.store');
+        Route::get('/data', [SubProductController::class, 'getSubProductData'])->name('subProducts.getData');
+        Route::get('/datatable', [SubProductController::class, 'datatable'])->name('subProducts.datatable');
+        Route::get('/{subProducts}/edit', [SubProductController::class, 'edit'])->name('subProducts.edit');
+        Route::put('/{subProducts}/update', [SubProductController::class, 'update'])->name('subProducts.update');
+        Route::delete('/{subProducts}', [SubProductController::class, 'destroy'])->name('subProducts.destroy');
 
     });
 

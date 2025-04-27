@@ -9,7 +9,7 @@ use App\Models\Product;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
-class goodsController extends Controller
+class GoodsController extends Controller
 {
     public function index(goodsDataTable $dataTable)
     {
@@ -18,14 +18,14 @@ class goodsController extends Controller
 
     public function create()
     {
-        $products = Product::all();
+        $products = Product::where('status', 1)->get();
         return view('admin.layouts.goods.add_goods', compact('products'));
     }
 
     public function store(GoodsRequest $request)
     {
         Goods::create($request->validated());
-        return redirect()->route('goods.index')->with('success', 'کاربر با موفقیت ایجاد شد.');
+        return redirect()->route('goods.index')->with('success', ' با موفقیت ایجاد شد.');
     }
 
     public function getGoodsData(Request $request)

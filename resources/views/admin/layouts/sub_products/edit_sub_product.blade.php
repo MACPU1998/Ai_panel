@@ -1,0 +1,128 @@
+@extends('admin.layouts.project_master_admin')
+
+@section('title', 'ویرایش زیرمحصول')
+
+@section('content')
+
+    <div class="col-lg-12">
+        <div class="card">
+            <div class="container mt-8">
+                <h5 class="mb-4">{{__("general.edit_sub_product")}}</h5>
+
+                <form id="edit_sub_product" action="{{route('subProducts.update',$subproduct->id)}}" method="POST" class="my-10"
+                      enctype="multipart/form-data">
+                    @csrf
+                    @method('PUT')
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="product" class="form-label">{{__("general.product")}}</label>
+                                <input type="text" class="form-control @error('product') is-invalid @enderror" id="product"
+                                       name="product"
+                                       value="{{ old('product', $subproduct->product_id) }}"
+                                       required>
+                                @error('product')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="barcode" class="form-label">{{__("general.barcode")}}</label>
+                                <input type="text" class="form-control @error('barcode') is-invalid @enderror"
+                                       id="barcode"
+                                       value="{{ old('barcode', $subproduct->barcode) }}"
+                                       name="description"
+                                required>
+                                @error('barcode')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serie_year" class="form-label">{{__("general.serie_year")}}</label>
+                                <input type="text" class="form-control @error('serie_year') is-invalid @enderror" id="serie_year"
+                                       name="serie_year"
+                                       value="{{ old('serie_year', $subproduct->serie_year) }}">
+                                @error('serie_year')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serie_month" class="form-label">{{__("general.serie_month")}}</label>
+                                <input type="text" class="form-control @error('serie_month') is-invalid @enderror"
+                                       id="serie_month"
+                                       value="{{ old('serie_month', $subproduct->serie_month) }}"
+                                       name="serie_month">
+                                @error('serie_month')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="label" class="form-label">{{__("general.label")}}</label>
+                                <input type="text" class="form-control @error('label') is-invalid @enderror"
+                                       id="label"
+                                       value="{{ old('label', $subproduct->label) }}"
+                                       name="label">
+                                @error('label')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="status" class="form-label">{{__("general.status")}}</label>
+                                <select name="status" id="status" class="form-control">
+                                    <option value="1" {{$product->status == '1' ? 'selected' :''}}>فعال</option>
+                                    <option value="0" {{$product->status == '0' ? 'selected' :''}}>غیرفعال</option>
+                                </select>
+                                @error('status')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
+                </form>
+            </div>
+        </div>
+    </div>
+@endsection
+@section('customjs')
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            document.querySelector("form").addEventListener("keypress", function (event) {
+                if (event.key === "Enter") {
+                    event.preventDefault();
+                }
+            });
+        });
+    </script>
+
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\SubProductRequest', '#edit_sub_product') !!}
+
+@endsection

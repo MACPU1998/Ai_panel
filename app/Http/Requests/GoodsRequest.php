@@ -22,10 +22,10 @@ class GoodsRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'product_id' => 'required|integer',
+            'product_id' => 'required|integer|exists:products,id',
             'barcode' => 'required|integer',
-            'serial_date' => 'string',
-            'version' => 'string',
+            'serial_date' => 'string|nullable',
+            'version' => 'string|nullable',
             'status' => 'required|integer',
         ];
     }

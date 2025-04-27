@@ -82,4 +82,10 @@ class Product extends Model implements HasMedia
         $this->addMediaCollection('product_images')->singleFile(); // ذخیره فقط یک عکس
     }
 
+    public function subProducts()
+    {
+        return $this->hasMany(SubProduct::class, 'product_id');
+
+    }
+
 }

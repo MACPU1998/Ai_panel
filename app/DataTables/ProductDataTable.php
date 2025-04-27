@@ -22,13 +22,22 @@ class ProductDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('image', function ($product) {
                 $media = $product->getFirstMediaUrl('product_images');
-                return $media ? '<img src="'.$media.'" class="img-thumbnail" width="50">' : 'بدون تصویر';
+                return $media ? '<img src="' . $media . '" class="img-thumbnail" width="50">' : 'بدون تصویر';
             })
             ->rawColumns(['image', 'action'])
             ->editColumn('status', function ($product) {
                 return $product->status == 1
                     ? 'فعال'
                     : 'غیرفعال';
+            })
+            ->editColumn('description', function ($product) {
+                return $product->description ? $product->description : '-';
+            })
+            ->editColumn('final_price', function ($product) {
+                return $product->final_price ? $product->final_price : '-';
+            })
+            ->editColumn('serial_prefix', function ($product) {
+                return $product->serial_prefix ? $product->serial_prefix : '-';
             })
             ->editColumn('currency_id', function ($product) {
                 return $product->currency_id ? $product->currency->slug : '-';
@@ -51,7 +60,7 @@ class ProductDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteProduct(' . $product->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
-            ->rawColumns(['image','action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
 
@@ -84,23 +93,23 @@ class ProductDataTable extends DataTable
      */
     public function getColumns(): array
     {
-    return [
-        Column::make('id')->title('شناسه'),
-        Column::make('name')->title('نام'),
-        Column::make('description')->title('توضیحات'),
-        Column::make('status')->title('وضعیت'),
-        Column::make('image')->title('عکس'),
-        Column::make('currency_id')->title('ارز'),
-        Column::make('price')->title('قیمت'),
-        Column::make('final_price')->title('قیمت نهایی'),
-        Column::make('created_at')->title('تاریخ ایجاد'),
-        Column::make('updated_at')->title('تاریخ آپدیت'),
-        Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->addClass('text-center')
-            ->title('عملیات'),
-    ];
+        return [
+            Column::make('id')->title('شناسه'),
+            Column::make('name')->title('نام'),
+            Column::make('description')->title('توضیحات'),
+            Column::make('status')->title('وضعیت'),
+            Column::make('image')->title('عکس'),
+            Column::make('currency_id')->title('ارز'),
+            Column::make('price')->title('قیمت'),
+            Column::make('final_price')->title('قیمت نهایی'),
+            Column::make('created_at')->title('تاریخ ایجاد'),
+            Column::make('updated_at')->title('تاریخ آپدیت'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center')
+                ->title('عملیات'),
+        ];
     }
 
     /**
