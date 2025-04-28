@@ -9,19 +9,28 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_sub_product")}}</h5>
 
-                <form id="edit_sub_product" action="{{route('subProducts.update',$subproduct->id)}}" method="POST" class="my-10"
+                <form id="edit_sub_product" action="{{route('subProducts.update',$subProduct->id)}}" method="POST" class="my-10"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
+
                     <div class="row">
+
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="product" class="form-label">{{__("general.product")}}</label>
-                                <input type="text" class="form-control @error('product') is-invalid @enderror" id="product"
-                                       name="product"
-                                       value="{{ old('product', $subproduct->product_id) }}"
-                                       required>
-                                @error('product')
+                                <label for="product_id" class="form-label">{{__("general.product")}}</label>
+                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
+                                        id="product_id"
+                                        name="product_id"
+                                        required>
+                                    @foreach($products as $product)
+                                        <option
+                                            value="{{ $product->id }}" {{ $subProduct->product_id == $product->id ? 'selected' : '' }}>
+                                            {{ $product->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('product_id')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -34,8 +43,8 @@
                                 <label for="barcode" class="form-label">{{__("general.barcode")}}</label>
                                 <input type="text" class="form-control @error('barcode') is-invalid @enderror"
                                        id="barcode"
-                                       value="{{ old('barcode', $subproduct->barcode) }}"
-                                       name="description"
+                                       value="{{ old('barcode', $subProduct->barcode) }}"
+                                       name="barcode"
                                 required>
                                 @error('barcode')
                                 <span class="invalid-feedback" role="alert">
@@ -50,7 +59,7 @@
                                 <label for="serie_year" class="form-label">{{__("general.serie_year")}}</label>
                                 <input type="text" class="form-control @error('serie_year') is-invalid @enderror" id="serie_year"
                                        name="serie_year"
-                                       value="{{ old('serie_year', $subproduct->serie_year) }}">
+                                       value="{{ old('serie_year', $subProduct->serie_year) }}">
                                 @error('serie_year')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -64,7 +73,7 @@
                                 <label for="serie_month" class="form-label">{{__("general.serie_month")}}</label>
                                 <input type="text" class="form-control @error('serie_month') is-invalid @enderror"
                                        id="serie_month"
-                                       value="{{ old('serie_month', $subproduct->serie_month) }}"
+                                       value="{{ old('serie_month', $subProduct->serie_month) }}"
                                        name="serie_month">
                                 @error('serie_month')
                                 <span class="invalid-feedback" role="alert">
@@ -79,7 +88,7 @@
                                 <label for="label" class="form-label">{{__("general.label")}}</label>
                                 <input type="text" class="form-control @error('label') is-invalid @enderror"
                                        id="label"
-                                       value="{{ old('label', $subproduct->label) }}"
+                                       value="{{ old('label', $subProduct->label) }}"
                                        name="label">
                                 @error('label')
                                 <span class="invalid-feedback" role="alert">
@@ -93,8 +102,8 @@
                             <div class="mb-3">
                                 <label for="status" class="form-label">{{__("general.status")}}</label>
                                 <select name="status" id="status" class="form-control">
-                                    <option value="1" {{$product->status == '1' ? 'selected' :''}}>فعال</option>
-                                    <option value="0" {{$product->status == '0' ? 'selected' :''}}>غیرفعال</option>
+                                    <option value="1" {{$subProduct->status == '1' ? 'selected' :''}}>فعال</option>
+                                    <option value="0" {{$subProduct->status == '0' ? 'selected' :''}}>غیرفعال</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback" role="alert">

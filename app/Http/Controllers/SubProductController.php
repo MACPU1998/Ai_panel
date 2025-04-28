@@ -48,7 +48,7 @@ class SubProductController extends Controller
     public function edit(SubProduct $subProduct)
     {
         $products = Product::all();
-        return view('admin.layouts.sub_products.edit_sub_products', compact('subProduct', 'products'));
+        return view('admin.layouts.sub_products.edit_sub_product', compact('subProduct', 'products'));
     }
 
     public function update(SubProductRequest $request, SubProduct $subProduct)

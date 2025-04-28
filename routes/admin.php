@@ -156,9 +156,9 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [SubProductController::class, 'store'])->name('subProducts.store');
         Route::get('/data', [SubProductController::class, 'getSubProductData'])->name('subProducts.getData');
         Route::get('/datatable', [SubProductController::class, 'datatable'])->name('subProducts.datatable');
-        Route::get('/{subProducts}/edit', [SubProductController::class, 'edit'])->name('subProducts.edit');
-        Route::put('/{subProducts}/update', [SubProductController::class, 'update'])->name('subProducts.update');
-        Route::delete('/{subProducts}', [SubProductController::class, 'destroy'])->name('subProducts.destroy');
+        Route::get('/{subProduct}/edit', [SubProductController::class, 'edit'])->name('subProducts.edit');
+        Route::put('/{subProduct}/update', [SubProductController::class, 'update'])->name('subProducts.update');
+        Route::delete('/{subProduct}', [SubProductController::class, 'destroy'])->name('subProducts.destroy');
 
     });
 
