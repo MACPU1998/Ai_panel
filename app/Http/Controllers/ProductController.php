@@ -116,19 +116,6 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
-        if (
-            $product->productCategorie()->exists() ||
-            $product->goods()->exists() ||
-            $product->productAttribute()->exists() ||
-            $product->subProduct()->exists()
-        ) {
-            return response()->json(
-                [
-                    'success' => false,
-                    'message' => 'محصول به زیرمحصول، کالا، ویژگی یا دسته‌بندی متصل است و قابل حذف نیست.'
-                ], 400
-            );
-        }
 
         try {
             $product->clearMediaCollection('product_images');

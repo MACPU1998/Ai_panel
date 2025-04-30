@@ -65,7 +65,7 @@ class Product extends Model implements HasMedia
         });
     }
 
-    public function productAttribute()
+    public function attributes()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id');
     }
