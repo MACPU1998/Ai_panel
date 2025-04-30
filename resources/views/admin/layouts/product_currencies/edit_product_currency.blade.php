@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_product_currency")}}</h5>
 
-                <form id="edit_product_currency" action="{{route('productCurrencies.update',$productCurrency->id)}}" method="POST" class="my-10">
+                <form id="edit_product_currency" action="{{route('productCurrencies.update',$productCurrency->id)}}"
+                      method="POST" class="my-10">
                     @csrf
                     @method('PUT')
 
@@ -77,5 +78,5 @@
         });
     </script>
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\ProductCurrencyRequest', '#edit_product_currency') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\ProductCurrency\ProductCurrencyRequest', '#edit_product_currency') !!}
 @endsection

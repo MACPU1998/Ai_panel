@@ -18,7 +18,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product_id")}}</label>
-                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
+                                <select type="text"
+                                        class="form-control select2 @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>

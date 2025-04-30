@@ -3,7 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductCurrencyDataTable;
-use App\Http\Requests\ProductCurrencyRequest;
+use App\Http\Requests\ProductCurrency\ProductCurrencyRequest;
+use App\Http\Requests\ProductCurrency\UpdateProductCurrencyRequest;
 use App\Models\ProductCurrency;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -52,7 +53,7 @@ class ProductCurrencyController extends Controller
         return view('admin.layouts.product_currencies.edit_product_currency', ['productCurrency' => $productCurrency]);
     }
 
-    public function update(ProductCurrencyRequest $request, ProductCurrency  $productCurrency)
+    public function update(UpdateProductCurrencyRequest $request, ProductCurrency $productCurrency)
     {
         $productCurrency->update($request->validated());
         return redirect()->route('productCurrencies.index')->with('success', 'ارز با موفقیت ویرایش شد.');
@@ -60,6 +61,14 @@ class ProductCurrencyController extends Controller
 
     public function destroy(ProductCurrency $productCurrency)
     {
+        if ($productCurrency->product()->exists()) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'این ارز در محصولات استفاده شده و قابل حذف نیست'
+                ], 400
+            );
+        }
         try {
             $productCurrency->delete();
             return response()->json(['success' => true], 200);

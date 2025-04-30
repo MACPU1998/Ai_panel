@@ -1,11 +1,11 @@
 <?php
 
-namespace App\Http\Requests;
+namespace App\Http\Requests\ProductAttribute;
 
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
 
-class ProductCurrencyRequest extends FormRequest
+class ProductAttributeRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -28,10 +28,11 @@ class ProductCurrencyRequest extends FormRequest
                 'string',
                 'min:3',
                 'max:255',
-                Rule::unique('product_currencies')->whereNull('deleted_at')
+                Rule::unique('product_attributes')->whereNull('deleted_at')
             ],
-            'slug' => 'required|string|min:3|max:255',
+            'value' => 'required|string',
             'status' => 'required',
+            'product_id' => 'required|exists:products,id',
         ];
     }
 }

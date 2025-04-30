@@ -21,7 +21,7 @@
     //Success Message
     $("#sa-success").click(function () {
       Swal.fire(
-        "Goods job!",
+        "ProductAttribute job!",
         "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed lorem erat eleifend ex semper, lobortis purus sed.",
         "success"
       );

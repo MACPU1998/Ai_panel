@@ -41,7 +41,7 @@ class ProductCurrency extends Model
 		'status'
 	];
 
-	public function products()
+	public function product()
 	{
 		return $this->hasMany(Product::class, 'currency_id');
 	}

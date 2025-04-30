@@ -89,7 +89,7 @@ class ProductController extends Controller
 
         // به‌روزرسانی اطلاعات محصول
         $product->update($request->validated());
-         // حذف تصویر قبلی و آپلود جدید
+        // حذف تصویر قبلی و آپلود جدید
         if ($request->hasFile('image')) {
             if ($product->hasMedia('product_images')) {
                 $product->clearMediaCollection('product_images');
@@ -116,8 +116,22 @@ class ProductController extends Controller
 
     public function destroy(Product $product)
     {
+        if (
+            $product->productCategorie()->exists() ||
+            $product->goods()->exists() ||
+            $product->productAttribute()->exists() ||
+            $product->subProduct()->exists()
+        ) {
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'محصول به زیرمحصول، کالا، ویژگی یا دسته‌بندی متصل است و قابل حذف نیست.'
+                ], 400
+            );
+        }
+
         try {
-            $product->clearMediaCollection('product_images'); // حذف تصویر
+            $product->clearMediaCollection('product_images');
             $product->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {

@@ -77,5 +77,5 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\CategoryRequest', '#add_category') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Category\CategoryRequest', '#add_category') !!}
 @endsection

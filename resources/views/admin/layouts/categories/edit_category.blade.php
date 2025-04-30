@@ -80,5 +80,5 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\CategoryRequest', '#edit_category') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Category\CategoryRequest', '#edit_category') !!}
 @endsection

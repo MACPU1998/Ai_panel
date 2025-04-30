@@ -51,7 +51,6 @@ class Product extends Model implements HasMedia
         'name',
         'description',
         'status',
-      //  'image',
         'currency_id',
         'price',
         'final_price'
@@ -66,7 +65,7 @@ class Product extends Model implements HasMedia
         });
     }
 
-    public function attributes()
+    public function productAttribute()
     {
         return $this->hasMany(ProductAttribute::class, 'product_id');
     }
@@ -79,12 +78,22 @@ class Product extends Model implements HasMedia
 
     public function registerMediaCollections(): void
     {
-        $this->addMediaCollection('product_images')->singleFile(); // ذخیره فقط یک عکس
+        $this->addMediaCollection('product_images')->singleFile();
     }
 
-    public function subProducts()
+    public function subProduct()
     {
         return $this->hasMany(SubProduct::class, 'product_id');
+
+    }
+
+    public function goods()
+    {
+        return $this->hasMany(Goods::class);
+    }
+    public function productCategorie()
+    {
+        return $this->hasMany(ProductCategory::class);
 
     }
 

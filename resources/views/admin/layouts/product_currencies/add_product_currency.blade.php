@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_product_currency")}}</h5>
 
-                <form id="add_product_currency" action="{{route('productCurrencies.store')}}" method="POST" class="my-10">
+                <form id="add_product_currency" action="{{route('productCurrencies.store')}}" method="POST"
+                      class="my-10">
                     @csrf
 
                     <div class="row">
@@ -72,5 +73,5 @@
         });
     </script>
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\ProductCurrencyRequest', '#add_product_currency') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\ProductCurrency\ProductCurrencyRequest', '#add_product_currency') !!}
 @endsection
