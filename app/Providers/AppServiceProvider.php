@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Menu;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
@@ -23,6 +24,17 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
+        Route::macro('addMeta', function (bool $enabled = false, array $roles = []) {
+            $this->action['meta']['enabled'] = $enabled;
+            $this->action['meta']['roles'] = $roles;
+
+            return $this;
+        });
+
+        Route::macro('getMeta', function () {
+            return $this->getAction['meta'];
+        });
+
         // Implicitly grant "Super Admin" role all permissions
         // This works in the app by using gate-related functions like auth()->user->can() and @can()
         // Redirect Authenticated Users

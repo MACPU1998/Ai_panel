@@ -58,6 +58,7 @@ return [
 
     'manage_sub_product' => 'مدیریت زیر محصولات',
     'add_sub_product' => 'اضافه کردن زیر محصول',
+    'add_group_sub_product' => 'اضافه کردن زیر محصول گروهی',
     'edit_sub_product' => 'ویرایش زیرمحصول',
     'delete_sub_product' => 'حذف زیرمحصول',
     'serie_year'=>'سری سال',

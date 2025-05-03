@@ -9,7 +9,15 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_sub_product")}}</h5>
-                <a href="{{route('subProducts.create')}}" class="btn btn-success mb-3">{{__("general.add_sub_product")}}</a>
+
+                <div class="d-flex flex-column align-items-start mb-3">
+                    <a href="{{ route('subProducts.create') }}" class="btn btn-success mb-2 w-auto">
+                        {{ __("general.add_sub_product") }}
+                    </a>
+                    <a href="{{ route('subProducts.create') }}" class="btn btn-success w-auto">
+                        {{ __("general.add_group_sub_product") }}
+                    </a>
+                </div>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

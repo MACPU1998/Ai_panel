@@ -30,8 +30,7 @@ class SynchRouts extends Command
     {
         $guard = 'admin';
 
-        $routes = collect(Route::getRoutes())
-            ->filter(fn($route) => str_starts_with($route->getName(), 'api.admin.'));
+        $routes = collect(Route::getRoutes());
 
         $routeNames = $routes
             ->pluck('action.as')
