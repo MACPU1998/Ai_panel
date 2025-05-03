@@ -29,8 +29,12 @@ class SynchRouts extends Command
     public function handle()
     {
         $guard = 'admin';
+        $prefix = 'admin';
 
-        $routes = collect(Route::getRoutes());
+        $routes = collect(Route::getRoutes())
+            ->filter(function ($route) use ($prefix) {
+                return str_starts_with($route->uri(), $prefix);
+            });
 
         $routeNames = $routes
             ->pluck('action.as')
@@ -39,7 +43,6 @@ class SynchRouts extends Command
 
         $existingPermissions = Permission::where('guard_name', $guard)->pluck('name')->toArray();
         $permissionsToDelete = array_diff($existingPermissions, $routeNames->toArray());
-
 
         foreach ($permissionsToDelete as $permName) {
             $permission = Permission::where('name', $permName)->where('guard_name', $guard)->first();
@@ -69,9 +72,9 @@ class SynchRouts extends Command
 
                 $rolesWithPermission = $permission->roles;
 
-                // Detach roles that shouldn't have this permission anymore
                 foreach ($rolesWithPermission as $role) {
-                    $shouldStillHave = $metaRoles->contains(fn($metaRole) => $metaRole['name'] === $role->name && $metaRole['guard'] === $role->guard_name
+                    $shouldStillHave = $metaRoles->contains(fn($metaRole) =>
+                        $metaRole['name'] === $role->name && $metaRole['guard'] === $role->guard_name
                     );
 
                     if (!$shouldStillHave) {
@@ -80,7 +83,6 @@ class SynchRouts extends Command
                     }
                 }
 
-                // Attach roles that don't have it yet
                 foreach ($metaRoles as $metaRole) {
                     $role = Role::where('name', $metaRole['name'])
                         ->where('guard_name', $metaRole['guard'])

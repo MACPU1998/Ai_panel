@@ -16,18 +16,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('/login', [AdminAuthController::class, 'index'])->name('index')->middleware('AdminAuthenticated')->addMeta(true, ["super admin:admin"]);
+    Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')->middleware('AdminAuthenticated')->addMeta(true, ["super admin:admin"]);
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login')->addMeta(true, ["super admin:admin"]);
     Route::get('/edit', [AdminAuthController::class, 'edit'])->name('admin.edit')->addMeta(true, ["super admin:admin"]);
     Route::put('/update', [AdminAuthController::class, 'update'])->name('admin.update')->addMeta(true, ["super admin:admin"]);
     Route::get('/password/edit', [AdminAuthController::class, 'editPassword'])->name('admin.edit.password')->addMeta(true, ["super admin:admin"]);
     Route::put('/password/update', [AdminAuthController::class, 'updatePassword'])->name('admin.update.password')->addMeta(true, ["super admin:admin"]);
-    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
+    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout')->addMeta(true, ["super admin:admin"]);
 
-    // داشبورد (محافظت‌شده)
     Route::middleware('auth:admin')->group(function () {
         Route::get('/dashboard', function () {
-            return view('admin.dashboard'); // نمایش داشبورد
+            return view('admin.dashboard');
         })->name('admin.dashboard')->addMeta(true, ["super admin:admin"]);
     });
 
