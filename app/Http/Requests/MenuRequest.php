@@ -22,13 +22,16 @@ class MenuRequest extends FormRequest
      */
     public function rules(): array
     {
+        $menuId = $this->route('menu')?->id;
+
         return [
             'title' => [
                 'required',
                 'string',
                 'min:3',
                 'max:255',
-                Rule::unique('menus')->whereNull('deleted_at')
+                Rule::unique('menus')->ignore($menuId)->whereNull('deleted_at'),
+
             ],
             'icon' => 'nullable|string|max:255',
             'parent_id' => 'nullable|exists:menus,id',
