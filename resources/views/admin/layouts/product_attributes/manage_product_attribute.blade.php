@@ -18,7 +18,6 @@
     </div>
 
 
-    <!-- جاوا اسکریپت های مورد نیاز Bootstrap و DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -85,7 +84,6 @@
                     success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
-                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#products-attributes-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف !');

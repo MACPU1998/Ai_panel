@@ -77,7 +77,6 @@
                     success: function(response) {
                         if (response.success) {
                             alert('مجوز با موفقیت حذف شد!');
-                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#permissions-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف مجوز!');

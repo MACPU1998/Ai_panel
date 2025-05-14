@@ -17,7 +17,6 @@
     </div>
 
 
-    <!-- جاوا اسکریپت های مورد نیاز Bootstrap و DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -38,16 +37,16 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {
-                        data: 'name', name: 'name', render: function (data, type, row) {
-                            if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
+                        data: 'name', name: 'name', render: function (data) {
+                            if (data.length > 10) {
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
                             return data;
                         }
                     },
                     {
-                        data: 'description', name: 'description', render: function (data, type, row) {
-                            if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
+                        data: 'description', name: 'description', render: function (data) {
+                            if (data.length > 10) {
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
                             return data;
@@ -58,8 +57,8 @@
                         data: 'image',
                         name: 'image',
                         searchable: false,
-                        render: function (data, type, row) {
-                            return data; // مقدار HTML که از سرور ارسال شده است نمایش داده می‌شود
+                        render: function (data) {
+                            return data;
                         }
                     },
                     {data: 'currency_id', name: 'currency_id'},
@@ -108,7 +107,6 @@
                     success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
-                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#products-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف !');

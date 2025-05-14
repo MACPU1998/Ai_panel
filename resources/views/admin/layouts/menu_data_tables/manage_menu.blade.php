@@ -17,7 +17,6 @@
     </div>
 
 
-    <!-- جاوا اسکریپت های مورد نیاز Bootstrap و DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -38,14 +37,14 @@
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'title', name: 'title'},
-                    {data: 'icon', name: 'icon', render: function (data, type, row) {
-                            if (data.length > 10) { // اگر طول لینک بیشتر از 10 باشد، کوتاه کن
+                    {data: 'icon', name: 'icon', render: function (data) {
+                            if (data.length > 10) {
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
                             return data;
                         }},
                     {data: 'parent_id', name: 'parent_id'},
-                    {data: 'link', name: 'link', render: function (data, type, row) {
+                    {data: 'link', name: 'link', render: function (data) {
                             if (data.length > 10) {
                                 return `<span title="${data}">${data.substring(0, 10)}...</span>`;
                             }
@@ -87,7 +86,7 @@
         function deleteMenu(menuId) {
             if (confirm("آیا مطمئن هستید که می‌خواهید این منو را حذف کنید؟")) {
                 $.ajax({
-                    url: '/admin/menus/' + menuId, // مسیر روت حذف منو
+                    url: '/admin/menus/' + menuId,
                     type: 'DELETE',
                     data: {
                         _token: '{{ csrf_token() }}'
@@ -96,17 +95,15 @@
                         if (response.success) {
                             alert('منو با موفقیت حذف شد!');
 
-                            // حذف منو از سایدبار
                             $('#menu-item-' + menuId).remove();
 
-                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#menus-table').DataTable().ajax.reload();
                             window.location.reload();
                         } else {
                             alert('خطا در حذف منو!');
                         }
                     },
-                    error: function(xhr, status, error) {
+                    error: function() {
                         alert('خطا در ارسال درخواست!');
                     }
                 });

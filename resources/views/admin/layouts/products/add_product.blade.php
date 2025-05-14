@@ -164,7 +164,6 @@
 
             $(document).ready(function () {
 
-                // فعال‌سازی Dropify
                 $('.dropify').dropify({
                     messages: {
                         'default': 'یک فایل را اینجا بکشید و رها کنید یا کلیک کنید',
@@ -175,27 +174,25 @@
                 });
 
                 var attrs = [];
-                // افزودن ویژگی جدید
                 $("#attr-action #attr-add").on("click", function () {
                     attrs.push({
                         name: $("#attr-action #attr-name").val(),
                         value: $("#attr-action #attr-value").val()
                     });
-                    $("#attr-action #attributes").val(JSON.stringify(attrs)); // ارسال به صورت رشته JSON
+                    $("#attr-action #attributes").val(JSON.stringify(attrs));
 
-                    console.log(JSON.stringify(attrs)); // بررسی داده‌ها در کنسول
+                    console.log(JSON.stringify(attrs));
                     generateList(attrs);
                     return false;
                 });
 
-                // حذف ویژگی
                 $("#attr-action #list-attrs ul").on("click", "#remove", function () {
                     var i = $($(this).parent()).index();
                     delete attrs[i];
                     $(this).parent().remove();
-                    attrs = attrs.filter(isNotNull); // حذف مقادیر null
-                    $("#attr-action input#attributes").val(JSON.stringify(attrs)); // به‌روزرسانی فیلد hidden
-                    console.log(JSON.stringify(attrs)); // بررسی داده‌ها در کنسول
+                    attrs = attrs.filter(isNotNull);
+                    $("#attr-action input#attributes").val(JSON.stringify(attrs));
+                    console.log(JSON.stringify(attrs));
                     return false;
                 });
 
