@@ -79,7 +79,7 @@
                             </a>
                         </li>
 
-                        {{--  ردیف بودن منوهای اضافه شده--}}
+
                         @php
                             $menus = $menus ?? collect();
                             $menus = $menus->sortBy(function($menu) {
@@ -88,7 +88,7 @@
                         @endphp
 
 
-                            <!-- داینامیک کردن منوها -->
+
                         @foreach($menus->where('parent_id', null) as $parent)
                             <li class="sidebar-item {{ $menus->where('parent_id', $parent->id)->count() ? 'has-submenu' : '' }}"
                                 id="menu-item-{{ $parent->id }}">
@@ -138,8 +138,8 @@
         let submenu = document.getElementById(submenuId);
         let icon = document.getElementById("icon-" + submenuId.replace("submenu-", ""));
 
-        console.log("Toggling submenu:", submenuId); // چک کن که شناسه درست ارسال شده
-        console.log("Icon element:", icon); // بررسی کن که آیکون درست انتخاب شده
+        console.log("Toggling submenu:", submenuId);
+        console.log("Icon element:", icon);
 
         if (submenu.style.display === "none" || submenu.style.opacity === "0") {
             submenu.style.display = "block";
@@ -149,7 +149,7 @@
 
             if (icon) {
                 icon.setAttribute("icon", "solar:chevron-up-circle-line-duotone");
-                console.log("Icon changed to up"); // تایید تغییر آیکون
+                console.log("Icon changed to up");
             }
         } else {
             submenu.style.opacity = "0";
@@ -159,7 +159,7 @@
 
             if (icon) {
                 icon.setAttribute("icon", "solar:chevron-down-circle-line-duotone");
-                console.log("Icon changed to down"); // تایید تغییر آیکون
+                console.log("Icon changed to down");
             }
         }
     }
