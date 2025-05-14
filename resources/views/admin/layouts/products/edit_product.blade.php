@@ -140,7 +140,6 @@
                                 <br>
                                 <input type="hidden" id="attributes" name="attributes" value="{{ json_encode($product->attributes) }}">
 
-                                <!-- فیلدهای اضافه کردن ویژگی جدید -->
                                 <input id="attr-name" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
                                 <input id="attr-value" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
                                 <a id="attr-add" style="float:right;margin-left: 5px;" class="btn btn-warning">افزودن</a>
@@ -201,7 +200,6 @@
                     return false;
                 });
 
-                // حذف ویژگی
                 $("#attr-action #list-attrs ul").on("click", "#remove", function () {
                     var i = $($(this).parent()).index();
                     delete attrs[i];
