@@ -30,6 +30,12 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('productAttributes.datatable') }}',
+                stateSave: true,
+                stateLoadParams: function (settings, data) {
+                    if (data.start !== undefined) {
+                        settings._iDisplayStart = data.start;
+                    }
+                },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'name', name: 'name'},

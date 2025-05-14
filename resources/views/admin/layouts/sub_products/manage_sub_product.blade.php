@@ -14,7 +14,7 @@
                     <a href="{{ route('subProducts.create') }}" class="btn btn-success mb-2 w-auto">
                         {{ __("general.add_sub_product") }}
                     </a>
-                    <a href="{{ route('subProducts.create') }}" class="btn btn-success w-auto">
+                    <a href="{{ route('subProducts.create.group') }}" class="btn btn-success w-auto">
                         {{ __("general.add_group_sub_product") }}
                     </a>
                 </div>
@@ -25,7 +25,6 @@
     </div>
 
 
-    <!-- جاوا اسکریپت های مورد نیاز Bootstrap و DataTables -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
@@ -37,6 +36,12 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('subProducts.datatable') }}',
+                stateSave: true,
+                stateLoadParams: function (settings, data) {
+                    if (data.start !== undefined) {
+                        settings._iDisplayStart = data.start;
+                    }
+                },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'product_id', name: 'product_id'},
@@ -88,7 +93,6 @@
                     success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
-                            // بعد از حذف، جدول دوباره بارگذاری می‌شود
                             $('#sub-products-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف !');
