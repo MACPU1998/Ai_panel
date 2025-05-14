@@ -29,6 +29,12 @@
                 processing: true,
                 serverSide: true,
                 ajax: '{{ route('users.datatable') }}',
+                stateSave: true,
+                stateLoadParams: function (settings, data) {
+                    if (data.start !== undefined) {
+                        settings._iDisplayStart = data.start;
+                    }
+                },
                 columns: [
                     {data: 'id', name: 'id'},
                     {data: 'first_name', name: 'first_name'},
