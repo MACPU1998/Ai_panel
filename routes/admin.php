@@ -135,24 +135,14 @@ Route::prefix('admin')->group(function () {
 
     });
 
-    //Route goods
-    Route::prefix('goods')->group(function () {
-        Route::get('/', [GoodsController::class, 'index'])->name('goods.index')->addMeta(true, ["super admin:admin"]);
-        Route::get('/create', [GoodsController::class, 'create'])->name('goods.create')->addMeta(true, ["super admin:admin"]);
-        Route::post('/store', [GoodsController::class, 'store'])->name('goods.store')->addMeta(true, ["super admin:admin"]);
-        Route::get('/data', [GoodsController::class, 'getGoodsData'])->name('goods.getData')->addMeta(true, ["super admin:admin"]);
-        Route::get('/datatable', [GoodsController::class, 'datatable'])->name('goods.datatable')->addMeta(true, ["super admin:admin"]);
-        Route::get('/{goods}/edit', [GoodsController::class, 'edit'])->name('goods.edit')->addMeta(true, ["super admin:admin"]);
-        Route::put('/{goods}/update', [GoodsController::class, 'update'])->name('goods.update')->addMeta(true, ["super admin:admin"]);
-        Route::delete('/{goods}', [GoodsController::class, 'destroy'])->name('goods.destroy')->addMeta(true, ["super admin:admin"]);
-
-    });
 
     //Route subProduct
     Route::prefix('sub-products')->group(function () {
         Route::get('/', [SubProductController::class, 'index'])->name('subProducts.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [SubProductController::class, 'create'])->name('subProducts.create')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create-group', [SubProductController::class, 'createGroup'])->name('subProducts.create.group')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [SubProductController::class, 'store'])->name('subProducts.store')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store-group', [SubProductController::class, 'storeGroup'])->name('subProducts.store.group')->addMeta(true, ["super admin:admin"]);
         Route::get('/data', [SubProductController::class, 'getSubProductData'])->name('subProducts.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [SubProductController::class, 'datatable'])->name('subProducts.datatable')->addMeta(true, ["super admin:admin"]);
         Route::get('/{subProduct}/edit', [SubProductController::class, 'edit'])->name('subProducts.edit')->addMeta(true, ["super admin:admin"]);

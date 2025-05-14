@@ -23,7 +23,8 @@
                                         id="product_id"
                                         name="product_id"
                                         required>
-                                    @foreach($products as $product)
+                                    <option value="">یک محصول را انتخاب کنید</option>
+                                @foreach($products as $product)
                                         <option
                                             value="{{ $product->id }}" {{ $subProduct->product_id == $product->id ? 'selected' : '' }}>
                                             {{ $product->name }}
@@ -127,6 +128,17 @@
                 if (event.key === "Enter") {
                     event.preventDefault();
                 }
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#product_id').select2({
+                placeholder: "یک محصول را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
             });
         });
     </script>

@@ -24,11 +24,11 @@ class SubProductRequest extends FormRequest
     {
         $rules = [
             'product_id' => 'required|integer|exists:products,id',
-            'barcode' => 'string',
+            'barcode' => 'required|string|max:255',
             'serie_year' => 'required|string',
             'serie_month' => 'required|string',
             'label' => 'nullable|string',
-            'status' => 'integer',
+            'status' => 'required|integer',
         ];
 
         return $rules;

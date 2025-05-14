@@ -15,10 +15,10 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="product" class="form-label">{{__("general.product")}}</label>
-                                <select type="text" class="form-control select2 @error('product') is-invalid @enderror"
-                                        id="product"
-                                        name="product"
+                                <label for="product_id" class="form-label">{{__("general.product")}}</label>
+                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
+                                        id="product_id"
+                                        name="product_id"
                                         required>
                                     <option value="">یک محصول را انتخاب کنید</option>
                                     @foreach($products as $product)
@@ -30,6 +30,20 @@
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="label" class="form-label">{{__("general.label")}}</label>
+                                <input type="text" class="form-control @error('label') is-invalid @enderror"
+                                       id="label"
+                                       name="label">
+                                @error('label')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
                                 @enderror
                             </div>
                         </div>
@@ -48,6 +62,7 @@
                                 @enderror
                             </div>
                         </div>
+
 
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -69,20 +84,6 @@
                                        id="serie_month"
                                        name="serie_month">
                                 @error('serie_month')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="label" class="form-label">{{__("general.label")}}</label>
-                                <input type="text" class="form-control @error('label') is-invalid @enderror"
-                                       id="label"
-                                       name="label">
-                                @error('label')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                                 </span>
@@ -125,6 +126,18 @@
             });
         });
     </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#product_id').select2({
+                placeholder: "یک محصول را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+    </script>
+
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\SubProductRequest', '#add_sub_product') !!}
 @endsection
