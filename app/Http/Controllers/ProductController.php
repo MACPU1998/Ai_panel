@@ -3,11 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\ProductDataTable;
-use App\Http\Requests\ProductRequest;
+use App\Http\Requests\Product\ProductRequest;
 use App\Models\Product;
 use App\Models\ProductCurrency;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
 use Yajra\DataTables\DataTables;
 
 class ProductController extends Controller

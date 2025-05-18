@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\SubProductDataTable;
-use App\Http\Requests\SubProductGroupRequest;
-use App\Http\Requests\SubProductRequest;
+use App\Http\Requests\SubProduct\SubProductGroupRequest;
+use App\Http\Requests\SubProduct\SubProductRequest;
 use App\Models\Product;
 use App\Models\SubProduct;
 use Yajra\DataTables\DataTables;

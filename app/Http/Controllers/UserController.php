@@ -3,8 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\DataTables\UsersDataTable;
-use App\Http\Requests\UserRequest;
-use App\Http\Requests\UserUpdateRequest;
+use App\Http\Requests\User\UserRequest;
+use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
