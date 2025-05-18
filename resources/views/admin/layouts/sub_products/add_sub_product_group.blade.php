@@ -9,14 +9,16 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_group_sub_product")}}</h5>
 
-                <form id="add_sub_product" action="{{route('subProducts.store.group')}}" method="POST" class="my-10" enctype="multipart/form-data">
+                <form id="add_sub_product" action="{{route('subProducts.store.group')}}" method="POST" class="my-10"
+                      enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product")}}</label>
-                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
+                                <select type="text"
+                                        class="form-control select2 @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>
@@ -80,7 +82,6 @@
                         </div>
 
 
-
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="count" class="form-label">{{__("general.count")}}</label>
@@ -98,7 +99,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="serie_year" class="form-label">{{__("general.serie_year")}}</label>
-                                <input type="text" class="form-control @error('serie_year') is-invalid @enderror" id="serie_year"
+                                <input type="text" class="form-control @error('serie_year') is-invalid @enderror"
+                                       id="serie_year"
                                        name="serie_year">
                                 @error('serie_year')
                                 <span class="invalid-feedback" role="alert">
@@ -171,6 +173,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\SubProductGroupRequest', '#add_sub_product') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\SubProduct\SubProductGroupRequest', '#add_sub_product') !!}
 @endsection
 

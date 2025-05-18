@@ -126,6 +126,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\UserUpdateRequest', '#edit_user') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\User\UserUpdateRequest', '#edit_user') !!}
 
 @endsection

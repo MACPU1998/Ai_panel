@@ -25,17 +25,12 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        // بررسی و تبدیل رشته JSON به آرایه
         $attributes = json_decode($request->input('attributes'), true);
-
         $product = Product::create($request->validated());
-
-        // ذخیره تصویر با Spatie Media Library
         if ($request->hasFile('image')) {
             $product->addMediaFromRequest('image')->toMediaCollection('product_images');
         }
 
-        // ذخیره ویژگی‌ها
         if (is_array($attributes)) {
             foreach ($attributes as $attribute) {
                 $product->attributes()->create([
@@ -49,7 +44,7 @@ class ProductController extends Controller
         return redirect()->route('products.index')->with('success', 'محصول با موفقیت ایجاد شد.');
     }
 
-    public function getProductData(Request $request)
+    public function getProductData()
     {
         $product = Product::query();
 

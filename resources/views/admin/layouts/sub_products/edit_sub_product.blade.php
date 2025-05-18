@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_sub_product")}}</h5>
 
-                <form id="edit_sub_product" action="{{route('subProducts.update',$subProduct->id)}}" method="POST" class="my-10"
+                <form id="edit_sub_product" action="{{route('subProducts.update',$subProduct->id)}}" method="POST"
+                      class="my-10"
                       enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
@@ -19,12 +20,13 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="product_id" class="form-label">{{__("general.product")}}</label>
-                                <select type="text" class="form-control select2 @error('product_id') is-invalid @enderror"
+                                <select type="text"
+                                        class="form-control select2 @error('product_id') is-invalid @enderror"
                                         id="product_id"
                                         name="product_id"
                                         required>
                                     <option value="">یک محصول را انتخاب کنید</option>
-                                @foreach($products as $product)
+                                    @foreach($products as $product)
                                         <option
                                             value="{{ $product->id }}" {{ $subProduct->product_id == $product->id ? 'selected' : '' }}>
                                             {{ $product->name }}
@@ -46,7 +48,7 @@
                                        id="barcode"
                                        value="{{ old('barcode', $subProduct->barcode) }}"
                                        name="barcode"
-                                required>
+                                       required>
                                 @error('barcode')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
@@ -58,7 +60,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="serie_year" class="form-label">{{__("general.serie_year")}}</label>
-                                <input type="text" class="form-control @error('serie_year') is-invalid @enderror" id="serie_year"
+                                <input type="text" class="form-control @error('serie_year') is-invalid @enderror"
+                                       id="serie_year"
                                        name="serie_year"
                                        value="{{ old('serie_year', $subProduct->serie_year) }}">
                                 @error('serie_year')
@@ -144,6 +147,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\SubProductRequest', '#edit_sub_product') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\SubProduct\SubProductRequest', '#edit_sub_product') !!}
 
 @endsection

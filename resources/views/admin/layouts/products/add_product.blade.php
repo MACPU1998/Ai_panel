@@ -9,7 +9,8 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_product")}}</h5>
 
-                <form id="add_product" action="{{route('products.store')}}" method="POST" class="my-10" enctype="multipart/form-data">
+                <form id="add_product" action="{{route('products.store')}}" method="POST" class="my-10"
+                      enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
@@ -44,7 +45,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="currency_id" class="form-label">{{__("general.currency")}}</label>
-                                <select type="text" class="form-control select2 @error('currency_id') is-invalid @enderror"
+                                <select type="text"
+                                        class="form-control select2 @error('currency_id') is-invalid @enderror"
                                         id="currency_id"
                                         name="currency_id"
                                         required>
@@ -63,10 +65,24 @@
                         </div>
 
                         <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serial_prefix" class="form-label">{{__("general.serial_prefix")}}</label>
+                                <input type="text" class="form-control @error('serial_prefix') is-invalid @enderror"
+                                       id="serial_prefix"
+                                       name="serial_prefix">
+                                @error('serial_prefix')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
 
+                        <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="price" class="form-label">{{__("general.price")}}</label>
-                                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                       id="price"
                                        name="price"
                                        required>
                                 @error('price')
@@ -247,7 +263,7 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\ProductRequest', '#add_product') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Product\ProductRequest', '#add_product') !!}
 
 @endsection
 

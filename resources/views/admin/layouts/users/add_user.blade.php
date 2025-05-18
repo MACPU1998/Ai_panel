@@ -152,6 +152,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\UserRequest', '#add_user') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\User\UserRequest', '#add_user') !!}
 
 @endsection

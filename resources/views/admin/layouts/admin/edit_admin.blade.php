@@ -18,7 +18,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="first_name" class="form-label">{{__("general.name")}}</label>
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
+                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
+                                       id="first_name"
                                        name="first_name"
                                        value="{{auth()->guard('admin')->user()->first_name}}"
                                        required>
@@ -33,7 +34,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
-                                <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
+                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
+                                       id="last_name"
                                        name="last_name"
                                        value="{{auth()->guard('admin')->user()->last_name}}"
                                        required>
@@ -95,7 +97,7 @@
         });
     </script>
 
-        <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-        {!! JsValidator::formRequest('App\Http\Requests\AdminUpdateRequest', '#edit_admin') !!}
+    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\AdminUpdateRequest', '#edit_admin') !!}
 
 @endsection

@@ -52,6 +52,7 @@ class Product extends Model implements HasMedia
         'description',
         'status',
         'currency_id',
+        'serial_prefix',
         'price',
         'final_price'
     ];

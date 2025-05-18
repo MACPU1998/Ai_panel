@@ -340,6 +340,8 @@ return [
         'parent_id' => 'آی دی والد',
         'link' => 'لینک',
         'updated_at' => 'تاریخ آپدیت',
+        'serial_prefix' => 'شناسه کالا',
+
     ],
 
 ];

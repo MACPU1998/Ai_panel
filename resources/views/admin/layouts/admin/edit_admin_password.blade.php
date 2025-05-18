@@ -66,6 +66,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\AdminPasswordUpdateRequest', '#edit_admin_password') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Admin\AdminPasswordUpdateRequest', '#edit_admin_password') !!}
 
 @endsection

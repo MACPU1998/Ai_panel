@@ -47,7 +47,8 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="currency_id" class="form-label">{{__("general.currency")}}</label>
-                                <select type="text" class="form-control select2 @error('currency_id') is-invalid @enderror"
+                                <select type="text"
+                                        class="form-control select2 @error('currency_id') is-invalid @enderror"
                                         id="currency_id"
                                         name="currency_id"
                                         required>
@@ -67,14 +68,29 @@
                         </div>
 
                         <div class="col-md-6">
-
                             <div class="mb-3">
                                 <label for="price" class="form-label">{{__("general.price")}}</label>
-                                <input type="number" class="form-control @error('price') is-invalid @enderror" id="price"
+                                <input type="number" class="form-control @error('price') is-invalid @enderror"
+                                       id="price"
                                        name="price"
                                        value="{{ old('price', $product->price) }}"
                                        required>
                                 @error('price')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serial_prefix" class="form-label">{{__("general.serial_prefix")}}</label>
+                                <input type="text" class="form-control @error('serial_prefix') is-invalid @enderror"
+                                       id="serial_prefix"
+                                       name="serial_prefix"
+                                       value="{{ old('serial_prefix', $product->serial_prefix) }}">
+                                @error('serial_prefix')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -138,19 +154,25 @@
                                     <small><span class="text-white">میتوانید برای محصول ویژگی تعریف کنید</span></small>
                                 </div>
                                 <br>
-                                <input type="hidden" id="attributes" name="attributes" value="{{ json_encode($product->attributes) }}">
+                                <input type="hidden" id="attributes" name="attributes"
+                                       value="{{ json_encode($product->attributes) }}">
 
-                                <input id="attr-name" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
-                                <input id="attr-value" class="form-control" style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
-                                <a id="attr-add" style="float:right;margin-left: 5px;" class="btn btn-warning">افزودن</a>
+                                <input id="attr-name" class="form-control"
+                                       style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
+                                <input id="attr-value" class="form-control"
+                                       style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
+                                <a id="attr-add" style="float:right;margin-left: 5px;"
+                                   class="btn btn-warning">افزودن</a>
 
                                 <div id="list-attrs" class="form-group">
                                     <ul>
                                         @foreach($product->attributes as $key => $attribute)
                                             <li data-index="{{ $key }}">
                                                 <div>
-                                                    <input type="text" name="attributes[{{ $key }}][name]" value="{{ $attribute['name'] }}" class="form-control">
-                                                    <input type="text" name="attributes[{{ $key }}][value]" value="{{ $attribute['value'] }}" class="form-control">
+                                                    <input type="text" name="attributes[{{ $key }}][name]"
+                                                           value="{{ $attribute['name'] }}" class="form-control">
+                                                    <input type="text" name="attributes[{{ $key }}][value]"
+                                                           value="{{ $attribute['value'] }}" class="form-control">
                                                     <a href="#" class="remove-attr btn btn-danger btn-sm">حذف</a>
                                                 </div>
                                             </li>
@@ -216,7 +238,6 @@
                 });
 
 
-
                 function generateList(data) {
                     $("#attr-action #list-attrs ul").empty();
                     if (data != null) {
@@ -270,6 +291,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\ProductRequest', '#edit_product') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Product\ProductRequest', '#edit_product') !!}
 
 @endsection

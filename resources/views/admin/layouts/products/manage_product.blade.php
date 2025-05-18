@@ -62,6 +62,7 @@
                         }
                     },
                     {data: 'currency_id', name: 'currency_id'},
+                    {data: 'serial_prefix', name: 'serial_prefix'},
                     {data: 'price', name: 'price'},
                     {data: 'final_price', name: 'final_price'},
                     {data: 'created_at', name: 'created_at'},

@@ -96,5 +96,6 @@ return [
     'status' => 'وضعیت',
     'created_at' => 'تاریخ ایجاد',
     'updated_at' => 'تاریخ آپدیت',
+    'serial_prefix' => 'شناسه کالا',
 
 ];

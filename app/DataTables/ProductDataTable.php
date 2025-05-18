@@ -100,6 +100,7 @@ class ProductDataTable extends DataTable
             Column::make('status')->title('وضعیت'),
             Column::make('image')->title('عکس'),
             Column::make('currency_id')->title('ارز'),
+            Column::make('serial_prefix')->title('شناسنه کالا'),
             Column::make('price')->title('قیمت'),
             Column::make('final_price')->title('قیمت نهایی'),
             Column::make('created_at')->title('تاریخ ایجاد'),

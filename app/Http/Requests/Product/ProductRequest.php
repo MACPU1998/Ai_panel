@@ -26,8 +26,9 @@ class ProductRequest extends FormRequest
             'description' => 'nullable|string|min:3',
             'status' => 'required',
             'currency_id' => 'required',
-            'price' => 'required',
-            'final_price' => 'nullable',
+            'serial_prefix' => 'nullable|string|min:3',
+            'price' => 'required|numeric|min:0',
+            'final_price' => 'nullable|numeric|min:0',
             'attributes' => 'nullable|string',
         ];
 
