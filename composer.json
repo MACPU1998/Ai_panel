@@ -18,6 +18,7 @@
         "yajra/laravel-datatables-oracle": "11.0"
     },
     "require-dev": {
+        "dipeshsukhia/laravel-country-state-city-data": "^2.0",
         "fakerphp/faker": "^1.23",
         "laravel/pail": "^1.1",
         "laravel/pint": "^1.13",
