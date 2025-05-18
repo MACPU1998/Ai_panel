@@ -65,6 +65,21 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="serial_prefix" class="form-label">{{__("general.serial_prefix")}}</label>
+                                <input type="text" class="form-control @error('serial_prefix') is-invalid @enderror"
+                                       id="serial_prefix"
+                                       name="serial_prefix"
+                                       required>
+                                @error('serial_prefix')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
 
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -140,6 +155,23 @@
             });
         });
     </script>
+
+    <script>
+        $('#product_id').on('change', function() {
+            let productId = $(this).val();
+
+            if (productId) {
+                $.get('/admin/sub-products/products/' + productId + '/info', function(product) {
+                    $('#serial_prefix').val(product.serial_prefix); // فرض کنیم این فیلد در جدول products هست
+                }).fail(function() {
+                    alert('محصول پیدا نشد یا خطایی رخ داده است.');
+                });
+            }
+        });
+
+    </script>
+
+
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
     {!! JsValidator::formRequest('App\Http\Requests\SubProduct\SubProductRequest', '#add_sub_product') !!}

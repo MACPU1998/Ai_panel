@@ -40,7 +40,6 @@ return [
     'serial_date' => 'تاریخ سری',
     'version' => 'نسخه',
     'count' => 'تعداد',
-    'prefix' => 'پیشوند',
 
     'manage_product' => 'مدیریت محصولات',
     'add_product' => 'اضافه کردن محصولات',

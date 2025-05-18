@@ -53,11 +53,11 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="prefix" class="form-label">{{__("general.prefix")}}</label>
-                                <input type="text" class="form-control @error('prefix') is-invalid @enderror"
-                                       id="prefix"
-                                       name="prefix">
-                                @error('prefix')
+                                <label for="serial_prefix" class="form-label">{{__("general.serial_prefix")}}</label>
+                                <input type="text" class="form-control @error('serial_prefix') is-invalid @enderror"
+                                       id="serial_prefix"
+                                       name="serial_prefix">
+                                @error('serial_prefix')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -170,6 +170,21 @@
                 dropdownParent: $('body')
             });
         });
+    </script>
+
+    <script>
+        $('#product_id').on('change', function() {
+            let productId = $(this).val();
+
+            if (productId) {
+                $.get('/admin/sub-products/products/' + productId + '/info', function(product) {
+                    $('#serial_prefix').val(product.serial_prefix); // فرض کنیم این فیلد در جدول products هست
+                }).fail(function() {
+                    alert('محصول پیدا نشد یا خطایی رخ داده است.');
+                });
+            }
+        });
+
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>

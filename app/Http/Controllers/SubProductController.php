@@ -12,6 +12,21 @@ use Yajra\DataTables\DataTables;
 class SubProductController extends Controller
 {
 
+    public function getProductInfo($id)
+    {
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['error' => 'Product not found'], 404);
+        }
+
+        return response()->json([
+            'serial_prefix' => $product->serial_prefix,
+            'price' => $product->price,
+            'final_price' => $product->final_price,
+        ]);
+    }
+
     public function index(SubProductDataTable $dataTable)
     {
         return $dataTable->render('admin.layouts.sub_products.manage_sub_product');
@@ -19,19 +34,23 @@ class SubProductController extends Controller
 
     public function create()
     {
-        $products = Product::where('status', 1)->get();
+        $products = Product::where('status', 1)->get(['id', 'name', 'serial_prefix']);
         return view('admin.layouts.sub_products.add_sub_product', compact('products'));
     }
 
     public function createGroup()
     {
-        $products = Product::where('status', 1)->get();
+        $products = Product::where('status', 1)->get(['id', 'name', 'serial_prefix']);
         return view('admin.layouts.sub_products.add_sub_product_group', compact('products'));
     }
 
     public function store(SubProductRequest $request)
     {
-        SubProduct::create($request->validated());
+        $validated = $request->validated();
+        $finalBarcode = trim($validated['serial_prefix']) . trim($validated['barcode']);
+        unset($validated['serial_prefix']);
+        $validated['barcode'] = $finalBarcode;
+        SubProduct::create($validated);
         return redirect()->route('subProducts.index')->with('success', 'زیر محصول با موفقیت ایجاد شد.');
     }
 
@@ -40,11 +59,12 @@ class SubProductController extends Controller
         $data = $request->validated();
 
         $count = $data['count'] ?? 1;
-        $prefix = $data['prefix'] ?? '';
+        $serial_prefix = $data['serial_prefix'] ?? '';
+        $barcode = $data['barcode'];
         $serieYear = $data['serie_year'];
         $serieMonth = $data['serie_month'];
 
-        $base = $prefix . $serieYear . $serieMonth;
+        $base = $serial_prefix .$barcode. $serieYear . $serieMonth;
 
         $lastNumber = SubProduct::where('barcode', 'like', $base . '%')
             ->count();

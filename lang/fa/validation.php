@@ -277,7 +277,6 @@ return [
         "barcode" => "بارکد",
         'version' => 'نسخه',
         'count' => 'تعداد',
-        'prefix' => 'پیشوند',
         'edit_admin'=>'ویرایش مشخصات ادمین',
         'edit_admin_password' => 'ویرایش رمز ادمین',
         'manage_permission' => 'مدیریت مجوزها',
