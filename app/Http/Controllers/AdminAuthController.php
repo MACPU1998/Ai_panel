@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\AdminPasswordUpdateRequest;
-use App\Http\Requests\AdminUpdateRequest;
+use App\Http\Requests\Admin\AdminPasswordUpdateRequest;
+use App\Http\Requests\Admin\AdminUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
