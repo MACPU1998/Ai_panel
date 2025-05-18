@@ -60,7 +60,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:account"></iconify-icon>
-                                <span class="hide-menu">{{__("general.manage_user")}}</span>
+                                <span class="hide-menu">{{__("general.manage_amin")}}</span>
                             </a>
                         </li>
 

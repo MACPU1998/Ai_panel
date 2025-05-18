@@ -1,13 +1,13 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'اضافه کردن کاربر جدید')
+@section('title', 'اضافه کردن ادمین جدید')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.add_user")}}</h5>
+                <h5 class="mb-4">{{__("general.add_admin")}}</h5>
 
                 <form id="add_user" action="{{route('users.store')}}" method="POST" class="my-10">
                     @csrf

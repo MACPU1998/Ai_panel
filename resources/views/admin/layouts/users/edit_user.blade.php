@@ -1,13 +1,13 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'ویرایش کاربر')
+@section('title', 'ویرایش ادمین')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_user")}}</h5>
+                <h5 class="mb-4">{{__("general.edit_admin")}}</h5>
 
                 <form id="edit_user" action="{{route('users.update',$admin->id)}}" method="POST" class="my-10">
                     @csrf

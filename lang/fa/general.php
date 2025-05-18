@@ -22,6 +22,10 @@ return [
     'edit_user' => 'ویرایش کاربر',
     'edit_user_password' => 'ویرایش رمز کاربر',
 
+    'manage_amin' => 'مدیریت ادمین',
+    'add_admin' => 'اضافه کردن ادمین',
+
+
     'manage_menu' => 'مدیریت منوها',
     'add_menu' => 'اضافه کردن منو',
     'edit_menu' => 'ویرایش منو',

@@ -1,13 +1,13 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'ویرایش رمز کاربر')
+@section('title', 'ویرایش رمز ادمین')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_user_password")}}</h5>
+                <h5 class="mb-4">{{__("general.edit_admin_password")}}</h5>
 
                 <form id="edit_user_passwors" action="{{route('users.update.password',$user->id)}}" method="POST"
                       class="my-10">

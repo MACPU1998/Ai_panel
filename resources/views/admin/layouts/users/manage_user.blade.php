@@ -1,6 +1,6 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'مدیریت کاربران')
+@section('title', 'مدیریت ادمین')
 
 @section('content')
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
@@ -8,7 +8,7 @@
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8 my-10">
-                <h5 class="mb-4">{{__("general.manage_user")}}</h5>
+                <h5 class="mb-4">{{__("general.manage_admin")}}</h5>
                 <a href="{{route('users.create')}}" class="btn btn-success mb-3">{{__("general.add_user")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
