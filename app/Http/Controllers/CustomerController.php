@@ -2,66 +2,58 @@
 
 namespace App\Http\Controllers;
 
-use App\DataTables\ProductDataTable;
-use App\Http\Requests\Product\ProductRequest;
-use App\Models\Product;
-use App\Models\ProductCurrency;
-use Illuminate\Http\Request;
+use App\DataTables\CustomerDataTable;
+use App\Http\Requests\Customer\CustomerRequest;
+use App\Models\City;
+use App\Models\Country;
+use App\Models\Customer;
+use App\Models\State;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
 {
 
-    public function index(ProductDataTable $dataTable)
+    public function index(CustomerDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.products.manage_product');
+        return $dataTable->render('admin.layouts.customers.manage_customer');
     }
 
     public function create()
     {
-        $currencies = ProductCurrency::where('status', 1)->get();
-        return view('admin.layouts.products.add_product', compact('currencies'));
+        $country = Country::all();
+        $state = State::all();
+        $city = City::all();
+        return view('admin.layouts.customers.add_customer', compact('country','state','city'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(CustomerRequest $request)
     {
-        $attributes = json_decode($request->input('attributes'), true);
-        $product = Product::create($request->validated());
+        $customer = Customer::create($request->validated());
         if ($request->hasFile('image')) {
-            $product->addMediaFromRequest('image')->toMediaCollection('product_images');
+            $customer->addMediaFromRequest('image')->toMediaCollection('customer_images');
         }
 
-        if (is_array($attributes)) {
-            foreach ($attributes as $attribute) {
-                $product->attributes()->create([
-                    'name' => $attribute['name'],
-                    'value' => $attribute['value'],
-                    'status' => 1,
-                ]);
-            }
-        }
-
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت ایجاد شد.');
+        return redirect()->route('customers.index')->with('success', 'محصول با موفقیت ایجاد شد.');
     }
 
     public function getProductData()
     {
-        $product = Product::query();
+        $customer = Customer::query();
 
-        return DataTables::of($product)
-            ->addColumn('action', function ($product) {
-                return '<a href="' . route('products.edit', $product->id) . '" class="btn btn-primary">ویرایش</a>';
+        return DataTables::of($customer)
+            ->addColumn('action', function ($customer) {
+                return '<a href="' . route('customers.edit', $customer->id) . '" class="btn btn-primary">ویرایش</a>';
             })
             ->rawColumns(['action'])
             ->make(true);
     }
 
-    public function datatable(ProductDataTable $dataTable)
+    public function datatable(CustomerDataTable $dataTable)
     {
         return $dataTable->ajax();
     }
 
-    public function edit(Product $product)
+    public function edit(Customer $product)
     {
         $currencies = ProductCurrency::where('status', 1)->get();
         $product = Product::with('attributes')->find($product->id);

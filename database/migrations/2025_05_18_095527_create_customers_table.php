@@ -17,7 +17,7 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('phone');
             $table->string('national_id')->nullable();
-            $table->date('birth_date')->nullable();
+            $table->timestamp('birth_date')->nullable();
             $table->bigInteger('country_id')->nullable();
             $table->bigInteger('state_id')->nullable();
             $table->bigInteger('city_id')->nullable();

@@ -153,16 +153,16 @@ Route::prefix('admin')->group(function () {
     });
 
 
-    //Route customer
+    //Route customers
     Route::prefix('customers')->group(function () {
         Route::get('/', [CustomerController::class, 'index'])->name('customers.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [CustomerController::class, 'create'])->name('customers.create')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [CustomerController::class, 'store'])->name('customers.store')->addMeta(true, ["super admin:admin"]);
         Route::get('/data', [CustomerController::class, 'getCustomersData'])->name('customers.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [CustomerController::class, 'datatable'])->name('customers.datatable')->addMeta(true, ["super admin:admin"]);
-        Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->addMeta(true, ["super admin:admin"]);
-        Route::put('/{customer}/update', [CustomerController::class, 'update'])->name('customers.update')->addMeta(true, ["super admin:admin"]);
-        Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{customers}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{customers}/update', [CustomerController::class, 'update'])->name('customers.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{customers}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
 
     });
 

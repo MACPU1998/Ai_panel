@@ -17,11 +17,16 @@ return [
     'current_role' => 'نقش فعلی: ',
     'edit_role' => 'ویرایش نقش',
 
-    'manage_user' => 'مدیریت کاربران',
-    'add_user' => 'اضافه کردن کاربر',
-    'edit_user' => 'ویرایش کاربر',
-    'edit_user_password' => 'ویرایش رمز کاربر',
+    'manage_customer' => 'مدیریت مشتری',
+    'add_customer' => 'اضافه کردن مشتری',
+    'edit_customer' => 'ویرایش مشتری',
 
+    'manage_order' => 'مدیریت سفارشات',
+    'add_order' => 'اضافه کردن شفارش',
+    'edit_order' => 'ویرایش سفارش',
+    'order' => 'سفارشات',
+
+    'manage_admin' => 'مدیریت ادمین',
     'manage_amin' => 'مدیریت ادمین',
     'add_admin' => 'اضافه کردن ادمین',
 
@@ -100,5 +105,6 @@ return [
     'created_at' => 'تاریخ ایجاد',
     'updated_at' => 'تاریخ آپدیت',
     'serial_prefix' => 'شناسه کالا',
+    'dashboard' => 'داشبورد',
 
 ];

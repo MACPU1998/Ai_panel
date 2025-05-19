@@ -46,14 +46,14 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('admin.dashboard')}}" aria-expanded="false">
                                 <iconify-icon icon="hugeicons:home-09"></iconify-icon>
-                                <span class="hide-menu">داشبورد</span>
+                                <span class="hide-menu">{{__("general.dashboard")}}</span>
                             </a>
                         </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('menus.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:menu"></iconify-icon>
-                                <span class="hide-menu">مدیریت منوها</span>
+                                <span class="hide-menu">{{__("general.manage_menu")}}</span>
                             </a>
                         </li>
 
@@ -61,6 +61,21 @@
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:account"></iconify-icon>
                                 <span class="hide-menu">{{__("general.manage_amin")}}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('customers.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <span class="hide-menu">{{__("general.manage_customer")}}</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <span class="hide-menu">{{__("general.order")}}</span>
                             </a>
                         </li>
 

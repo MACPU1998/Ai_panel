@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Product;
+use App\Models\Customer;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Morilog\Jalali\Jalalian;
 use Yajra\DataTables\EloquentDataTable;
@@ -20,44 +20,42 @@ class CustomerDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('image', function ($product) {
-                $media = $product->getFirstMediaUrl('product_images');
+            ->addColumn('image', function ($customer) {
+                $media = $customer->getFirstMediaUrl('customer_images');
                 return $media ? '<img src="' . $media . '" class="img-thumbnail" width="50">' : 'بدون تصویر';
             })
             ->rawColumns(['image', 'action'])
-            ->editColumn('status', function ($product) {
-                return $product->status == 1
-                    ? 'فعال'
-                    : 'غیرفعال';
+            ->editColumn('national_id', function ($customer) {
+                return $customer->national_id ? $customer->national_id : '-';
             })
-            ->editColumn('description', function ($product) {
-                return $product->description ? $product->description : '-';
+            ->editColumn('birth_date', function ($customer) {
+                return $customer->birth_date ? $customer->birth_date : '-';
             })
-            ->editColumn('final_price', function ($product) {
-                return $product->final_price ? $product->final_price : '-';
+            ->editColumn('country_id', function ($customer) {
+                return $customer->country_id ? $customer->country_id : '-';
             })
-            ->editColumn('serial_prefix', function ($product) {
-                return $product->serial_prefix ? $product->serial_prefix : '-';
+            ->editColumn('state_id', function ($customer) {
+                return $customer->state_id ? $customer->state_id : '-';
             })
-            ->editColumn('currency_id', function ($product) {
-                return $product->currency_id ? $product->currency->slug : '-';
+            ->editColumn('city_id', function ($customer) {
+                return $customer->city_id ? $customer->city_id : '-';
             })
-            ->addColumn('created_at', function ($product) {
-                if ($product->created_at) {
-                    return Jalalian::fromCarbon($product->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
+            ->addColumn('created_at', function ($customer) {
+                if ($customer->created_at) {
+                    return Jalalian::fromCarbon($customer->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
-            ->addColumn('updated_at', function ($product) {
-                if ($product->updated_at) {
-                    return Jalalian::fromCarbon($product->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
+            ->addColumn('updated_at', function ($customer) {
+                if ($customer->updated_at) {
+                    return Jalalian::fromCarbon($customer->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
-                return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
+                return '-';
             })
-            ->addColumn('action', function ($product) {
+            ->addColumn('action', function ($customer) {
                 return '
-                <a href="' . route('products.edit', $product->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteProduct(' . $product->id . ')"><i class="bi bi-trash"></i></button>
+                <a href="' . route('customers.edit', $customer->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
+               <button class="btn btn-sm btn-danger" onclick="deleteCustomer(' . $customer->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
             ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
@@ -67,9 +65,9 @@ class CustomerDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Product $product): QueryBuilder
+    public function query(Customer $customer): QueryBuilder
     {
-        return $product->newQuery()->with('currency');
+        return $customer->newQuery();
     }
 
     /**
@@ -78,9 +76,9 @@ class CustomerDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('products-table')
+            ->setTableId('customers-table')
             ->columns($this->getColumns())
-            ->minifiedAjax(route('products.datatable')) // مسیر ajax
+            ->minifiedAjax(route('customers.datatable'))
             ->orderBy(0)
             ->parameters([
                 'dom' => 'Bfrtip',
@@ -95,14 +93,15 @@ class CustomerDataTable extends DataTable
     {
         return [
             Column::make('id')->title('شناسه'),
-            Column::make('name')->title('نام'),
-            Column::make('description')->title('توضیحات'),
-            Column::make('status')->title('وضعیت'),
+            Column::make('first_name')->title('نام'),
+            Column::make('last_name')->title('نام خانوادگی'),
+            Column::make('phone')->title('شماره همراه'),
+            Column::make('national_id')->title('کد ملی'),
+            Column::make('birth_date')->title('تاریخ تولد'),
+            Column::make('country_id')->title('کشور'),
+            Column::make('state_id')->title('استان'),
+            Column::make('city_id')->title('شهر'),
             Column::make('image')->title('عکس'),
-            Column::make('currency_id')->title('ارز'),
-            Column::make('serial_prefix')->title('شناسنه کالا'),
-            Column::make('price')->title('قیمت'),
-            Column::make('final_price')->title('قیمت نهایی'),
             Column::make('created_at')->title('تاریخ ایجاد'),
             Column::make('updated_at')->title('تاریخ آپدیت'),
             Column::computed('action')
@@ -118,6 +117,6 @@ class CustomerDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'Product_' . date('YmdHis');
+        return 'Customer_' . date('YmdHis');
     }
 }
