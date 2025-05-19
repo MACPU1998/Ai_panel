@@ -26,6 +26,10 @@ class CustomerRequest extends FormRequest
             'last_name' => 'required|string|min:3|max:255',
             'phone'=> 'required|numeric|digits_between:0,9',
             'national_id'=>'nullable|numeric|digits_between:0,9',
+            'birth_date'=>'nullable',
+            'country_id'=>'nullable',
+            'state_id'=>'nullable',
+            'city_id'=>'nullable',
         ];
 
         if ($this->isMethod('post')) {

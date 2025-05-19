@@ -1,6 +1,6 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'اضافه کردن محصول جدید')
+@section('title', 'اضافه کردن مشتری جدید')
 
 @section('content')
 
@@ -96,13 +96,52 @@
                                         class="form-control select2 @error('country_id') is-invalid @enderror"
                                         id="country_id"
                                         name="country_id">
-                                    <option value="">یک کشور را انتخاب کنید</option>
-                                    @foreach($currencies as $currency)
-                                        <option value="{{$currency->id}}">{{$currency->slug}}</option>
-
+                                    <option value="">کشور خود را انتخاب</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{$country->id}}">{{$country->name}}</option>
                                     @endforeach
                                 </select>
-                                @error('currency_id')
+                                @error('country_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="state_id" class="form-label">{{__("general.state")}}</label>
+                                <select type="text"
+                                        class="form-control select2 @error('state_id') is-invalid @enderror"
+                                        id="state_id"
+                                        name="state_id">
+                                    <option value="">استان خود را انتخاب کنید</option>
+                                    @foreach($states as $state)
+                                        <option value="{{$state->id}}">{{$state->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('state_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="city_id" class="form-label">{{__("general.city")}}</label>
+                                <select type="text"
+                                        class="form-control select2 @error('city_id') is-invalid @enderror"
+                                        id="city_id"
+                                        name="city_id">
+                                    <option value="">شهر خود را انتخاب کنید</option>
+                                    @foreach($cities as $city)
+                                        <option value="{{$city->id}}">{{$city->name}}</option>
+                                    @endforeach
+                                </select>
+                                @error('city_id')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -127,32 +166,6 @@
 
                     </div>
 
-                    <div id="attr-action" class="col-md-5">
-
-                        <div class="card card-inverse card-success text-white bg-success">
-                            <div class="card-header">مشخصات</div>
-                            <div class="card-body">
-                                <div class="col-md-12">
-                                    <small><span
-                                            class="text-white">میتوانید برای محصول ویژگی تعریف کنید</span></small>
-                                </div>
-                                <br>
-                                <input type="text" id="map_data" value="51" name="id" hidden="">
-                                <input type="text" id="attributes" name="attributes" hidden="">
-                                <a id="attr-add" style="float:right;margin-left: 5px;" class="btn btn-warning">تایید</a>
-                                <input id="attr-name" class="form-control"
-                                       style="float:right;width:120px;margin-left: 5px;" placeholder="نام مشخصه">
-                                <input id="attr-value" class="form-control"
-                                       style="float:right;width:120px;margin-left: 5px;" placeholder="مقدار">
-                                <div id="list-attrs" class="form-group">
-                                    <ul>
-
-
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
 
                     <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
                 </form>
@@ -219,13 +232,6 @@
             });
         });
 
-        function GetDynamicTextBox(value) {
-            return '<div class="d-flex gap-3 mb-3">' +
-                '<input name="attributes[][name]" type="text" class="form-control" value="' + value + '" />' +
-                '<input name="attributes[][value]" type="text" class="form-control" />' +
-                '</div>';
-        }
-
     </script>
 
     <script>
@@ -240,8 +246,31 @@
 
     <script>
         $(document).ready(function () {
-            $('#currency_id').select2({
-                placeholder: "یک ارز را انتخاب کنید",
+            $('#country_id').select2({
+                placeholder: "کشور خود را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#state_id').select2({
+                placeholder: "استان خود را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function () {
+            $('#city_id').select2({
+                placeholder: "شهر خود را انتخاب کنید",
                 allowClear: false,
                 width: '100%',
                 dropdownParent: $('body')
@@ -250,7 +279,7 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Product\ProductRequest', '#add_product') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\Customer\CustomerRequest', '#add_customer') !!}
 
 @endsection
 

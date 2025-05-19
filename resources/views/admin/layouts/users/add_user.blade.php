@@ -16,7 +16,7 @@
 
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="first_name" class="form-label">{{__("general.name")}}</label>
+                                <label for="first_name" class="form-label">{{__("general.first_name")}}</label>
                                 <input type="text" class="form-control @error('first_name') is-invalid @enderror"
                                        id="first_name"
                                        name="first_name" autocomplete="off"

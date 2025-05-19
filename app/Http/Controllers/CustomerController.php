@@ -20,10 +20,10 @@ class CustomerController extends Controller
 
     public function create()
     {
-        $country = Country::all();
-        $state = State::all();
-        $city = City::all();
-        return view('admin.layouts.customers.add_customer', compact('country','state','city'));
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
+        return view('admin.layouts.customers.add_customer', compact('countries','states','cities'));
     }
 
     public function store(CustomerRequest $request)
@@ -53,62 +53,44 @@ class CustomerController extends Controller
         return $dataTable->ajax();
     }
 
-    public function edit(Customer $product)
+    public function edit(Customer $customer)
     {
-        $currencies = ProductCurrency::where('status', 1)->get();
-        $product = Product::with('attributes')->find($product->id);
-        $attributes = json_decode($product->attributes, true);
+        $countries = Country::all();
+        $states = State::all();
+        $cities = City::all();
 
-        return view('admin.layouts.products.edit_product', [
-            'currencies' => $currencies,
-            'product' => $product,
-            'attributes' => $attributes,
-            'image_url' => $product->getFirstMediaUrl('product_images')
+        return view('admin.layouts.customers.edit_customer', [
+            'countries' => $countries,
+            'states' => $states,
+            'cities' => $cities,
+            'customer' => $customer,
+            'image_url' => $customer->getFirstMediaUrl('customer_images')
 
         ]);
     }
 
-    public function update(ProductRequest $request, Product $product)
+    public function update(CustomerRequest $request, Customer $customer)
     {
-        // بررسی و تبدیل رشته JSON به آرایه
-        $attributes = json_decode($request->input('attributes'), true);
-
-        // به‌روزرسانی اطلاعات محصول
-        $product->update($request->validated());
+        $customer->update($request->validated());
         // حذف تصویر قبلی و آپلود جدید
         if ($request->hasFile('image')) {
-            if ($product->hasMedia('product_images')) {
-                $product->clearMediaCollection('product_images');
+            if ($customer->hasMedia('customer_images')) {
+                $customer->clearMediaCollection('customer_images');
             }
-            $product->addMediaFromRequest('image')->toMediaCollection('product_images');
+            $customer->addMediaFromRequest('image')->toMediaCollection('customer_images');
         }
 
-        // حذف ویژگی‌های قبلی
-        $product->attributes()->delete();
-
-        // ذخیره ویژگی‌های جدید
-        if (is_array($attributes)) {
-            foreach ($attributes as $attribute) {
-                $product->attributes()->create([
-                    'name' => $attribute['name'],
-                    'value' => $attribute['value'],
-                    'status' => 1,
-                ]);
-            }
-        }
-
-        return redirect()->route('products.index')->with('success', 'محصول با موفقیت ویرایش شد.');
+        return redirect()->route('customers.index')->with('success', 'مشتری با موفقیت ویرایش شد.');
     }
 
-    public function destroy(Product $product)
+    public function destroy(Customer $customer)
     {
-
         try {
-            $product->clearMediaCollection('product_images');
-            $product->delete();
+            $customer->clearMediaCollection('customer_images');
+            $customer->delete();
             return response()->json(['success' => true], 200);
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'خطا در حذف محصول'], 500);
+            return response()->json(['success' => false, 'message' => 'خطا در حذف مشتری'], 500);
         }
     }
 
