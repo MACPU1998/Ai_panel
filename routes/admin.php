@@ -4,6 +4,7 @@ use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
 use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductController;
@@ -163,6 +164,20 @@ Route::prefix('admin')->group(function () {
         Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{customer}/update', [CustomerController::class, 'update'])->name('customers.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
+
+    });
+
+
+    //Route orders
+    Route::prefix('orders')->group(function () {
+        Route::get('/', [OrderController::class, 'index'])->name('orders.index')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [CustomerController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [CustomerController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/data', [CustomerController::class, 'getCustomersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [CustomerController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{order}/edit', [CustomerController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{order}/update', [CustomerController::class, 'update'])->name('orders.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{order}', [CustomerController::class, 'destroy'])->name('orders.destroy')->addMeta(true, ["super admin:admin"]);
 
     });
 
