@@ -3,7 +3,6 @@
 use App\Http\Controllers\AdminAuthController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
-use App\Http\Controllers\LocationController;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PermissionController;
@@ -140,7 +139,7 @@ Route::prefix('admin')->group(function () {
 
     //Route subProduct
     Route::prefix('sub-products')->group(function () {
-        Route::get('/products/{id}/info', [SubProductController::class, 'getProductInfo'])->name('products.info');
+        Route::get('/products/{id}/info', [SubProductController::class, 'getProductInfo'])->name('products.info')->addMeta(true, ["super admin:admin"]);
         Route::get('/', [SubProductController::class, 'index'])->name('subProducts.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [SubProductController::class, 'create'])->name('subProducts.create')->addMeta(true, ["super admin:admin"]);
         Route::get('/create-group', [SubProductController::class, 'createGroup'])->name('subProducts.create.group')->addMeta(true, ["super admin:admin"]);
