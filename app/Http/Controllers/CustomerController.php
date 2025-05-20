@@ -36,7 +36,7 @@ class CustomerController extends Controller
         return redirect()->route('customers.index')->with('success', 'محصول با موفقیت ایجاد شد.');
     }
 
-    public function getProductData()
+    public function getCustomersData()
     {
         $customer = Customer::query();
 

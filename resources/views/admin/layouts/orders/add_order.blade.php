@@ -1,6 +1,6 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'اضافه کردن مشتری جدید')
+@section('title', 'اضافه کردن سفارش جدید')
 
 @section('content')
 
@@ -9,19 +9,19 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.add_customer")}}</h5>
 
-                <form id="add_customer" action="{{route('customers.store')}}" method="POST" class="my-10"
+                <form id="add_order" action="{{route('orders.store')}}" method="POST" class="my-10"
                       enctype="multipart/form-data">
                     @csrf
                     <div class="row">
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="first_name" class="form-label">{{__("general.first_name")}}</label>
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
-                                       id="first_name"
-                                       name="first_name"
+                                <label for="order_name" class="form-label">{{__("general.order_name")}}</label>
+                                <input type="text" class="form-control @error('order_name') is-invalid @enderror"
+                                       id="order_name"
+                                       name="order_name"
                                        required>
-                                @error('first_name')
+                                @error('order_name')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
