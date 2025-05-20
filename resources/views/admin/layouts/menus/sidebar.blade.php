@@ -66,7 +66,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('customers.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <iconify-icon icon="carbon:user"></iconify-icon>
                                 <span class="hide-menu">{{__("general.manage_customer")}}</span>
                             </a>
                         </li>
@@ -74,7 +74,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('orders.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <iconify-icon icon="mdi-light:cart"></iconify-icon>
                                 <span class="hide-menu">{{__("general.order")}}</span>
                             </a>
                         </li>
