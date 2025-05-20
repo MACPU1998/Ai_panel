@@ -20,6 +20,8 @@ return [
     'manage_customer' => 'مدیریت مشتری',
     'add_customer' => 'اضافه کردن مشتری',
     'edit_customer' => 'ویرایش مشتری',
+    'customer' => 'مشتری',
+    'customers' => 'مشتریان',
 
     'manage_order' => 'مدیریت سفارشات',
     'add_order' => 'اضافه کردن شفارش',
@@ -115,5 +117,9 @@ return [
     'serial_prefix' => 'شناسه کالا',
     'dashboard' => 'داشبورد',
     'productCurrencies' => 'ارز محصول',
+    'shipping_price' => 'هزینه پست',
+    'tax_price' => 'مالیات',
+    'quantity' => 'تعداد',
+    'total_price' => 'مبلغ کل',
 
 ];

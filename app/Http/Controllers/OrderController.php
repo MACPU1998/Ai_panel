@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 use App\DataTables\OrderDataTable;
-use App\Models\City;
-use App\Models\Country;
+use App\Models\Customer;
 use App\Models\Order;
-use App\Models\State;
+use App\Models\SubProduct;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -24,11 +23,9 @@ class OrderController extends Controller
      */
     public function create()
     {
-        $countries = Country::all();
-        $states = State::all();
-        $cities = City::all();
-
-        return view('admin.layouts.orders.add_order', compact('countries','states','cities'));;
+        $customers=Customer::all();
+        $subProducts=SubProduct::all();
+        return view('admin.layouts.orders.add_order', compact('customers','subProducts'));
     }
 
     /**
