@@ -77,7 +77,7 @@
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="birth_date" class="form-label">{{__("general.birth_date")}}</label>
-                                <input type="text" class="form-control @error('birth_date') is-invalid @enderror"
+                                <input type="date" class="form-control @error('birth_date') is-invalid @enderror"
                                        id="birth_date"
                                        name="birth_date">
                                 @error('birth_date')
@@ -189,46 +189,6 @@
                     }
                 });
 
-                var attrs = [];
-                $("#attr-action #attr-add").on("click", function () {
-                    attrs.push({
-                        name: $("#attr-action #attr-name").val(),
-                        value: $("#attr-action #attr-value").val()
-                    });
-                    $("#attr-action #attributes").val(JSON.stringify(attrs));
-
-                    console.log(JSON.stringify(attrs));
-                    generateList(attrs);
-                    return false;
-                });
-
-                $("#attr-action #list-attrs ul").on("click", "#remove", function () {
-                    var i = $($(this).parent()).index();
-                    delete attrs[i];
-                    $(this).parent().remove();
-                    attrs = attrs.filter(isNotNull);
-                    $("#attr-action input#attributes").val(JSON.stringify(attrs));
-                    console.log(JSON.stringify(attrs));
-                    return false;
-                });
-
-                function generateList(data) {
-                    $("#attr-action #list-attrs ul").empty();
-                    if (data != null) {
-                        $.each(data, function (i, v) {
-                            var code = "<li><div><label class='attr-name'>" + v.name + "</label></div><div>";
-                            code += "<label> : " + v.value + "</label></div><a href='#' id='remove'>X</button></a></li>";
-
-                            $("#attr-action #list-attrs ul").append(code);
-                        });
-                    } else {
-                        attrs = [];
-                    }
-                }
-
-                function isNotNull(value) {
-                    return value != null;
-                }
             });
         });
 
