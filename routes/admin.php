@@ -167,9 +167,6 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
 
 
-        Route::get('/get-states/{country_id}', [LocationController::class, 'getStates']);
-        Route::get('/get-cities/{state_id}', [LocationController::class, 'getCities']);
-
     });
 
 
