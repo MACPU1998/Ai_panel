@@ -94,6 +94,21 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('productCurrencies.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <span class="hide-menu">{{__("general.productCurrencies")}}</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('products.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <span class="hide-menu">{{__("general.products")}}</span>
+                            </a>
+                        </li>
+
 
                         @php
                             $menus = $menus ?? collect();

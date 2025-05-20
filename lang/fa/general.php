@@ -57,6 +57,7 @@ return [
     'product_id' => 'کد محصول',
     'currency' => 'ارز',
     'product' => 'محصول',
+    'products' => 'محصولات',
     'price' => 'قیمت',
     'value' => 'مقدار',
     'final_price' => 'قیمت نهایی',
@@ -112,5 +113,6 @@ return [
     'updated_at' => 'تاریخ آپدیت',
     'serial_prefix' => 'شناسه کالا',
     'dashboard' => 'داشبورد',
+    'productCurrencies' => 'ارز محصول',
 
 ];
