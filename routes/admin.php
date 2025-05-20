@@ -176,13 +176,13 @@ Route::prefix('admin')->group(function () {
     //Route orders
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->addMeta(true, ["super admin:admin"]);
-        Route::get('/create', [CustomerController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
-        Route::post('/store', [CustomerController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
-        Route::get('/data', [CustomerController::class, 'getCustomersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
-        Route::get('/datatable', [CustomerController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
-        Route::get('/{order}/edit', [CustomerController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
-        Route::put('/{order}/update', [CustomerController::class, 'update'])->name('orders.update')->addMeta(true, ["super admin:admin"]);
-        Route::delete('/{order}', [CustomerController::class, 'destroy'])->name('orders.destroy')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [OrderController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/data', [OrderController::class, 'getOrdersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [OrderController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{order}/update', [OrderController::class, 'update'])->name('orders.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->addMeta(true, ["super admin:admin"]);
 
     });
 

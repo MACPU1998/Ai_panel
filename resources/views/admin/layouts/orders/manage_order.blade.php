@@ -36,11 +36,10 @@
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-
                     {  data: 'customer_id', name: 'customer_id'},
                     {  data: 'shipping_price', name: 'shipping_price'},
                     {  data: 'tax_price', name: 'tax_price'},
-                    {  data: 'national_id', name: 'national_id'},
+                    {  data: 'total_price', name: 'tax_price'},
                     {  data: 'final_price', name: 'final_price'},
                     {  data: 'quantity', name: 'quantity'},
                     {  data: 'status', name: 'status'},
@@ -87,7 +86,7 @@
                     success: function (response) {
                         if (response.success) {
                             alert(' با موفقیت حذف شد!');
-                            $('#customers-table').DataTable().ajax.reload();
+                            $('#orders-table').DataTable().ajax.reload();
                         } else {
                             alert('خطا در حذف !');
                         }

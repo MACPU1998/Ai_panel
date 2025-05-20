@@ -2,7 +2,6 @@
 
 namespace App\DataTables;
 
-use App\Models\Customer;
 use App\Models\Order;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Morilog\Jalali\Jalalian;
@@ -88,6 +87,7 @@ class OrderDataTable extends DataTable
     public function getColumns(): array
     {
         return [
+            Column::make('id')->title('شناسه سفارش'),
             Column::make('customer_id')->title('کاربر'),
             Column::make('shipping_price')->title('هزینه پست'),
             Column::make('tax_price')->title('مالیات'),
