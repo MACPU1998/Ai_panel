@@ -110,6 +110,14 @@
                         </li>
 
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('subProducts.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <span class="hide-menu">{{__("general.subProducts")}}</span>
+                            </a>
+                        </li>
+
+
                         @php
                             $menus = $menus ?? collect();
                             $menus = $menus->sortBy(function($menu) {
