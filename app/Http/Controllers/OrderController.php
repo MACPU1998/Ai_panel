@@ -70,7 +70,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
-            'ub_producst_id' => 'required|exists:sub_products,id',
+            'sub_product_id' => 'required|exists:sub_products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -88,14 +88,14 @@ class OrderController extends Controller
 
         if ($existingItem) {
             $existingItem->quantity += $request->quantity;
-            $existingItem->price = $productPrice;
+            $existingItem->price = $productPrice; // قیمت به روز شود اگر لازم است
             $existingItem->save();
         } else {
             $order->orderItems()->create([
                 'sub_product_id' => $request->sub_product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
-                'status' => OrderItem::STATUS_PENDING,
+                'status' => OrderItem::STATUS_PENDING, // مقدار صحیح استاتوس
             ]);
         }
 
@@ -105,7 +105,7 @@ class OrderController extends Controller
 
         $order->quantity = $totalQuantity;
         $order->total_price = $totalPrice;
-        $order->final_price = $totalPrice;
+        $order->final_price = $totalPrice; // اگر مالیات یا هزینه ارسال داری اینجا اضافه کن
         $order->save();
 
         return response()->json(['success' => true, 'order_id' => $order->id]);
