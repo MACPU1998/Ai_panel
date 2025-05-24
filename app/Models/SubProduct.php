@@ -10,6 +10,12 @@ class SubProduct extends Model
 {
     use HasFactory, SoftDeletes;
 
+    const STATUS_INACTIVE = 0;
+    const STATUS_AVAILABLE = 1;
+    const STATUS_RESERVED = 2;
+    const STATUS_SOLD = 3;
+    const STATUS_RETURNED = 4;
+
     protected $table = 'sub_products';
     protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label', 'status'];
 

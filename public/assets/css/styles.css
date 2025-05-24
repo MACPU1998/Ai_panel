@@ -12,6 +12,13 @@
 .cursive {
     font-family: 'cursive';
 }
+.product-image {
+    height: 180px;
+    object-fit: cover;
+    width: 90%;
+}
+
+
 
 @font-face {
     font-family: tabler-icons;

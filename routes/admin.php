@@ -173,6 +173,9 @@ Route::prefix('admin')->group(function () {
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [OrderController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
+        Route::get('/preview/{customer}', [OrderController::class, 'preview'])->name('orders.preview')->addMeta(true, ["super admin:admin"]);
+        //Route::get('/cart-count/{customer}', [OrderController::class, 'cartCount'])->name('orders.cart_count')->addMeta(true, ["super admin:admin"]);
+        Route::post('/add-to-order', [OrderController::class, 'addToOrder'])->name('orders.add_to_order')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
         Route::get('/data', [OrderController::class, 'getOrdersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [OrderController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
@@ -181,6 +184,7 @@ Route::prefix('admin')->group(function () {
         Route::delete('/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->addMeta(true, ["super admin:admin"]);
 
     });
+
 
 
 });

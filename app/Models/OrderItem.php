@@ -9,6 +9,12 @@ class OrderItem extends Model
 {
 
     use HasFactory;
+
+    const STATUS_PENDING = 0;
+    const STATUS_RESERVED = 1;
+    const STATUS_CONFIRMED = 2;
+    const STATUS_CANCELED = 3;
+
     protected $table = 'order_items';
     protected $fillable = [
         'order_id',

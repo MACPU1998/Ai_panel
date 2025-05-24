@@ -40,6 +40,11 @@ class Product extends Model implements HasMedia
 
     protected $table = 'products';
 
+
+    const STATUS_INACTIVE = 0;
+    const STATUS_ACTIVE = 1;
+
+
     protected $casts = [
         'status' => 'bool',
         'currency_id' => 'int',
@@ -86,6 +91,12 @@ class Product extends Model implements HasMedia
     {
         return $this->hasMany(SubProduct::class, 'product_id');
 
+    }
+
+
+    public function activeSubProducts()
+    {
+        return $this->hasMany(SubProduct::class, 'product_id')->where('status', 1);
     }
 
     public function productCategorie()

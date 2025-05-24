@@ -24,7 +24,7 @@ return [
     'customers' => 'مشتریان',
 
     'manage_order' => 'مدیریت سفارشات',
-    'add_order' => 'اضافه کردن شفارش',
+    'add_order' => 'اضافه کردن سفارش',
     'edit_order' => 'ویرایش سفارش',
     'order' => 'سفارشات',
 

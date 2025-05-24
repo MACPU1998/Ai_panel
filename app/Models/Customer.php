@@ -43,7 +43,9 @@ class Customer extends Model implements HasMedia
         return $this->belongsTo(City::class);
     }
 
-    public function customer(){
-        return $this->hasMany(Customer::class);
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
     }
+
 }
