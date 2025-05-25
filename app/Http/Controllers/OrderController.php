@@ -19,7 +19,18 @@ class OrderController extends Controller
     {
         return $dataTable->render('admin.layouts.orders.manage_order');
     }
+    public function showPreview($orderId)
+    {
+        $order = Order::with('customer')->findOrFail($orderId);
+        $orderItems = OrderItem::with('subProduct')->where('order_id', $orderId)->get();
+        $total_price = $orderItems->sum('total_price');
 
+        return view('admin.layouts.orders.preview', [
+            'orderItems' => $orderItems,
+            'customer' => $order->customer,
+            'total_price' => $total_price,
+        ]);
+    }
 
     public function create()
     {
@@ -37,34 +48,13 @@ class OrderController extends Controller
 
     public function preview(Customer $customer, Request $request)
     {
-        $product_quantities = $request->input('product_quantities', []);
-        $total_items = array_sum($product_quantities);
+        $previousOrderItems = OrderItem::whereHas('order', function ($query) use ($customer) {
+            $query->where('customer_id', $customer->id);
+        })->with('order')->orderByDesc('created_at')->get();
 
-        session(['cart_count' => $total_items]); // اختیاری برای نمایش در آیکن سبد خرید
-
-        $products = Product::whereIn('id', array_keys($product_quantities))->get();
-
-        $total_price = 0;
-        foreach ($products as $product) {
-            $quantity = $product_quantities[$product->id] ?? 0;
-            $total_price += $product->price * $quantity;
-        }
-
-        return view('admin.layouts.orders.preview', compact(
-            'customer', 'products', 'product_quantities', 'total_price'
-        ));
+        return view('admin.layouts.orders.preview', compact('customer', 'previousOrderItems'));
     }
 
-//    public function cartCount(Customer $customer)
-//    {
-//        $order = Order::where('customer_id', $customer->id)
-//            ->where('status', 1)
-//            ->first();
-//
-//        $count = $order ? $order->orderItems()->sum('quantity') : 0;
-//
-//        return response()->json(['count' => $count]);
-//    }
 
     public function addToOrder(Request $request)
     {
@@ -83,6 +73,7 @@ class OrderController extends Controller
 
         $subProduct = SubProduct::findOrFail($request->sub_product_id);
         $productPrice = $subProduct->product->price ?? 0;
+        $productName = $subProduct->product->name ?? "0";
 
         $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
 
@@ -95,8 +86,11 @@ class OrderController extends Controller
                 'sub_product_id' => $request->sub_product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
+                'product_name'=>$productName,
+                'total_price' => $productPrice * $request->quantity,
                 'status' => OrderItem::STATUS_PENDING, // مقدار صحیح استاتوس
             ]);
+
         }
 
         // بروزرسانی مجموع تعداد و مبلغ کل سفارش
