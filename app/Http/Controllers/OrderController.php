@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\DataTables\OrderDataTable;
 use App\Models\Customer;
 use App\Models\Order;
@@ -32,20 +31,45 @@ class OrderController extends Controller
         ]);
     }
 
-    public function create()
+//    public function create()
+//    {
+//        $customers=Customer::all();
+//        $products = Product::where('status', Product::STATUS_ACTIVE)
+//            ->whereHas('activeSubProducts')
+//            ->withCount([
+//                'activeSubProducts as active_sub_product_count'
+//            ])
+//            ->with('media')
+//            ->get();
+//
+//        return view('admin.layouts.orders.add_order', compact('customers', 'products'));
+//    }
+    public function create(Request $request)
     {
-        $customers=Customer::all();
+        $customers = Customer::all();
         $products = Product::where('status', Product::STATUS_ACTIVE)
             ->whereHas('activeSubProducts')
-            ->withCount([
-                'activeSubProducts as active_sub_product_count'
-            ])
-            ->with('media')
+            ->withCount(['activeSubProducts as active_sub_product_count'])
+            ->with(['media', 'activeSubProducts'])
             ->get();
 
-        return view('admin.layouts.orders.add_order', compact('customers', 'products'));
-    }
+        $subProductQuantities = [];
 
+        if ($request->customer_id) {
+            $subProductQuantities = DB::table('order_items')
+                ->select('sub_product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->whereIn('order_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from('orders')
+                        ->where('customer_id', $request->customer_id);
+                })
+                ->groupBy('sub_product_id')
+                ->pluck('total_quantity', 'sub_product_id')
+                ->toArray();
+        }
+
+        return view('admin.layouts.orders.add_order', compact('customers', 'products', 'subProductQuantities'));
+    }
     public function preview(Customer $customer, Request $request)
     {
         $previousOrderItems = OrderItem::whereHas('order', function ($query) use ($customer) {
