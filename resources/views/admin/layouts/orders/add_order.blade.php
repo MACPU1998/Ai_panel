@@ -96,32 +96,39 @@
 @endsection
 @section('customjs')
 
-            <script>
-                document.addEventListener('DOMContentLoaded', function () {
+             <script>
+                    document.addEventListener('DOMContentLoaded', function () {
+                        const addedProducts = new Set();
 
+                        const form = document.getElementById('add_order');
+                        const customerIdInput = document.getElementById('customer_id');
 
-
-                    const addedProducts = new Set();
-
-                    document.querySelectorAll('.add-to-cart').forEach(button => {
-                        button.addEventListener('click', function () {
-                            const subProductId = this.getAttribute('data-sub-product-id');
-                            const productId = this.getAttribute('data-product-id'); // برای پیدا کردن input
-                            const quantityInput = document.getElementById('quantity_' + productId);
-                            const customerId = document.getElementById('customer_id').value;
-                            const quantity = parseInt(quantityInput?.value); // استفاده از optional chaining
-
-                            if (!customerId) {
-                                alert('لطفاً مشتری را انتخاب کنید.');
-                                return;
+                        // جلوگیری از submit با Enter
+                        form.addEventListener("keypress", function (event) {
+                            if (event.key === "Enter") {
+                                event.preventDefault();
                             }
+                        });
 
-                            if (!quantityInput) {
-                                alert('خطا: ورودی تعداد برای این محصول یافت نشد.');
-                                return;
-                            }
+                        // دکمه‌های افزودن به سبد
+                        document.querySelectorAll('.add-to-cart').forEach(button => {
+                            button.addEventListener('click', function () {
+                                const subProductId = this.dataset.subProductId;
+                                const productId = this.dataset.productId;
+                                const quantityInput = document.getElementById('quantity_' + productId);
+                                const customerId = customerIdInput.value;
+                                const quantity = parseInt(quantityInput?.value);
 
-                            if (quantity >= 1 && !isNaN(quantity)) {
+                                if (!customerId) {
+                                    alert('لطفاً مشتری را انتخاب کنید.');
+                                    return;
+                                }
+
+                                if (!quantityInput || isNaN(quantity) || quantity < 1) {
+                                    alert('تعداد معتبر وارد کنید.');
+                                    return;
+                                }
+
                                 fetch('/admin/orders/add-to-order', {
                                     method: 'POST',
                                     headers: {
@@ -137,69 +144,48 @@
                                     .then(res => res.json())
                                     .then(data => {
                                         if (data.success) {
-                                            document.getElementById('status_' + productId).classList.remove('d-none');
+                                            const status = document.getElementById('status_' + productId);
+                                            status.classList.remove('d-none');
+                                            status.textContent = 'به سبد اضافه شد ✔️';
                                         } else {
                                             alert('خطا در افزودن محصول.');
                                         }
                                     })
                                     .catch(() => alert('مشکلی پیش آمده.'));
-                            } else {
-                                alert('تعداد معتبر وارد کنید.');
-                            }
-                        });
-                    });
-
-
-                    document.getElementById('add_order').addEventListener('submit', function (e) {
-                        e.preventDefault();
-
-                        const form = e.target;
-                        const customerId = document.getElementById('customer_id').value;
-
-                        if (!customerId) {
-                            alert('لطفاً مشتری را انتخاب کنید.');
-                            return;
-                        }
-
-                        // ساخت query string برای product_quantities
-                        const params = new URLSearchParams();
-                        document.querySelectorAll('.quantity-input').forEach(input => {
-                            if (!input.disabled && input.value) {
-                                const productId = input.name.match(/\d+/)[0];
-                                params.append(`product_quantities[${productId}]`, input.value);
-                            }
+                            });
                         });
 
-                        // انتقال به روت preview با ID مشتری و query string
-                        window.location.href = `/admin/orders/preview/${customerId}?${params.toString()}`;
+                        // ارسال فرم
+                        form.addEventListener('submit', function (e) {
+                            e.preventDefault();
+
+                            const customerId = customerIdInput.value;
+                            if (!customerId) {
+                                alert('لطفاً مشتری را انتخاب کنید.');
+                                return;
+                            }
+
+                            const params = new URLSearchParams();
+                            document.querySelectorAll('.quantity-input').forEach(input => {
+                                if (!input.disabled && input.value) {
+                                    const productId = input.name.match(/\d+/)[0];
+                                    params.append(`product_quantities[${productId}]`, input.value);
+                                }
+                            });
+
+                            window.location.href = `/admin/orders/preview/${customerId}?${params.toString()}`;
+                        });
+
+                        // select2
+                        $('#customer_id').select2({
+                            placeholder: "یک مشتری را انتخاب کنید",
+                            allowClear: false,
+                            width: '100%',
+                            dropdownParent: $('body')
+                        });
                     });
-                });
-            </script>
+                </script>
 
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelector("form").addEventListener("keypress", function (event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#customer_id').select2({
-                placeholder: "یک مشتری را انتخاب کنید",
-                allowClear: false,
-                width: '100%',
-                dropdownParent: $('body')
-            });
-        });
-
-    </script>
-
-{{--    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>--}}
-{{--    {!! JsValidator::formRequest('App\Http\Requests\Customer\CustomerRequest', '#add_order') !!}--}}
 
 @endsection
 
