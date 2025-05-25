@@ -21,10 +21,15 @@
                                             class="form-control select2 @error('customer_id') is-invalid @enderror"
                                             id="customer_id"
                                             name="customer_id"
+                                            onchange="this.form.submit()"
                                             required>
+
+
                                         <option value="">یک مشتری را انتخاب کنید</option>
                                         @foreach($customers as $customer)
-                                            <option value="{{ $customer->id }}">{{ $customer->first_name }} {{ $customer->last_name }}</option>
+                                            <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>
+                                                {{ $customer->last_name }}
+                                            </option>
                                         @endforeach
                                     </select>
                                     @error('customer_id')
@@ -58,9 +63,10 @@
                                                            id="quantity_{{ $product->id }}"
                                                            min="1"
                                                            max="{{ $product->active_sub_product_count }}"
-                                                           value=""
+                                                           value="{{ isset($subProductQuantities[$product->activeSubProducts->first()->id]) ? $subProductQuantities[$product->activeSubProducts->first()->id] : '' }}"
                                                            placeholder="تعداد"
                                                            style="width: 70px;">
+
                                                     <button type="button"
                                                             class="btn btn-sm btn-outline-success add-to-cart"
                                                             data-sub-product-id="{{ $product->activeSubProducts->first()->id }}"
@@ -89,6 +95,20 @@
                         <button type="submit" class="btn btn-success">{{ __("general.next") }}</button>
                     </div>
                 </form>
+
+{{--                <form method="GET" action=""  class="my-10" enctype="multipart/form-data">--}}
+{{--                    <select name="customer_id" onchange="this.form.submit()">--}}
+{{--                        <option value="">-- انتخاب مشتری --</option>--}}
+{{--                        @foreach($customers as $customer)--}}
+{{--                            <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>--}}
+{{--                                {{ $customer->last_name }}--}}
+{{--                            </option>--}}
+{{--                        @endforeach--}}
+{{--                    </select>--}}
+{{--                </form>--}}
+{{--                <input type="number" value="{{ $totalOrders ?? '' }}" placeholder="تعداد سفارش‌های قبلی" readonly>--}}
+
+
 
 
             </div>
