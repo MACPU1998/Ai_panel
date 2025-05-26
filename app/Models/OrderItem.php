@@ -10,10 +10,9 @@ class OrderItem extends Model
 
     use HasFactory;
 
-    const STATUS_PENDING = 0;
-    const STATUS_RESERVED = 1;
-    const STATUS_CONFIRMED = 2;
-    const STATUS_CANCELED = 3;
+    const STATUS_CANCELED = 0;
+    const STATUS_ACTIVE = 1;
+    const STATUS_SOLD_OUT = 2;  //فروش رفته
 
     protected $table = 'order_items';
     protected $fillable = [
