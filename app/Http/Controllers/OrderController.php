@@ -31,19 +31,6 @@ class OrderController extends Controller
         ]);
     }
 
-//    public function create()
-//    {
-//        $customers=Customer::all();
-//        $products = Product::where('status', Product::STATUS_ACTIVE)
-//            ->whereHas('activeSubProducts')
-//            ->withCount([
-//                'activeSubProducts as active_sub_product_count'
-//            ])
-//            ->with('media')
-//            ->get();
-//
-//        return view('admin.layouts.orders.add_order', compact('customers', 'products'));
-//    }
     public function create(Request $request)
     {
         $customers = Customer::all();
@@ -91,7 +78,7 @@ class OrderController extends Controller
         $customer = Customer::findOrFail($request->customer_id);
 
         $order = Order::firstOrCreate(
-            ['customer_id' => $customer->id, 'status' => Order::STATUS_PROCESSING],
+            ['customer_id' => $customer->id, 'status' => Order::STATUS_SUPPING_CART],
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
@@ -102,19 +89,19 @@ class OrderController extends Controller
         $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
 
         if ($existingItem) {
-            $existingItem->quantity = $request->quantity;
-            $existingItem->price = $productPrice;
-            $existingItem->total_price = $productPrice * $request->quantity;
+            $existingItem->quantity += $request->quantity;
+            $existingItem->price = $productPrice; // قیمت به روز شود اگر لازم است
             $existingItem->save();
         } else {
             $order->orderItems()->create([
                 'sub_product_id' => $request->sub_product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
-                'product_name' => $productName,
+                'product_name'=>$productName,
                 'total_price' => $productPrice * $request->quantity,
-                'status' => OrderItem::STATUS_PENDING,
+                'status' => OrderItem::STATUS_ACTIVE,
             ]);
+
         }
 
         // بروزرسانی مجموع تعداد و مبلغ کل سفارش
