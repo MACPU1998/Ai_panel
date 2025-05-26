@@ -78,7 +78,7 @@ class OrderController extends Controller
         $customer = Customer::findOrFail($request->customer_id);
 
         $order = Order::firstOrCreate(
-            ['customer_id' => $customer->id, 'status' => Order::STATUS_SUPPING_CART],
+            ['customer_id' => $customer->id, 'status' => Order::STATUS_SHOPPING_CART],
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
