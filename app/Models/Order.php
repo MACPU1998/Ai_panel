@@ -10,7 +10,7 @@ class Order extends Model
     use HasFactory;
 
     const STATUS_CANCEL = 0;
-    const STATUS_SUPPING_CART= 1;  //سبد خرید
+    const STATUS_SHOPPING_CART= 1;  //سبد خرید
     const STATUS_PENDING = 2; //تایید مشتری
     const STATUS_CONFIRMATION = 3;  //تایید ادمین
     const STATUS_PROCESSING = 4;  //پردازش
