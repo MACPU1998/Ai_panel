@@ -33,6 +33,11 @@ class Order extends Model
         return $this->belongsTo(Customer::class);
 
     }
+    public function subProducts()
+    {
+        return $this->belongsToMany(SubProduct::class, 'order_sub_products');
+    }
+
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);

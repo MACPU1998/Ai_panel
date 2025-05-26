@@ -104,11 +104,39 @@ class OrderController extends Controller
             ]);
 
         }
+        // ذخیره sub_product در جدول order_sub_products
+//        $order->subProducts()->syncWithoutDetaching([$request->sub_product_id]);
+// ایجاد ردیف‌های جداگانه در order_sub_products
+        // بررسی کافی بودن تعداد
 
-        // بروزرسانی مجموع تعداد و مبلغ کل سفارش
-//        $totalQuantity = $order->orderItems()->sum('quantity');
-//        $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
 
+
+        // تعداد مورد نیاز از sub_products
+        $quantity = $request->quantity;
+
+// پیدا کردن sub_products آزاد (استفاده‌نشده) از همین محصول
+        $availableSubProducts = SubProduct::where('product_id', $subProduct->product_id)
+            ->whereDoesntHave('orders', function($query) use ($order) {
+                $query->where('orders.id', $order->id);
+            })
+            ->limit($quantity)
+            ->get();
+        if ($availableSubProducts->count() < $quantity) {
+            return response()->json([
+                'success' => false,
+                'message' => 'تعداد کافی از این محصول در انبار موجود نیست.'
+            ], 400);
+        }
+        foreach ($availableSubProducts as $sp) {
+            DB::table('order_sub_products')->insert([
+                'order_id' => $order->id,
+                'sub_product_id' => $sp->id,
+                'barcode'=>$sp->barcode,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
+        // به‌روزرسانی مقادیر کلی سفارش
         $totalQuantity = $order->orderItems()->sum('quantity');
         $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
 
