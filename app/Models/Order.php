@@ -8,11 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Order extends Model
 {
     use HasFactory;
-    const STATUS_PENDING = 0;
-    const STATUS_PROCESSING = 1;
-    const STATUS_COMPLETED = 2;
-    const STATUS_CANCELED = 3;
-    const STATUS_FAILED = 4;
+
+    const STATUS_CANCEL = 0;
+    const STATUS_SUPPING_CART= 1;  //سبد خرید
+    const STATUS_PENDING = 2; //تایید مشتری
+    const STATUS_CONFIRMATION = 3;  //تایید ادمین
+    const STATUS_PROCESSING = 4;  //پردازش
+    const STATUS_READY_TO_SEND = 5;  //آماده به ارسال
+    const STATUS_SEND = 6;  //ارسال
 
     protected $table = 'orders';
     protected $fillable = [

@@ -31,19 +31,6 @@ class OrderController extends Controller
         ]);
     }
 
-//    public function create()
-//    {
-//        $customers=Customer::all();
-//        $products = Product::where('status', Product::STATUS_ACTIVE)
-//            ->whereHas('activeSubProducts')
-//            ->withCount([
-//                'activeSubProducts as active_sub_product_count'
-//            ])
-//            ->with('media')
-//            ->get();
-//
-//        return view('admin.layouts.orders.add_order', compact('customers', 'products'));
-//    }
     public function create(Request $request)
     {
         $customers = Customer::all();
@@ -91,7 +78,7 @@ class OrderController extends Controller
         $customer = Customer::findOrFail($request->customer_id);
 
         $order = Order::firstOrCreate(
-            ['customer_id' => $customer->id, 'status' => Order::STATUS_PROCESSING],
+            ['customer_id' => $customer->id, 'status' => Order::STATUS_SUPPING_CART],
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
@@ -112,7 +99,7 @@ class OrderController extends Controller
                 'price' => $productPrice,
                 'product_name'=>$productName,
                 'total_price' => $productPrice * $request->quantity,
-                'status' => OrderItem::STATUS_PENDING, // مقدار صحیح استاتوس
+                'status' => OrderItem::STATUS_ACTIVE,
             ]);
 
         }
