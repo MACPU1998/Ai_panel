@@ -44,14 +44,14 @@ class OrderController extends Controller
 
         if ($request->customer_id) {
             $subProductQuantities = DB::table('order_items')
-                ->select('sub_product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->whereIn('order_id', function ($query) use ($request) {
                     $query->select('id')
                         ->from('orders')
                         ->where('customer_id', $request->customer_id);
                 })
-                ->groupBy('sub_product_id')
-                ->pluck('total_quantity', 'sub_product_id')
+                ->groupBy('product_id')
+                ->pluck('total_quantity', 'product_id')
                 ->toArray();
         }
 
@@ -71,22 +71,22 @@ class OrderController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
-            'sub_product_id' => 'required|exists:sub_products,id',
+            'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
         $customer = Customer::findOrFail($request->customer_id);
 
         $order = Order::firstOrCreate(
-            ['customer_id' => $customer->id, 'status' => Order::STATUS_SUPPING_CART],
+            ['customer_id' => $customer->id, 'status' => Order::STATUS_SHOPPING_CART],
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
-        $subProduct = SubProduct::findOrFail($request->sub_product_id);
+        $subProduct = SubProduct::findOrFail($request->product_id);
         $productPrice = $subProduct->product->price ?? 0;
         $productName = $subProduct->product->name ?? "0";
 
-        $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
+        $existingItem = $order->orderItems()->where('product_id', $request->product_id)->first();
 
         if ($existingItem) {
             $existingItem->quantity += $request->quantity;
@@ -94,7 +94,7 @@ class OrderController extends Controller
             $existingItem->save();
         } else {
             $order->orderItems()->create([
-                'sub_product_id' => $request->sub_product_id,
+                'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
                 'product_name'=>$productName,
