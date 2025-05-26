@@ -44,14 +44,14 @@ class OrderController extends Controller
 
         if ($request->customer_id) {
             $subProductQuantities = DB::table('order_items')
-                ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->select('sub_product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->whereIn('order_id', function ($query) use ($request) {
                     $query->select('id')
                         ->from('orders')
                         ->where('customer_id', $request->customer_id);
                 })
-                ->groupBy('product_id')
-                ->pluck('total_quantity', 'product_id')
+                ->groupBy('sub_product_id')
+                ->pluck('total_quantity', 'sub_product_id')
                 ->toArray();
         }
 
@@ -71,7 +71,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
-            'product_id' => 'required|exists:products,id',
+            'sub_product_id' => 'required|exists:sub_products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -82,19 +82,20 @@ class OrderController extends Controller
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
-        $subProduct = SubProduct::findOrFail($request->product_id);
+        $subProduct = SubProduct::findOrFail($request->sub_product_id);
         $productPrice = $subProduct->product->price ?? 0;
         $productName = $subProduct->product->name ?? "0";
 
-        $existingItem = $order->orderItems()->where('product_id', $request->product_id)->first();
+        $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
 
         if ($existingItem) {
-            $existingItem->quantity += $request->quantity;
-            $existingItem->price = $productPrice; // قیمت به روز شود اگر لازم است
+            $existingItem->quantity = $request->quantity;
+            $existingItem->price = $productPrice;
+            $existingItem->total_price = $productPrice * $request->quantity;
             $existingItem->save();
         } else {
             $order->orderItems()->create([
-                'product_id' => $request->product_id,
+                'sub_product_id' => $request->sub_product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
                 'product_name'=>$productName,
@@ -105,8 +106,12 @@ class OrderController extends Controller
         }
 
         // بروزرسانی مجموع تعداد و مبلغ کل سفارش
+//        $totalQuantity = $order->orderItems()->sum('quantity');
+//        $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
+
         $totalQuantity = $order->orderItems()->sum('quantity');
         $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
+
 
         $order->quantity = $totalQuantity;
         $order->total_price = $totalPrice;
