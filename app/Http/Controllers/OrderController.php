@@ -102,19 +102,19 @@ class OrderController extends Controller
         $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
 
         if ($existingItem) {
-            $existingItem->quantity += $request->quantity;
-            $existingItem->price = $productPrice; // قیمت به روز شود اگر لازم است
+            $existingItem->quantity = $request->quantity;
+            $existingItem->price = $productPrice;
+            $existingItem->total_price = $productPrice * $request->quantity;
             $existingItem->save();
         } else {
             $order->orderItems()->create([
                 'sub_product_id' => $request->sub_product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
-                'product_name'=>$productName,
+                'product_name' => $productName,
                 'total_price' => $productPrice * $request->quantity,
-                'status' => OrderItem::STATUS_PENDING, // مقدار صحیح استاتوس
+                'status' => OrderItem::STATUS_PENDING,
             ]);
-
         }
 
         // بروزرسانی مجموع تعداد و مبلغ کل سفارش
