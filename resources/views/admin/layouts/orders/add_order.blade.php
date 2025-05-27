@@ -63,13 +63,14 @@
                                                            id="quantity_{{ $product->id }}"
                                                            min="1"
                                                            max="{{ $product->active_sub_product_count }}"
-                                                           value="{{ isset($subProductQuantities[$product->activeSubProducts->first()->id]) ? $subProductQuantities[$product->activeSubProducts->first()->id] : '' }}"
+                                                           value="{{ isset($subProductQuantities[$product->id]) ? $subProductQuantities[$product->id] : '' }}"
+
                                                            placeholder="تعداد"
                                                            style="width: 70px;">
 
                                                     <button type="button"
                                                             class="btn btn-sm btn-outline-success add-to-cart"
-                                                            data-sub-product-id="{{ $product->activeSubProducts->first()->id }}"
+{{--                                                            data-sub-product-id="{{ $product->activeSubProducts->first()->id }}"--}}
                                                             data-product-id="{{ $product->id }}">
                                                         افزودن
                                                     </button>
@@ -96,20 +97,6 @@
                     </div>
                 </form>
 
-{{--                <form method="GET" action=""  class="my-10" enctype="multipart/form-data">--}}
-{{--                    <select name="customer_id" onchange="this.form.submit()">--}}
-{{--                        <option value="">-- انتخاب مشتری --</option>--}}
-{{--                        @foreach($customers as $customer)--}}
-{{--                            <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>--}}
-{{--                                {{ $customer->last_name }}--}}
-{{--                            </option>--}}
-{{--                        @endforeach--}}
-{{--                    </select>--}}
-{{--                </form>--}}
-{{--                <input type="number" value="{{ $totalOrders ?? '' }}" placeholder="تعداد سفارش‌های قبلی" readonly>--}}
-
-
-
 
             </div>
     </div>
@@ -133,7 +120,6 @@
                         // دکمه‌های افزودن به سبد
                         document.querySelectorAll('.add-to-cart').forEach(button => {
                             button.addEventListener('click', function () {
-                                const subProductId = this.dataset.subProductId;
                                 const productId = this.dataset.productId;
                                 const quantityInput = document.getElementById('quantity_' + productId);
                                 const customerId = customerIdInput.value;
@@ -157,7 +143,7 @@
                                     },
                                     body: JSON.stringify({
                                         customer_id: customerId,
-                                        sub_product_id: subProductId,
+                                        product_id: productId,
                                         quantity: quantity
                                     })
                                 })
@@ -168,9 +154,10 @@
                                             status.classList.remove('d-none');
                                             status.textContent = 'به سبد اضافه شد ✔️';
                                         } else {
-                                            alert('خطا در افزودن محصول.');
+                                            alert(data.message || 'خطا در افزودن محصول.');
                                         }
                                     })
+
                                     .catch(() => alert('مشکلی پیش آمده.'));
                             });
                         });

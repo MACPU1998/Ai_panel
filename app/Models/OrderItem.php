@@ -12,12 +12,14 @@ class OrderItem extends Model
 
     const STATUS_CANCELED = 0;
     const STATUS_ACTIVE = 1;
-    const STATUS_SOLD_OUT = 2;  //فروش رفته
+    const STATUS_PAYMENT = 2;  //پرداخت
+    const STATUS_SOLD_OUT = 3;  //فروش رفته
 
     protected $table = 'order_items';
     protected $fillable = [
         'order_id',
         'sub_product_id',
+        'product_id',
         'quantity',
         'price',
         'product_name',

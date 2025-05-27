@@ -18,18 +18,6 @@ class OrderController extends Controller
     {
         return $dataTable->render('admin.layouts.orders.manage_order');
     }
-    public function showPreview($orderId)
-    {
-        $order = Order::with('customer')->findOrFail($orderId);
-        $orderItems = OrderItem::with('subProduct')->where('order_id', $orderId)->get();
-        $total_price = $orderItems->sum('total_price');
-
-        return view('admin.layouts.orders.preview', [
-            'orderItems' => $orderItems,
-            'customer' => $order->customer,
-            'total_price' => $total_price,
-        ]);
-    }
 
     public function create(Request $request)
     {
@@ -44,15 +32,16 @@ class OrderController extends Controller
 
         if ($request->customer_id) {
             $subProductQuantities = DB::table('order_items')
-                ->select('sub_product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
                 ->whereIn('order_id', function ($query) use ($request) {
                     $query->select('id')
                         ->from('orders')
                         ->where('customer_id', $request->customer_id);
                 })
-                ->groupBy('sub_product_id')
-                ->pluck('total_quantity', 'sub_product_id')
+                ->groupBy('product_id')
+                ->pluck('total_quantity', 'product_id')
                 ->toArray();
+
         }
 
         return view('admin.layouts.orders.add_order', compact('customers', 'products', 'subProductQuantities'));
@@ -71,7 +60,7 @@ class OrderController extends Controller
     {
         $request->validate([
             'customer_id' => 'required|exists:customers,id',
-            'sub_product_id' => 'required|exists:sub_products,id',
+            'product_id' => 'required|exists:products,id',
             'quantity' => 'required|integer|min:1',
         ]);
 
@@ -82,11 +71,12 @@ class OrderController extends Controller
             ['total_price' => 0, 'final_price' => 0, 'quantity' => 0, 'shipping_price' => 0, 'tax_price' => 0]
         );
 
-        $subProduct = SubProduct::findOrFail($request->sub_product_id);
-        $productPrice = $subProduct->product->price ?? 0;
-        $productName = $subProduct->product->name ?? "0";
+        $product = Product::findOrFail($request->product_id);
+        $productPrice = $product->final_price ?? $product->price ?? 0;
+        $productName = $product->name ?? "بدون نام";
 
-        $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
+//        $existingItem = $order->orderItems()->where('sub_product_id', $request->sub_product_id)->first();
+        $existingItem = $order->orderItems()->where('product_id', $request->product_id)->first();
 
         if ($existingItem) {
             $existingItem->quantity = $request->quantity;
@@ -95,7 +85,8 @@ class OrderController extends Controller
             $existingItem->save();
         } else {
             $order->orderItems()->create([
-                'sub_product_id' => $request->sub_product_id,
+
+                'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
                 'product_name'=>$productName,
@@ -104,38 +95,8 @@ class OrderController extends Controller
             ]);
 
         }
-        // ذخیره sub_product در جدول order_sub_products
-//        $order->subProducts()->syncWithoutDetaching([$request->sub_product_id]);
-// ایجاد ردیف‌های جداگانه در order_sub_products
-        // بررسی کافی بودن تعداد
-
-
-
-        // تعداد مورد نیاز از sub_products
         $quantity = $request->quantity;
 
-// پیدا کردن sub_products آزاد (استفاده‌نشده) از همین محصول
-        $availableSubProducts = SubProduct::where('product_id', $subProduct->product_id)
-            ->whereDoesntHave('orders', function($query) use ($order) {
-                $query->where('orders.id', $order->id);
-            })
-            ->limit($quantity)
-            ->get();
-        if ($availableSubProducts->count() < $quantity) {
-            return response()->json([
-                'success' => false,
-                'message' => 'تعداد کافی از این محصول در انبار موجود نیست.'
-            ], 400);
-        }
-        foreach ($availableSubProducts as $sp) {
-            DB::table('order_sub_products')->insert([
-                'order_id' => $order->id,
-                'sub_product_id' => $sp->id,
-                'barcode'=>$sp->barcode,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
-        }
         // به‌روزرسانی مقادیر کلی سفارش
         $totalQuantity = $order->orderItems()->sum('quantity');
         $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
@@ -150,11 +111,79 @@ class OrderController extends Controller
     }
 
 
-    public function store(Request $request)
+    public function store(Request $request, )
     {
+        $customerId = $request->input('customer_id');
 
-      //  session()->forget('cart_count');
+        $request->validate([
+            'shipping_method' => 'required|integer|min:0',
+            // احتمالا داده‌های دیگه‌ای لازم باشه ولی با توجه به مثال همین کافیه
+        ]);
 
+        // فرض کنیم سفارش (Order) موجود و در حالت سبد خرید است
+        $order = Order::where('customer_id', $customerId)
+            ->where('status', Order::STATUS_SHOPPING_CART)
+            ->with('orderItems')
+            ->firstOrFail();
+
+        // شروع تراکنش برای جلوگیری از مشکل همزمانی
+        DB::beginTransaction();
+
+        try {
+            // 1- بروزرسانی وضعیت سفارش و روش ارسال
+            $order->shipping_price = $request->shipping_method;
+            $order->status = Order::STATUS_PAYMENT;
+
+            // جمع تعداد و قیمت کل سفارش از orderItems
+            $totalQuantity = 0;
+            $totalPrice = 0;
+            foreach ($order->orderItems as $item) {
+                $totalQuantity += $item->quantity;
+                $totalPrice += $item->price * $item->quantity;
+            }
+            $order->quantity = $totalQuantity;
+            $order->total_price = $totalPrice;
+            $order->final_price = $totalPrice + $order->shipping_price;
+
+            $order->save();
+
+            // 2- برای هر آیتم سفارش، بروزرسانی وضعیت OrderItem و کم کردن موجودی SubProduct
+            foreach ($order->orderItems as $item) {
+                // تغییر وضعیت آیتم به پرداخت شده
+                $item->status = OrderItem::STATUS_PAYMENT;
+                $item->save();
+
+                // کم کردن موجودی در SubProduct ها برای این محصول
+                $quantityToDeactivate = $item->quantity;
+
+                // انتخاب ساب‌پروداکت های موجود از آخر به اول که مرتبط با محصول و فعال هستند
+                $subProducts = SubProduct::where('product_id', $item->product_id)
+                    ->where('status', SubProduct::STATUS_AVAILABLE)
+                    ->orderByDesc('id')
+                    ->take($quantityToDeactivate)
+                    ->get();
+
+                if ($subProducts->count() < $quantityToDeactivate) {
+                    // اگر موجودی کافی نیست، خطا بزنیم
+                    throw new \Exception("موجودی کافی برای محصول {$item->product_name} وجود ندارد.");
+                }
+
+                // تغییر وضعیت SubProduct ها به غیر فعال
+                foreach ($subProducts as $subProduct) {
+                    $subProduct->status = SubProduct::STATUS_INACTIVE;
+                    $subProduct->save();
+                }
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'پرداخت با موفقیت ثبت شد و موجودی به‌روزرسانی شد.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return redirect()->back()->withErrors(['error' => $e->getMessage()]);
+        }
     }
 
 
@@ -179,12 +208,23 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
+            // حذف آیتم‌ها
+            $order->orderItems()->delete();
+
+            // قطع ارتباط با sub products
+            $order->subProducts()->detach();
+
+            // حذف خود سفارش
             $order->delete();
+
             return response()->json(['success' => true], 200);
+
         } catch (\Exception $e) {
-            return response()->json(['success' => false, 'message' => 'خطا در حذف زیرمحصول'], 500);
+            \Log::error('خطا در حذف سفارش: ' . $e->getMessage());
+            return response()->json(['success' => false, 'message' => 'خطا در حذف سفارش'], 500);
         }
     }
+
 
     public function getOrdersData()
     {

@@ -71,6 +71,7 @@ class OrderDataTable extends DataTable
             })
             ->addColumn('action', function ($order) {
                 return '
+                <a href="' . route('orders.preview', $order->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-eye"></i></a>
                 <a href="' . route('orders.edit', $order->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
                <button class="btn btn-sm btn-danger" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash"></i></button>
         ';
