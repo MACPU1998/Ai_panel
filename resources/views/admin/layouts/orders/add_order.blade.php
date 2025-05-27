@@ -28,7 +28,7 @@
                                         <option value="">یک مشتری را انتخاب کنید</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>
-                                                {{ $customer->last_name }}
+                                                {{ $customer->first_name }} {{ $customer->last_name }}
                                             </option>
                                         @endforeach
                                     </select>
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-success">{{ __("general.next") }}</button>
+                        <button type="submit" class="btn btn-success">{{ __("general.settlement") }}</button>
                     </div>
                 </form>
 

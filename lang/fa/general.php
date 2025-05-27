@@ -121,5 +121,7 @@ return [
     'tax_price' => 'مالیات',
     'quantity' => 'تعداد',
     'total_price' => 'مبلغ کل',
+    'settlement' => 'تسویه حساب',
+    'payment' => 'پرداخت',
 
 ];

@@ -17,6 +17,7 @@ return new class extends Migration
             $table->foreign('order_id')->references('id')->on('orders');
             $table->unsignedBigInteger('sub_product_id');
             $table->foreign('sub_product_id')->references('id')->on('sub_products');
+            $table->string('barcode')->nullable();
             $table->timestamps();
         });
     }

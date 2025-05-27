@@ -37,13 +37,13 @@
                     @foreach($previousOrderItems as $item)
                         @php
                             $totalQuantity += $item->quantity;
-                            $totalAmount += $item->total_price;
+                            $totalAmount += $item->price * $item->quantity;
                         @endphp
                         <tr>
-                            <td>{{ $item->product_name }}</td>
+                            <td>{{ $item->product->name ?? '-' }}</td> {{-- نام محصول --}}
                             <td>{{ $item->quantity }}</td>
                             <td>{{ number_format($item->price) }} دلار</td>
-                            <td>{{ number_format($item->total_price) }} دلار</td>
+                            <td>{{ number_format($item->price * $item->quantity) }} دلار</td> {{-- قیمت کل --}}
                             <td>{{ $item->status ?? '-' }}</td>
                             <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y/m/d H:i') }}</td>
                         </tr>
@@ -65,6 +65,10 @@
                     هیچ سفارشی برای این مشتری ثبت نشده است.
                 </div>
             @endif
+
+            <div class="text-end mt-4">
+                <button type="submit" class="btn btn-success">{{ __("general.payment") }}</button>
+            </div>
         </div>
     </div>
 @endsection
