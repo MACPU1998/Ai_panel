@@ -20,10 +20,33 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-
-
             ->editColumn('shipping_price', function ($order) {
                 return $order->shipping_price ? $order->shipping_price : '-';
+            })
+            ->editColumn('status', function ($order) {
+                if ($order->status == 0) {
+                    return 'کنسل شده';
+                }
+                if ($order->status == 1) {
+                    return 'در سبد خرید';
+                }
+                if ($order->status == 2) {
+                    return 'تایید و پرداخت مشتری';
+                }
+
+                if ($order->status == 3) {
+                    return 'تایید ادمین';
+                }
+
+                if ($order->status == 4) {
+                    return 'پردازش';
+                }
+                if ($order->status == 5) {
+                    return 'آماده به ارسال';
+                }
+                if ($order->status == 6) {
+                    return 'ارسال';
+                } else return "نامعلوم";
             })
             ->editColumn('tax_price', function ($order) {
                 return $order->tax_price ? $order->tax_price : '-';
@@ -34,7 +57,6 @@ class OrderDataTable extends DataTable
             ->editColumn('final_price', function ($order) {
                 return $order->final_price ? $order->final_price : '-';
             })
-
             ->addColumn('created_at', function ($order) {
                 if ($order->created_at) {
                     return Jalalian::fromCarbon($order->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');

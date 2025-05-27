@@ -32,13 +32,13 @@ class CustomerDataTable extends DataTable
                 return $customer->birth_date ? $customer->birth_date : '-';
             })
             ->editColumn('country_id', function ($customer) {
-                return $customer->country_id ? $customer->country_id : '-';
+                return $customer->country->name ?? '-';
             })
             ->editColumn('state_id', function ($customer) {
-                return $customer->state_id ? $customer->state_id : '-';
+                return $customer->state->name ?? '-';
             })
             ->editColumn('city_id', function ($customer) {
-                return $customer->city_id ? $customer->city_id : '-';
+                return $customer->city->name ?? '-';
             })
             ->addColumn('created_at', function ($customer) {
                 if ($customer->created_at) {
@@ -67,7 +67,7 @@ class CustomerDataTable extends DataTable
      */
     public function query(Customer $customer): QueryBuilder
     {
-        return $customer->newQuery();
+        return $customer->newQuery()->with(['country', 'state', 'city']);
     }
 
     /**

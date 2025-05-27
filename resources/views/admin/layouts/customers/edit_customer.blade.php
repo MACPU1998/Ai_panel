@@ -109,6 +109,49 @@
                             </div>
                         </div>
 
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="state_id" class="form-label">{{__("general.state")}}</label>
+                                <select type="text"
+                                        class="form-control select2 @error('state_id') is-invalid @enderror"
+                                        id="state_id"
+                                        name="state_id">
+                                    @foreach($states as $state)
+                                        <option value="{{ $state->id }}" {{ $state->state_id == $state->id ? 'selected' : '' }}>
+                                            {{ $state->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('state_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="city_id" class="form-label">{{__("general.city")}}</label>
+                                <select type="text"
+                                        class="form-control select2 @error('city_id') is-invalid @enderror"
+                                        id="city_id"
+                                        name="city_id">
+                                    @foreach($cities as $city)
+                                        <option value="{{ $city->id }}" {{ $city->city_id == $city->id ? 'selected' : '' }}>
+                                            {{ $city->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                                @error('city_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
+
                         <div class="col-md-6">
                             <div class="mb-3">
                                 <label for="image" class="form-label">{{ __("general.image") }}</label>
