@@ -10,6 +10,7 @@ use App\Http\Controllers\ProductAttributeController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -168,15 +169,33 @@ Route::prefix('admin')->group(function () {
 
     });
 
+    //Route setting
+    Route::prefix('settings')->group(function () {
+        Route::get('/', [SettingController::class, 'index'])->name('settings.index')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [SettingController::class, 'create'])->name('settings.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [SettingController::class, 'store'])->name('settings.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/data', [SettingController::class, 'getSettingsData'])->name('settings.getData')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [SettingController::class, 'datatable'])->name('settings.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{setting}/edit', [SettingController::class, 'edit'])->name('settings.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{setting}/update', [SettingController::class, 'update'])->name('settings.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{setting}', [SettingController::class, 'destroy'])->name('settings.destroy')->addMeta(true, ["super admin:admin"]);
+
+
+    });
+
 
     //Route orders
     Route::prefix('orders')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [OrderController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
         Route::get('/preview/{customer}', [OrderController::class, 'preview'])->name('orders.preview')->addMeta(true, ["super admin:admin"]);
+
         //Route::get('/cart-count/{customer}', [OrderController::class, 'cartCount'])->name('orders.cart_count')->addMeta(true, ["super admin:admin"]);
         Route::post('/add-to-order', [OrderController::class, 'addToOrder'])->name('orders.add_to_order')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
+        Route::post('/confirm-local', [OrderController::class, 'confirmLocal'])->addMeta(true);
+        Route::get('/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
+
         Route::get('/data', [OrderController::class, 'getOrdersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [OrderController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
         Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);

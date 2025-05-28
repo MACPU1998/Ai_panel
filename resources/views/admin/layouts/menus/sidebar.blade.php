@@ -118,6 +118,14 @@
                         </li>
 
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:settings"></iconify-icon>
+                                <span class="hide-menu">{{__("general.setting")}}</span>
+                            </a>
+                        </li>
+
+
                         @php
                             $menus = $menus ?? collect();
                             $menus = $menus->sortBy(function($menu) {

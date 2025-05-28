@@ -1,12 +1,16 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\DataTables\OrderDataTable;
 use App\Models\Customer;
 use App\Models\Order;
 use App\Models\OrderItem;
+use App\Models\OrderSubProduct;
 use App\Models\Product;
+use App\Models\Setting;
 use App\Models\SubProduct;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Yajra\DataTables\DataTables;
@@ -14,7 +18,7 @@ use Yajra\DataTables\DataTables;
 class OrderController extends Controller
 {
 
-    public function index(OrderDataTable $dataTable )
+    public function index(OrderDataTable $dataTable)
     {
         return $dataTable->render('admin.layouts.orders.manage_order');
     }
@@ -46,13 +50,29 @@ class OrderController extends Controller
 
         return view('admin.layouts.orders.add_order', compact('customers', 'products', 'subProductQuantities'));
     }
+
     public function preview(Customer $customer, Request $request)
     {
+        $shippingCost = Setting::where('key', 'هزینه ارسال')->value('value') ?? 0;
+
         $previousOrderItems = OrderItem::whereHas('order', function ($query) use ($customer) {
             $query->where('customer_id', $customer->id);
         })->with('order')->orderByDesc('created_at')->get();
 
-        return view('admin.layouts.orders.preview', compact('customer', 'previousOrderItems'));
+        $latestOrder = Order::where('customer_id', $customer->id)
+            ->latest()
+            ->first();
+
+        $subProducts = $latestOrder
+            ? OrderSubProduct::with('subProduct.product')->where('order_id', $latestOrder->id)->get()
+            : collect();
+
+        return view('admin.layouts.orders.preview', compact(
+            'customer',
+            'previousOrderItems',
+            'shippingCost',
+            'latestOrder',
+            'subProducts'));
     }
 
 
@@ -89,7 +109,7 @@ class OrderController extends Controller
                 'product_id' => $request->product_id,
                 'quantity' => $request->quantity,
                 'price' => $productPrice,
-                'product_name'=>$productName,
+                'product_name' => $productName,
                 'total_price' => $productPrice * $request->quantity,
                 'status' => OrderItem::STATUS_ACTIVE,
             ]);
@@ -111,30 +131,25 @@ class OrderController extends Controller
     }
 
 
-    public function store(Request $request, )
+    public function store(Request $request)
     {
         $customerId = $request->input('customer_id');
 
         $request->validate([
-            'shipping_method' => 'required|integer|min:0',
-            // احتمالا داده‌های دیگه‌ای لازم باشه ولی با توجه به مثال همین کافیه
+            'customer_id' => 'required|exists:customers,id',
         ]);
 
-        // فرض کنیم سفارش (Order) موجود و در حالت سبد خرید است
         $order = Order::where('customer_id', $customerId)
             ->where('status', Order::STATUS_SHOPPING_CART)
             ->with('orderItems')
             ->firstOrFail();
 
-        // شروع تراکنش برای جلوگیری از مشکل همزمانی
         DB::beginTransaction();
 
         try {
-            // 1- بروزرسانی وضعیت سفارش و روش ارسال
-            $order->shipping_price = $request->shipping_method;
+            // بروزرسانی وضعیت سفارش و جمع مقادیر
             $order->status = Order::STATUS_PAYMENT;
 
-            // جمع تعداد و قیمت کل سفارش از orderItems
             $totalQuantity = 0;
             $totalPrice = 0;
             foreach ($order->orderItems as $item) {
@@ -143,20 +158,20 @@ class OrderController extends Controller
             }
             $order->quantity = $totalQuantity;
             $order->total_price = $totalPrice;
-            $order->final_price = $totalPrice + $order->shipping_price;
+
+            // فرض کنیم هزینه ارسال از تنظیمات خوانده می‌شود و به final_price اضافه می‌شود
+            $shippingCost = Setting::where('key', 'هزینه ارسال')->value('value') ?? 0;
+            $order->final_price = $totalPrice + $shippingCost;
 
             $order->save();
 
-            // 2- برای هر آیتم سفارش، بروزرسانی وضعیت OrderItem و کم کردن موجودی SubProduct
+            // بروزرسانی هر آیتم سفارش و ذخیره ساب‌پروداکت‌ها
             foreach ($order->orderItems as $item) {
-                // تغییر وضعیت آیتم به پرداخت شده
                 $item->status = OrderItem::STATUS_PAYMENT;
                 $item->save();
 
-                // کم کردن موجودی در SubProduct ها برای این محصول
                 $quantityToDeactivate = $item->quantity;
 
-                // انتخاب ساب‌پروداکت های موجود از آخر به اول که مرتبط با محصول و فعال هستند
                 $subProducts = SubProduct::where('product_id', $item->product_id)
                     ->where('status', SubProduct::STATUS_AVAILABLE)
                     ->orderByDesc('id')
@@ -164,14 +179,18 @@ class OrderController extends Controller
                     ->get();
 
                 if ($subProducts->count() < $quantityToDeactivate) {
-                    // اگر موجودی کافی نیست، خطا بزنیم
                     throw new \Exception("موجودی کافی برای محصول {$item->product_name} وجود ندارد.");
                 }
 
-                // تغییر وضعیت SubProduct ها به غیر فعال
                 foreach ($subProducts as $subProduct) {
                     $subProduct->status = SubProduct::STATUS_INACTIVE;
                     $subProduct->save();
+
+                    OrderSubProduct::create([
+                        'order_id' => $order->id,
+                        'sub_product_id' => $subProduct->id,
+                        'barcode' => $subProduct->barcode,
+                    ]);
                 }
             }
 
@@ -187,6 +206,42 @@ class OrderController extends Controller
     }
 
 
+    public function confirmLocal(Request $request)
+    {
+        $order = Order::findOrFail($request->order_id);
+
+        DB::beginTransaction();
+        try {
+            // بروزرسانی وضعیت سفارش و جمع مقادیر
+            $order->status = Order::STATUS_CONFIRMATION;;
+            $order->save();
+
+            // بروزرسانی هر آیتم سفارش و ذخیره ساب‌پروداکت‌ها
+            foreach ($order->orderItems as $item) {
+                $item->status = OrderItem::STATUS_SOLD_OUT;
+                $item->save();
+            }
+
+            DB::commit();
+
+            return redirect()->route('admin.orders.show', $order->id)
+                ->with('success', 'پرداخت با موفقیت ثبت شد و موجودی به‌روزرسانی شد.');
+
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->with('success', 'تایید ادمین با موفقیت انجام شد.');
+        }
+    }
+
+    public function invoice(Order $order)
+    {
+        $customer = $order->customer;
+        $orderItems = $order->orderItems()->with('product')->get();
+
+        $pdf = Pdf::loadView('admin.layouts.orders.invoice', compact('order', 'customer', 'orderItems'));
+
+        return $pdf->download("فاکتور-سفارش-{$order->id}.pdf");
+    }
 
     public function show(string $id)
     {

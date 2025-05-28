@@ -69,6 +69,12 @@ return [
     'edit_product_currency' => 'ویرایش ارز',
     'delete_product_currency' => 'حذف ارز',
 
+    'setting' => 'تنظیمات',
+    'manage_setting' => 'مدیریت تنظیمات',
+    'add_setting' => 'اضافه کردن تنظیمات',
+    'edit_setting' => 'ویرایش تنظیمات',
+    'delete_setting' => 'حذف تنظیمات',
+
     'manage_sub_product' => 'مدیریت زیر محصولات',
     'subProducts' => 'زیر محصولات',
     'add_sub_product' => 'اضافه کردن زیر محصول',
@@ -123,5 +129,6 @@ return [
     'total_price' => 'مبلغ کل',
     'settlement' => 'تسویه حساب',
     'payment' => 'پرداخت',
+    'key' => 'کلمه کلیدی',
 
 ];

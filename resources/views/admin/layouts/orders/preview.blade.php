@@ -6,34 +6,19 @@
     <div class="container mt-5">
         <h3 class="mb-4">پیش‌نمایش سفارش مشتری</h3>
 
-            <form method="POST" action="{{ route('orders.store') }}">
-
+        <form method="POST" action="{{ route('orders.store') }}">
             @csrf
             <input type="hidden" name="customer_id" value="{{ $customer->id }}">
 
-
+            {{-- اطلاعات مشتری --}}
             <div class="card mb-4 p-3">
                 <h5>اطلاعات مشتری</h5>
                 <p>نام: <strong>{{ $customer->first_name }} {{ $customer->last_name }}</strong></p>
                 <p>آدرس: {{ $customer->country->name ?? '-' }} - {{ $customer->state->name ?? '-' }} - {{ $customer->city->name ?? '-' }}</p>
-
-                <h5>روش ارسال</h5>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="shipping_method_radio" id="freeShipping" value="0" checked>
-                    <label class="form-check-label" for="freeShipping">
-                        ارسال رایگان
-                    </label>
-                </div>
-                <div class="form-check">
-                    <input class="form-check-input" type="radio" name="shipping_method_radio" id="paidShipping" value="50000">
-                    <label class="form-check-label" for="paidShipping">
-                        ارسال با پست (۵۰,۰۰۰ تومان)
-                    </label>
-                </div>
-
-                <input type="hidden" name="shipping_method" id="shippingMethodInput" value="0">
+                <p>هزینه ارسال: <strong>{{ number_format($shippingCost) }} تومان</strong></p>
             </div>
 
+            {{-- لیست سفارشات --}}
             <div class="card p-3">
                 <h5>سفارشات ثبت ‌شده</h5>
 
@@ -64,11 +49,11 @@
                             <tr>
                                 <td>{{ $item->product_name ?? '-' }}</td>
                                 <td>{{ $item->quantity }}</td>
-                                <td>{{ number_format($item->price) }} دلار</td>
-                                <td>{{ number_format($item->price * $item->quantity) }} دلار</td>
-                                <td>{{ $item->status ?? '-' }}</td>
+                                <td>{{ number_format($item->price) }} تومان</td>
+                                <td>{{ number_format($item->price * $item->quantity) }} تومان</td>
+                                <td>{{ $item->status_label  ?? '-' }}</td>
                                 <td>{{ \Carbon\Carbon::parse($item->created_at)->format('Y/m/d H:i') }}</td>
-                                <td>-</td>
+                                <td>{{ number_format($shippingCost) }} تومان</td>
                             </tr>
                         @endforeach
                         </tbody>
@@ -79,12 +64,22 @@
                             <td></td>
                             <td>
                                 <strong class="text-success" id="totalAmount">
-                                    {{ number_format($totalAmount) }} دلار
+                                    {{ number_format($totalAmount) }} تومان
                                 </strong>
                             </td>
                             <td colspan="2"></td>
                             <td>
-                                <div id="shippingCostText" class="text-secondary small">هزینه ارسال: ۰ تومان</div>
+                                <div id="shippingCostText" class="text-secondary small">
+                                    هزینه ارسال: {{ number_format($shippingCost) }} تومان
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colspan="3" class="text-end"><strong>جمع نهایی (با هزینه ارسال):</strong></td>
+                            <td colspan="4">
+                                <strong class="text-primary">
+                                    {{ number_format($totalAmount + $shippingCost) }} تومان
+                                </strong>
                             </td>
                         </tr>
                         </tfoot>
@@ -97,38 +92,59 @@
             </div>
 
             <div class="text-end mt-4">
-                <button type="submit" class="btn btn-success">{{ __("general.payment") }}</button>
+
+
+                    @if($subProducts->count())
+                        <div class="card mt-4 p-3">
+                            <h5>زیرمحصولات سفارش</h5>
+                            <table class="table table-bordered mt-2">
+                                <thead class="table-light">
+                                <tr>
+                                    <th>بارکد</th>
+                                    <th>نام زیرمحصول</th>
+                                    <th>لیبل</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                @foreach($subProducts as $sub)
+                                    <tr>
+                                        <td>{{ $sub->barcode ?? '-' }}</td>
+                                        <td>{{ $sub->subProduct->product->name ?? '-' }}</td>
+                                        <td>{{ $sub->subProduct->label  ?? '-' }}</td>
+                                    </tr>
+                                @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    @endif
+                        @if($latestOrder)
+                            @if($latestOrder->status == 1)
+                                {{-- پرداخت --}}
+                                <form method="POST" action="{{ route('orders.store') }}">
+                                    @csrf
+                                    <input type="hidden" name="customer_id" value="{{ $customer->id }}">
+                                    <button type="submit" class="btn btn-success">{{ __("general.payment") }}</button>
+                                </form>
+
+                            @elseif($latestOrder->status == 2)
+                                {{-- تایید ادمین --}}
+                                <form method="POST" style="display:inline;" onsubmit="return confirm('تایید ادمین انجام شود؟')">
+                                    @csrf
+                                    <input type="hidden" name="order_id" value="{{ $latestOrder->id }}">
+                                    <button type="submit" formaction="{{ url('/admin/orders/confirm-local') }}" class="btn btn-warning">
+                                        تایید ادمین
+                                    </button>
+                                </form>
+
+
+                            @elseif($latestOrder->status == 3)
+                                {{-- چاپ فاکتور --}}
+                                <a href="{{ route('orders.invoice', $latestOrder->id) }}" class="btn btn-info" target="_blank">چاپ فاکتور</a>
+                            @endif
+                        @endif
             </div>
+
+
         </form>
     </div>
 @endsection
-
-@push('scripts')
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            const shippingRadios = document.querySelectorAll('input[name="shipping_method_radio"]');
-            const totalAmountElement = document.getElementById('totalAmount');
-            const shippingCostText = document.getElementById('shippingCostText');
-            const shippingMethodInput = document.getElementById('shippingMethodInput');
-
-            let baseTotal = {{ $totalAmount ?? 0 }};
-
-            function updateShipping() {
-                const selected = document.querySelector('input[name="shipping_method_radio"]:checked');
-                const shippingCost = parseInt(selected.value);
-                const newTotal = baseTotal + shippingCost;
-
-                totalAmountElement.textContent = new Intl.NumberFormat().format(newTotal) + ' دلار';
-                shippingCostText.textContent = 'هزینه ارسال: ' + new Intl.NumberFormat().format(shippingCost) + ' تومان';
-                shippingMethodInput.value = shippingCost;
-            }
-
-            shippingRadios.forEach(radio => {
-                radio.addEventListener('change', updateShipping);
-            });
-
-            // اجرای اولیه برای مقدار پیش‌فرض
-            updateShipping();
-        });
-    </script>
-@endpush

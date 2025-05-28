@@ -15,6 +15,20 @@ class OrderItem extends Model
     const STATUS_PAYMENT = 2;  //پرداخت
     const STATUS_SOLD_OUT = 3;  //فروش رفته
 
+
+    public static $statusLabels = [
+        self::STATUS_CANCELED => 'لغو شده',
+        self::STATUS_ACTIVE => 'سبد خرید',
+        self::STATUS_PAYMENT => 'پرداخت شده',
+        self::STATUS_SOLD_OUT => 'فروش رفته',
+    ];
+
+    public function getStatusLabelAttribute()
+    {
+        return self::$statusLabels[$this->status] ?? 'نامشخص';
+    }
+
+
     protected $table = 'order_items';
     protected $fillable = [
         'order_id',

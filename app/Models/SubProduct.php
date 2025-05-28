@@ -14,6 +14,19 @@ class SubProduct extends Model
     const STATUS_AVAILABLE = 1;
     const STATUS_RETURNED = 2;
 
+    public static $statusLabels = [
+        self::STATUS_INACTIVE => 'غیر فعال',
+        self::STATUS_AVAILABLE => 'فعال',
+        self::STATUS_RETURNED => 'مرجوعی',
+
+    ];
+
+
+    public function getStatusLabelAttribute()
+    {
+        return self::$statusLabels[$this->status] ?? 'نامشخص';
+    }
+
     protected $table = 'sub_products';
     protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label', 'status'];
 
