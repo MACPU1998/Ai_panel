@@ -96,7 +96,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('productCurrencies.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="material-symbols-light:attach-money-rounded"></iconify-icon>
                                 <span class="hide-menu">{{__("general.productCurrencies")}}</span>
                             </a>
                         </li>
