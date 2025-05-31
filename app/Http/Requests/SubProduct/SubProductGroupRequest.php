@@ -29,6 +29,8 @@ class SubProductGroupRequest extends FormRequest
             'serie_year' => 'required|string',
             'serie_month' => 'required|string',
             'label' => 'nullable|string',
+            'production_date'=>'nullable|string',
+            'expiration_date'=>'nullable|string',
             'status' => 'required|integer',
             'count' => 'nullable|integer|min:1|max:1000',
 

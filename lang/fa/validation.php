@@ -348,6 +348,8 @@ return [
         'settlement' => 'تسویه حساب',
         'payment' => 'پرداخت',
         'key' => 'کلمه کلیدی',
+        'production_date' => 'تاریخ تولید',
+        'expiration_date' => 'تاریخ انقضا',
     ],
 
 ];

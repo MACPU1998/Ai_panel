@@ -50,6 +50,8 @@
                     {data: 'serie_month', name: 'serie_month'},
                     {data: 'label', name: 'label'},
                     {data: 'status', name: 'status'},
+                    {data: 'production_date', name: 'production_date'},
+                    {data: 'expiration_date', name: 'expiration_date'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}

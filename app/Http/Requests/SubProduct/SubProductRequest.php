@@ -28,6 +28,8 @@ class SubProductRequest extends FormRequest
             'serie_year' => 'required|string',
             'serie_month' => 'required|string',
             'label' => 'nullable|string',
+            'production_date'=>'nullable|string',
+            'expiration_date'=>'nullable|string',
             'status' => 'required|integer',
         ];
 

@@ -104,6 +104,36 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
+                                <label for="production_date" class="form-label">{{__("general.production_date")}}</label>
+                                <input type="text" class="form-control @error('production_date') is-invalid @enderror"
+                                       id="production_date"
+                                       value="{{ old('production_date', $subProduct->production_date) }}"
+                                       name="production_date">
+                                @error('production_date')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="expiration_date" class="form-label">{{__("general.expiration_date")}}</label>
+                                <input type="text" class="form-control @error('expiration_date') is-invalid @enderror"
+                                       id="expiration_date"
+                                       value="{{ old('expiration_date', $subProduct->expiration_date) }}"
+                                       name="expiration_date">
+                                @error('expiration_date')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="mb-3">
                                 <label for="status" class="form-label">{{__("general.status")}}</label>
                                 <select name="status" id="status" class="form-control">
                                     <option value="1" {{$subProduct->status == '1' ? 'selected' :''}}>فعال</option>

@@ -26,9 +26,14 @@ class SubProductDataTable extends DataTable
                     : 'غیرفعال';
             })
             ->editColumn('product_id', function ($subProduct) {
-                return $subProduct->product_id ? $subProduct->product->name  : '-';
+                return $subProduct->product_id ? $subProduct->product->name : '-';
             })
-
+            ->editColumn('production_date', function ($subProduct) {
+                return $subProduct->production_date ?? '-';
+            })
+            ->editColumn('expiration_date', function ($subProduct) {
+                return $subProduct->expiration_date ?? '-';
+            })
             ->addColumn('created_at', function ($subProduct) {
                 if ($subProduct->created_at) {
                     return Jalalian::fromCarbon($subProduct->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
@@ -47,7 +52,7 @@ class SubProductDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteSubProduct(' . $subProduct->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
-            ->rawColumns(['image','action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
 
@@ -80,22 +85,24 @@ class SubProductDataTable extends DataTable
      */
     public function getColumns(): array
     {
-    return [
-        Column::make('id')->title('شناسه'),
-        Column::make('product_id')->title('نام محصول'),
-        Column::make('barcode')->title('بارکد'),
-        Column::make('serie_year')->title('سری سال'),
-        Column::make('serie_month')->title('سری ماه'),
-        Column::make('label')->title('لیبل'),
-        Column::make('status')->title('وضعیت'),
-        Column::make('created_at')->title('تاریخ ایجاد'),
-        Column::make('updated_at')->title('تاریخ آپدیت'),
-        Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->addClass('text-center')
-            ->title('عملیات'),
-    ];
+        return [
+            Column::make('id')->title('شناسه'),
+            Column::make('product_id')->title('نام محصول'),
+            Column::make('barcode')->title('بارکد'),
+            Column::make('serie_year')->title('سری سال'),
+            Column::make('serie_month')->title('سری ماه'),
+            Column::make('label')->title('لیبل'),
+            Column::make('status')->title('وضعیت'),
+            Column::make('production_date')->title('تاریخ تولید'),
+            Column::make('expiration_date')->title('تاریخ انقضا'),
+            Column::make('created_at')->title('تاریخ ایجاد'),
+            Column::make('updated_at')->title('تاریخ آپدیت'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center')
+                ->title('عملیات'),
+        ];
     }
 
     /**

@@ -28,7 +28,7 @@ class SubProduct extends Model
     }
 
     protected $table = 'sub_products';
-    protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label', 'status'];
+    protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label','production_date','expiration_date', 'status'];
 
     public function product()
     {
