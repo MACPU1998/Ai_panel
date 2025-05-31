@@ -28,6 +28,9 @@ class SubProductDataTable extends DataTable
             ->editColumn('product_id', function ($subProduct) {
                 return $subProduct->product_id ? $subProduct->product->name : '-';
             })
+            ->editColumn('warehouse_id', function ($subProduct) {
+                return $subProduct->warehouse_id ? $subProduct->warehouse->name : '-';
+            })
             ->editColumn('production_date', function ($subProduct) {
                 return $subProduct->production_date ?? '-';
             })
@@ -92,6 +95,7 @@ class SubProductDataTable extends DataTable
             Column::make('serie_year')->title('سری سال'),
             Column::make('serie_month')->title('سری ماه'),
             Column::make('label')->title('لیبل'),
+            Column::make('warehouse_id')->title('انبار'),
             Column::make('status')->title('وضعیت'),
             Column::make('production_date')->title('تاریخ تولید'),
             Column::make('expiration_date')->title('تاریخ انقضا'),

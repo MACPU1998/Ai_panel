@@ -49,6 +49,7 @@
                     {data: 'serie_year', name: 'serie_year'},
                     {data: 'serie_month', name: 'serie_month'},
                     {data: 'label', name: 'label'},
+                    {data: 'warehouse_id', name: 'warehouse_id'},
                     {data: 'status', name: 'status'},
                     {data: 'production_date', name: 'production_date'},
                     {data: 'expiration_date', name: 'expiration_date'},

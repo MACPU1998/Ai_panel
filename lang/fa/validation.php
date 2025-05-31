@@ -350,6 +350,7 @@ return [
         'key' => 'کلمه کلیدی',
         'production_date' => 'تاریخ تولید',
         'expiration_date' => 'تاریخ انقضا',
+        'warehouses' => 'انبار',
     ],
 
 ];

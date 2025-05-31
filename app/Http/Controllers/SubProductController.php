@@ -7,6 +7,7 @@ use App\Http\Requests\SubProduct\SubProductGroupRequest;
 use App\Http\Requests\SubProduct\SubProductRequest;
 use App\Models\Product;
 use App\Models\SubProduct;
+use App\Models\Warehouse;
 use Yajra\DataTables\DataTables;
 
 class SubProductController extends Controller
@@ -35,7 +36,8 @@ class SubProductController extends Controller
     public function create()
     {
         $products = Product::where('status', 1)->get(['id', 'name', 'serial_prefix']);
-        return view('admin.layouts.sub_products.add_sub_product', compact('products'));
+        $warehouses = Warehouse::where('status', 1)->get();
+        return view('admin.layouts.sub_products.add_sub_product', compact('products', 'warehouses'));
     }
 
     public function createGroup()
@@ -103,7 +105,8 @@ class SubProductController extends Controller
     public function edit(SubProduct $subProduct)
     {
         $products = Product::all();
-        return view('admin.layouts.sub_products.edit_sub_product', compact('subProduct', 'products'));
+        $warehouses = Warehouse::where('status', 1)->get();
+        return view('admin.layouts.sub_products.edit_sub_product', compact('subProduct', 'products', 'warehouses'));
     }
 
     public function update(SubProductRequest $request, SubProduct $subProduct)

@@ -28,7 +28,8 @@ class SubProduct extends Model
     }
 
     protected $table = 'sub_products';
-    protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month', 'label','production_date','expiration_date', 'status'];
+    protected $fillable = ['product_id', 'barcode', 'serie_year', 'serie_month',
+        'label','production_date','expiration_date', 'status','warehouse_id'];
 
     public function product()
     {
@@ -42,5 +43,9 @@ class SubProduct extends Model
     public function orderItems()
     {
         return $this->hasMany(OrderItem::class);
+    }
+
+    public function warehouse(){
+        return $this->belongsTo(Warehouse::class);
     }
 }

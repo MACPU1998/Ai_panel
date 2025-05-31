@@ -152,6 +152,27 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="mb-3">
+                                <label for="warehouse_id" class="form-label">{{__("general.warehouse")}}</label>
+                                <select type="text"
+                                        class="form-control select2 @error('warehouse_id') is-invalid @enderror"
+                                        id="warehouse_id"
+                                        name="warehouse_id"
+                                        required>
+                                    <option value="">یک انبار را انتخاب کنید</option>
+                                    @foreach($warehouses as $warehouse)
+                                        <option value="{{$warehouse->id}}">{{$warehouse->name}}</option>
+
+                                    @endforeach
+                                </select>
+                                @error('warehouse_id')
+                                <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                                @enderror
+                            </div>
+                        </div>
 
                         <div class="col-md-6">
                             <div class="mb-3">
@@ -193,6 +214,15 @@
         $(document).ready(function () {
             $('#product_id').select2({
                 placeholder: "یک محصول را انتخاب کنید",
+                allowClear: false,
+                width: '100%',
+                dropdownParent: $('body')
+            });
+        });
+
+        $(document).ready(function () {
+            $('#warehouse_id').select2({
+                placeholder: "یک انبار را انتخاب کنید",
                 allowClear: false,
                 width: '100%',
                 dropdownParent: $('body')

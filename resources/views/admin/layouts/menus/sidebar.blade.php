@@ -126,6 +126,14 @@
                         </li>
 
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
+                                <iconify-icon icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
+                                <span class="hide-menu">{{__("general.warehouses")}}</span>
+                            </a>
+                        </li>
+
+
                         @php
                             $menus = $menus ?? collect();
                             $menus = $menus->sortBy(function($menu) {

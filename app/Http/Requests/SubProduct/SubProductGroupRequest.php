@@ -33,7 +33,7 @@ class SubProductGroupRequest extends FormRequest
             'expiration_date'=>'nullable|string',
             'status' => 'required|integer',
             'count' => 'nullable|integer|min:1|max:1000',
-
+            'warehouse_id' => 'required|integer|exists:warehouses,id',
         ];
 
         return $rules;

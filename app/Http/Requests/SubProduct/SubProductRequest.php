@@ -31,6 +31,7 @@ class SubProductRequest extends FormRequest
             'production_date'=>'nullable|string',
             'expiration_date'=>'nullable|string',
             'status' => 'required|integer',
+            'warehouse_id' => 'required|integer|exists:warehouses,id',
         ];
 
         return $rules;

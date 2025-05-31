@@ -24,7 +24,6 @@
                                             onchange="this.form.submit()"
                                             required>
 
-
                                         <option value="">یک مشتری را انتخاب کنید</option>
                                         @foreach($customers as $customer)
                                             <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>

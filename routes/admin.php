@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -193,7 +194,6 @@ Route::prefix('admin')->group(function () {
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
         Route::post('/confirm-local', [OrderController::class, 'confirmLocal'])->addMeta(true);
         Route::get('/{order}/invoice', [OrderController::class, 'invoice'])->name('orders.invoice');
-
         Route::get('/data', [OrderController::class, 'getOrdersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [OrderController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
         Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
@@ -202,6 +202,19 @@ Route::prefix('admin')->group(function () {
 
     });
 
+    //Route setting
+    Route::prefix('warehouses')->group(function () {
+        Route::get('/', [WarehouseController::class, 'index'])->name('warehouses.index')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [WarehouseController::class, 'create'])->name('warehouses.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [WarehouseController::class, 'store'])->name('warehouses.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/data', [WarehouseController::class, 'getWarehousesData'])->name('warehouses.getData')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [WarehouseController::class, 'datatable'])->name('warehouses.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{warehouse}/edit', [WarehouseController::class, 'edit'])->name('warehouses.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{warehouse}/update', [WarehouseController::class, 'update'])->name('warehouses.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouses.destroy')->addMeta(true, ["super admin:admin"]);
+
+
+    });
 
 
 });

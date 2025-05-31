@@ -32,11 +32,16 @@ return [
     'manage_amin' => 'مدیریت ادمین',
     'add_admin' => 'اضافه کردن ادمین',
 
-
     'manage_menu' => 'مدیریت منوها',
     'add_menu' => 'اضافه کردن منو',
     'edit_menu' => 'ویرایش منو',
     'delete_menu' => 'حذف منو',
+
+    'manage_warehouse' => 'مدیریت انبار',
+    'add_warehouse' => 'اضافه کردن انبار',
+    'edit_warehouse' => 'ویرایش انبار',
+    'delete_warehouse' => 'حذف انبار',
+    'warehouses' => 'انبار',
 
     'manage_category' => 'مدیریت دسته بندی محصولات',
     'add_category' => 'اضافه کردن دسته بندی محصول',
@@ -132,5 +137,6 @@ return [
     'key' => 'کلمه کلیدی',
     'production_date' => 'تاریخ تولید',
     'expiration_date' => 'تاریخ انقضا',
+    'address' => 'آدرس',
 
 ];
