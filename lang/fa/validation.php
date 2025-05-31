@@ -340,7 +340,14 @@ return [
         'link' => 'لینک',
         'updated_at' => 'تاریخ آپدیت',
         'serial_prefix' => 'شناسه کالا',
-
+        'productCurrencies' => 'ارز محصول',
+        'shipping_price' => 'هزینه پست',
+        'tax_price' => 'مالیات',
+        'quantity' => 'تعداد',
+        'total_price' => 'مبلغ کل',
+        'settlement' => 'تسویه حساب',
+        'payment' => 'پرداخت',
+        'key' => 'کلمه کلیدی',
     ],
 
 ];

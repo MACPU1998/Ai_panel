@@ -24,29 +24,7 @@ class OrderDataTable extends DataTable
                 return $order->shipping_price ? $order->shipping_price : '-';
             })
             ->editColumn('status', function ($order) {
-                if ($order->status == 0) {
-                    return 'کنسل شده';
-                }
-                if ($order->status == 1) {
-                    return 'در سبد خرید';
-                }
-                if ($order->status == 2) {
-                    return 'تایید و پرداخت مشتری';
-                }
-
-                if ($order->status == 3) {
-                    return 'تایید ادمین';
-                }
-
-                if ($order->status == 4) {
-                    return 'پردازش';
-                }
-                if ($order->status == 5) {
-                    return 'آماده به ارسال';
-                }
-                if ($order->status == 6) {
-                    return 'ارسال';
-                } else return "نامعلوم";
+                return $order->status_label;
             })
             ->editColumn('tax_price', function ($order) {
                 return $order->tax_price ? $order->tax_price : '-';

@@ -189,8 +189,6 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [OrderController::class, 'index'])->name('orders.index')->addMeta(true, ["super admin:admin"]);
         Route::get('/create', [OrderController::class, 'create'])->name('orders.create')->addMeta(true, ["super admin:admin"]);
         Route::get('/preview/{customer}', [OrderController::class, 'preview'])->name('orders.preview')->addMeta(true, ["super admin:admin"]);
-
-        //Route::get('/cart-count/{customer}', [OrderController::class, 'cartCount'])->name('orders.cart_count')->addMeta(true, ["super admin:admin"]);
         Route::post('/add-to-order', [OrderController::class, 'addToOrder'])->name('orders.add_to_order')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
         Route::post('/confirm-local', [OrderController::class, 'confirmLocal'])->addMeta(true);

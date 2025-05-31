@@ -18,11 +18,11 @@ class Order extends Model
     const STATUS_SEND = 6;  //ارسال
 
     public static $statusLabels = [
-        self::STATUS_CANCEL => 'oلغو شده',
-        self::STATUS_SHOPPING_CART => 'سبد خریدo',
-        self::STATUS_PAYMENT => 'پرداخت شدهo',
-        self::STATUS_CONFIRMATION => 'oتایید ادمین',
-        self::STATUS_PROCESSING => 'oدر حال پردازش',
+        self::STATUS_CANCEL => 'لغو شده',
+        self::STATUS_SHOPPING_CART => 'سبد خرید',
+        self::STATUS_PAYMENT => 'پرداخت شده',
+        self::STATUS_CONFIRMATION => 'تایید ادمین',
+        self::STATUS_PROCESSING => 'در حال پردازش',
         self::STATUS_READY_TO_SEND => 'آماده ارسال',
         self::STATUS_SEND => 'ارسال شده',
     ];

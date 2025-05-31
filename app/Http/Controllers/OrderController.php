@@ -40,7 +40,9 @@ class OrderController extends Controller
                 ->whereIn('order_id', function ($query) use ($request) {
                     $query->select('id')
                         ->from('orders')
-                        ->where('customer_id', $request->customer_id);
+                        ->where('customer_id', $request->customer_id)
+                        ->where('status', Order::STATUS_SHOPPING_CART);
+
                 })
                 ->groupBy('product_id')
                 ->pluck('total_quantity', 'product_id')

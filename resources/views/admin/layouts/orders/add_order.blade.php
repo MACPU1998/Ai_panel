@@ -52,7 +52,7 @@
                                             <div class="card-body d-flex flex-column justify-content-between">
                                                 <div>
                                                     <h5 class="card-title">{{ $product->name }}</h5>
-                                                    <p class="card-text">قیمت: {{ number_format($product->price) }} دلار</p>
+                                                    <p class="card-text">قیمت: {{ number_format($product->price) }} تومان</p>
                                                     <p class="card-text">موجودی: {{ $product->active_sub_product_count }}</p>
                                                 </div>
 
@@ -105,8 +105,6 @@
 
              <script>
                     document.addEventListener('DOMContentLoaded', function () {
-                        const addedProducts = new Set();
-
                         const form = document.getElementById('add_order');
                         const customerIdInput = document.getElementById('customer_id');
 
