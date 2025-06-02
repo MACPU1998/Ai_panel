@@ -28,7 +28,8 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Model
 {
     use HasRoles,SoftDeletes;
-	protected $table = 'admins';
+//	protected $table = 'admins';
+    protected $table = 'users'; // ← جدول صحیح شما
 
 	protected $casts = [
 		'email_verified_at' => 'datetime'
@@ -48,4 +49,11 @@ class User extends Model
 		'password',
 		'remember_token'
 	];
+
+
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class);
+    }
+
 }

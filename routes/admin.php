@@ -13,10 +13,18 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
 
 
 Route::prefix('admin')->group(function () {
+
+
+
+    Route::get('/wallet/{adminId}', [WalletController::class, 'showOrCreate']);
+    Route::post('/wallet', [WalletController::class, 'deposit']);
+
+
 
     Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')->middleware('AdminAuthenticated')->addMeta(true, ["super admin:admin"]);
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login')->addMeta(true, ["super admin:admin"]);
