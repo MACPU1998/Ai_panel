@@ -252,42 +252,18 @@ class OrderController extends Controller
         return $pdf->download("فاکتور-سفارش-{$order->id}.pdf");
     }
 
-    public function show(string $id)
+    public function edit($id)
     {
-        //
-    }
-
-
-    public function edit(Request $request)
-    {
-        $customers = Customer::all();
-        $products = Product::where('status', Product::STATUS_ACTIVE)
-            ->whereHas('activeSubProducts')
-            ->withCount(['activeSubProducts as active_sub_product_count'])
-            ->with(['media', 'activeSubProducts'])
-            ->get();
-
+        $order = Order::with(['customer', 'orderItems.product'])->findOrFail($id);
+        $products = Product::where('status', 1)->get();
         $subProductQuantities = [];
-
-        if ($request->customer_id) {
-            $subProductQuantities = DB::table('order_items')
-                ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
-                ->whereIn('order_id', function ($query) use ($request) {
-                    $query->select('id')
-                        ->from('orders')
-                        ->where('customer_id', $request->customer_id)
-                        ->where('status', Order::STATUS_SHOPPING_CART);
-
-                })
-                ->groupBy('product_id')
-                ->pluck('total_quantity', 'product_id')
-                ->toArray();
-
+        foreach ($order->orderItems as $item) {
+            $subProductQuantities[$item->product_id] = $item->quantity;
         }
 
-        return view('admin.layouts.orders.edit_order', compact('customers', 'products', 'subProductQuantities'));
-
+        return view('admin.layouts.orders.edit_order', compact('order', 'products', 'subProductQuantities'));
     }
+
 
     public function update(Request $request, string $id)
     {
@@ -298,13 +274,8 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         try {
-            // حذف آیتم‌ها
             $order->orderItems()->delete();
-
-            // قطع ارتباط با sub products
             $order->subProducts()->detach();
-
-            // حذف خود سفارش
             $order->delete();
 
             return response()->json(['success' => true], 200);
