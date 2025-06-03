@@ -73,6 +73,15 @@
 
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false">
+                                <iconify-icon icon="material-symbols-light:account-balance-wallet-outline"></iconify-icon>
+                                <span class="hide-menu">{{__("general.wallet")}}</span>
+                            </a>
+                        </li>
+
+
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('orders.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:cart"></iconify-icon>
                                 <span class="hide-menu">{{__("general.order")}}</span>
@@ -133,6 +142,12 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="#" aria-expanded="false">
+                                <iconify-icon icon="material-symbols-light:bar-chart-4-bars-rounded"></iconify-icon>
+                                <span class="hide-menu">گزارشگیری و آمار</span>
+                            </a>
+                        </li>
 
                         @php
                             $menus = $menus ?? collect();

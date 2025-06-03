@@ -51,15 +51,80 @@
                         <!-- start language Dropdown -->
                         <!-- end language Dropdown -->
                         <!-- ------------------------------- -->
-                        <li class="nav-item position-relative">
-                            <a id="cart-icon" class="nav-link nav-icon-hover-bg rounded-circle" href="#">
-                                <iconify-icon icon="solar:cart-large-2-line-duotone" class="fs-5"></iconify-icon>
-                                <span id="cart-count"
-                                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0
-                                </span>
 
-                            </a>
-                        </li>
+{{--                        <li class="nav-item position-relative">--}}
+{{--                            <a id="cart-icon" class="nav-link nav-icon-hover-bg rounded-circle" href="#">--}}
+{{--                                <iconify-icon icon="solar:cart-large-2-line-duotone" class="fs-5"></iconify-icon>--}}
+{{--                                <span id="cart-count"--}}
+{{--                                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0--}}
+{{--                                </span>--}}
+
+{{--                            </a>--}}
+{{--                        </li>--}}
+
+
+
+{{--                        @if(request()->routeIs('orders.create'))--}}
+{{--                            <li class="nav-item position-relative">--}}
+{{--                                <a href="{{ route('orders.preview', ['customer' => session('selected_customer_id') ?? 0]) }}"--}}
+{{--                                   class="nav-link nav-icon-hover-bg rounded-circle" title="مشاهده سبد خرید">--}}
+{{--                                    <iconify-icon icon="material-symbols-light:add-shopping-cart-rounded" class="fs-5"></iconify-icon>--}}
+{{--                                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>--}}
+{{--                                </a>--}}
+{{--                            </li>--}}
+{{--                        @endif--}}
+
+                        @if(request()->routeIs('orders.create'))
+                            <li class="nav-item position-relative">
+                                <a href="#" id="cart-link"
+                                   class="nav-link nav-icon-hover-bg rounded-circle" title="مشاهده سبد خرید">
+                                    <iconify-icon icon="material-symbols-light:add-shopping-cart-rounded" class="fs-5"></iconify-icon>
+                                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                                </a>
+                            </li>
+
+                            <script>
+                                document.addEventListener('DOMContentLoaded', function () {
+                                    const customerSelect = document.getElementById('customer_id'); // 👈 همین ID که تو form اصلی داری
+                                    const cartCount = document.getElementById('cart-count');
+                                    const cartLink = document.getElementById('cart-link');
+
+                                    function updateCart(customerId) {
+                                        if (!customerId) {
+                                            cartLink.href = "#";
+                                            cartCount.classList.add('d-none');
+                                            return;
+                                        }
+
+                                        fetch(`/admin/orders/cart-count/${customerId}`)
+                                            .then(response => response.json())
+                                            .then(data => {
+                                                if (data.count > 0) {
+                                                    cartCount.textContent = data.count;
+                                                    cartCount.classList.remove('d-none');
+                                                } else {
+                                                    cartCount.classList.add('d-none');
+                                                }
+
+                                                cartLink.href = `/admin/orders/preview/${customerId}`;
+                                            });
+                                    }
+
+                                    if (customerSelect) {
+                                        customerSelect.addEventListener('change', function () {
+                                            updateCart(this.value);
+                                        });
+
+                                        // بار اول هم بررسی کنه اگر مشتری قبلاً انتخاب شده
+                                        if (customerSelect.value) {
+                                            updateCart(customerSelect.value);
+                                        }
+                                    }
+                                });
+                            </script>
+
+                        @endif
+
 
                         <!-- ------------------------------- -->
                         <!-- start profile Dropdown -->

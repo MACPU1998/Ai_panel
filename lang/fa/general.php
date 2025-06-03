@@ -138,5 +138,6 @@ return [
     'production_date' => 'تاریخ تولید',
     'expiration_date' => 'تاریخ انقضا',
     'address' => 'آدرس',
+    'wallet' => 'کیف پول',
 
 ];

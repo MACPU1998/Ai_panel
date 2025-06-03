@@ -77,6 +77,18 @@ class OrderController extends Controller
             'subProducts'));
     }
 
+    public function cartCount($customerId)
+    {
+        $order = Order::where('customer_id', $customerId)
+            ->where('status', Order::STATUS_SHOPPING_CART)
+            ->with('orderItems')
+            ->first();
+
+        $count = $order ? $order->orderItems->sum('quantity') : 0;
+        //$count = $order ? $order->subProducts()->count() : 0;
+        return response()->json(['count' => $count]);
+    }
+
 
     public function addToOrder(Request $request)
     {
@@ -126,7 +138,7 @@ class OrderController extends Controller
 
         $order->quantity = $totalQuantity;
         $order->total_price = $totalPrice;
-        $order->final_price = $totalPrice; // اگر مالیات یا هزینه ارسال داری اینجا اضافه کن
+        $order->final_price = $totalPrice;
         $order->save();
 
         return response()->json(['success' => true, 'order_id' => $order->id]);
