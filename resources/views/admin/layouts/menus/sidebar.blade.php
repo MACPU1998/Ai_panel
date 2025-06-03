@@ -128,6 +128,14 @@
 
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('productAttributes.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <span class="hide-menu">{{__("general.product_attributes")}}</span>
+                            </a>
+                        </li>
+
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:settings"></iconify-icon>
                                 <span class="hide-menu">{{__("general.setting")}}</span>

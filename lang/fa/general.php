@@ -94,6 +94,7 @@ return [
     'add_product_attribute' => 'اضافه کردن ویژگی',
     'edit_product_attribute' => 'ویرایش ویژگی',
     'delete_product_attribute' => 'حذف ویژگی',
+    'product_attributes' => 'ویژگی محصول',
 
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
