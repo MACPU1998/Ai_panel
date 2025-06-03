@@ -41,7 +41,7 @@ class RolesDataTable extends DataTable
               </button>
                    <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="' . route('roles.edit', $role->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
-                      <li><a class="dropdown-item" href="' . route('roles.list', $role->id) . '"><i class="bi bi-pencil me-1"></i> دسترسی</a></li>
+                      <li><a class="dropdown-item" href="' . route('roles.list', $role->id) . '"><i class=" bi bi-box2 me-1"></i> دسترسی</a></li>
                       <li><a class="dropdown-item" href="#" onclick="deleteRole(' . $role->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
                   </ul>
              </div>

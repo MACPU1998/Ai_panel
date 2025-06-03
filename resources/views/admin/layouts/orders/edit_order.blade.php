@@ -1,204 +1,195 @@
 @extends('admin.layouts.project_master_admin')
 
-@section('title', 'ویرایش مشتری')
+@section('title', 'اضافه کردن سفارش جدید')
 
 @section('content')
 
     <div class="col-lg-12">
         <div class="card">
             <div class="container mt-8">
-                <h5 class="mb-4">{{__("general.edit_customer")}}</h5>
+                <h5 class="mb-4">{{__("general.add_order")}}</h5>
 
-                <form id="edit_customer" action="{{route('customers.update',$customer->id)}}" method="POST" class="my-10"
-                      enctype="multipart/form-data">
+                <form id="add_order" action="" method="GET" class="my-10" enctype="multipart/form-data">
                     @csrf
-                    @method('PUT')
                     <div class="row">
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="first_name" class="form-label">{{__("general.first_name")}}</label>
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror" id="first_name"
-                                       name="first_name"
-                                       value="{{ old('first_name', $customer->first_name) }}"
-                                       required>
-                                @error('first_name')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
+                        <div class="col-md-12">
+                            <div class="col-md-6">
+                                <div class="mb-3">
+                                    <label for="customer_id" class="form-label">{{ __("general.customer") }}</label>
+                                    <select type="text"
+                                            class="form-control select2 @error('customer_id') is-invalid @enderror"
+                                            id="customer_id"
+                                            name="customer_id"
+                                            onchange="this.form.submit()"
+                                            required>
+
+                                        <option value="">یک مشتری را انتخاب کنید</option>
+                                        @foreach($customers as $customer)
+                                            <option value="{{ $customer->id }}" {{ request('customer_id') == $customer->id ? 'selected' : '' }}>
+                                                {{ $customer->first_name }} {{ $customer->last_name }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('customer_id')
+                                    <span class="invalid-feedback" role="alert"><strong>{{ $message }}</strong></span>
+                                    @enderror
+                                </div>
                             </div>
+                            <a href="{{ route('customers.create') }}" class="btn btn-success mb-3">{{ __("general.add_customer") }}</a>
                         </div>
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
-                                <input type="text" class="form-control @error('last_name') is-invalid @enderror" id="last_name"
-                                       name="last_name"
-                                       value="{{ old('last_name', $customer->last_name) }}"
-                                       required>
-                                @error('last_name')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
+                        <div class="col-md-12">
+                            <label class="form-label d-block">محصولات</label>
+                            <div class="row" id="product-list">
+                                @forelse($products as $product)
+                                    <div class="col-md-3">
+                                        <div class="card h-100 shadow-sm">
+                                            <img src="{{ $product->getFirstMediaUrl('product_images') ?: asset('images/no_image.jpg') }}"
+                                                 class="card-img-top product-image" alt="Product Image">
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">{{__("general.phone")}}</label>
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror" id="phone"
-                                       name="phone"
-                                       value="{{ old('phone', $customer->phone) }}"
-                                       required>
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
+                                            <div class="card-body d-flex flex-column justify-content-between">
+                                                <div>
+                                                    <h5 class="card-title">{{ $product->name }}</h5>
+                                                    <p class="card-text">قیمت: {{ number_format($product->price) }} تومان</p>
+                                                    <p class="card-text">موجودی: {{ $product->active_sub_product_count }}</p>
+                                                </div>
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="national_id" class="form-label">{{__("general.national_id")}}</label>
-                                <input type="number" class="form-control @error('national_id') is-invalid @enderror" id="national_id"
-                                       name="national_id"
-                                       value="{{ old('national_id', $customer->national_id) }}">
-                                @error('national_id')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
+                                                <div class="d-flex align-items-center gap-2 mt-2">
+                                                    <input type="number"
+                                                           class="form-control form-control-sm quantity-input"
+                                                           name="product_quantities[{{ $product->id }}]"
+                                                           id="quantity_{{ $product->id }}"
+                                                           min="1"
+                                                           max="{{ $product->active_sub_product_count }}"
+                                                           value="{{ isset($subProductQuantities[$product->id]) ? $subProductQuantities[$product->id] : '' }}"
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="birth_date" class="form-label">{{__("general.birth_date")}}</label>
-                                <input type="text" class="form-control @error('birth_date') is-invalid @enderror" id="birth_date"
-                                       name="birth_date"
-                                       value="{{ old('birth_date', $customer->birth_date) }}">
-                                @error('birth_date')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
+                                                           placeholder="تعداد"
+                                                           style="width: 70px;">
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="country_id" class="form-label">{{__("general.country")}}</label>
-                                <select type="text"
-                                        class="form-control select2 @error('country_id') is-invalid @enderror"
-                                        id="country_id"
-                                        name="country_id">
-                                    @foreach($countries as $country)
-                                        <option value="{{ $country->id }}" {{ $customer->country_id == $country->id ? 'selected' : '' }}>
-                                            {{ $country->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('currency_id')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
+                                                    <button type="button"
+                                                            class="btn btn-sm btn-outline-success add-to-cart"
+                                                            {{--                                                            data-sub-product-id="{{ $product->activeSubProducts->first()->id }}"--}}
+                                                            data-product-id="{{ $product->id }}">
+                                                        افزودن
+                                                    </button>
 
-                        <div class="col-md-6">
-                            <div class="mb-3">
-                                <label for="image" class="form-label">{{ __("general.image") }}</label>
-                                <input type="file" class="form-control dropify @error('image') is-invalid @enderror"
-                                       id="image" name="image"
-                                       data-default-file="{{ $customer->getFirstMediaUrl('customer_images') ?? '' }}">
-                                @error('image')
-                                <span class="invalid-feedback" role="alert">
-                                <strong>{{ $message }}</strong>
-                                </span>
-                                @enderror
+
+                                                </div>
+
+                                                <div id="status_{{ $product->id }}" class="text-success mt-1 small d-none">
+                                                    به سبد اضافه شد ✔️
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                @empty
+                                    <p>هیچ محصول فعالی با موجودی یافت نشد.</p>
+                                @endforelse
                             </div>
                         </div>
 
                     </div>
 
-                    <button type="submit" class="btn btn-success">{{__("general.create_btn")}}</button>
+                    <div class="text-end mt-4">
+                        <button type="submit" class="btn btn-success">{{ __("general.settlement") }}</button>
+                    </div>
                 </form>
+
+
             </div>
         </div>
-    </div>
-@endsection
-@section('customjs')
+        @endsection
+        @section('customjs')
 
-    <script>
-        $(function () {
+            <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    const form = document.getElementById('add_order');
+                    const customerIdInput = document.getElementById('customer_id');
 
-            $(document).ready(function () {
+                    // جلوگیری از submit با Enter
+                    form.addEventListener("keypress", function (event) {
+                        if (event.key === "Enter") {
+                            event.preventDefault();
+                        }
+                    });
 
-                $('.dropify').dropify({
-                    messages: {
-                        'default': 'یک فایل را اینجا بکشید و رها کنید یا کلیک کنید',
-                        'replace': 'برای جایگزینی، فایل جدید را بکشید و رها کنید یا کلیک کنید',
-                        'remove': 'حذف',
-                        'error': 'متاسفانه مشکلی پیش آمد'
-                    }
+                    // دکمه‌های افزودن به سبد
+                    document.querySelectorAll('.add-to-cart').forEach(button => {
+                        button.addEventListener('click', function () {
+                            const productId = this.dataset.productId;
+                            const quantityInput = document.getElementById('quantity_' + productId);
+                            const customerId = customerIdInput.value;
+                            const quantity = parseInt(quantityInput?.value);
+
+                            if (!customerId) {
+                                alert('لطفاً مشتری را انتخاب کنید.');
+                                return;
+                            }
+
+                            if (!quantityInput || isNaN(quantity) || quantity < 1) {
+                                alert('تعداد معتبر وارد کنید.');
+                                return;
+                            }
+
+                            fetch('/admin/orders/add-to-order', {
+                                method: 'POST',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                    'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+                                },
+                                body: JSON.stringify({
+                                    customer_id: customerId,
+                                    product_id: productId,
+                                    quantity: quantity
+                                })
+                            })
+                                .then(res => res.json())
+                                .then(data => {
+                                    if (data.success) {
+                                        const status = document.getElementById('status_' + productId);
+                                        status.classList.remove('d-none');
+                                        status.textContent = 'به سبد اضافه شد ✔️';
+                                    } else {
+                                        alert(data.message || 'خطا در افزودن محصول.');
+                                    }
+                                })
+
+                                .catch(() => alert('مشکلی پیش آمده.'));
+                        });
+                    });
+
+                    // ارسال فرم
+                    form.addEventListener('submit', function (e) {
+                        e.preventDefault();
+
+                        const customerId = customerIdInput.value;
+                        if (!customerId) {
+                            alert('لطفاً مشتری را انتخاب کنید.');
+                            return;
+                        }
+
+                        const params = new URLSearchParams();
+                        document.querySelectorAll('.quantity-input').forEach(input => {
+                            if (!input.disabled && input.value) {
+                                const productId = input.name.match(/\d+/)[0];
+                                params.append(`product_quantities[${productId}]`, input.value);
+                            }
+                        });
+
+                        window.location.href = `/admin/orders/preview/${customerId}?${params.toString()}`;
+                    });
+
+                    // select2
+                    $('#customer_id').select2({
+                        placeholder: "یک مشتری را انتخاب کنید",
+                        allowClear: false,
+                        width: '100%',
+                        dropdownParent: $('body')
+                    });
                 });
+            </script>
 
-            });
-
-        });
-
-
-    </script>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            document.querySelector("form").addEventListener("keypress", function (event) {
-                if (event.key === "Enter") {
-                    event.preventDefault();
-                }
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#country_id').select2({
-                placeholder: "کشور خود را انتخاب کنید",
-                allowClear: false,
-                width: '100%',
-                dropdownParent: $('body')
-            });
-        });
-
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#state_id').select2({
-                placeholder: "استان خود را انتخاب کنید",
-                allowClear: false,
-                width: '100%',
-                dropdownParent: $('body')
-            });
-        });
-    </script>
-
-    <script>
-        $(document).ready(function () {
-            $('#city_id').select2({
-                placeholder: "شهر خود را انتخاب کنید",
-                allowClear: false,
-                width: '100%',
-                dropdownParent: $('body')
-            });
-        });
-    </script>
-
-    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\Customer\CustomerRequest', '#edit_customer') !!}
 
 @endsection
+

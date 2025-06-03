@@ -53,7 +53,7 @@ class OrderController extends Controller
         return view('admin.layouts.orders.add_order', compact('customers', 'products', 'subProductQuantities'));
     }
 
-    public function preview(Customer $customer, Request $request)
+    public function preview(Customer $customer)
     {
         $shippingCost = Setting::where('key', 'هزینه ارسال')->value('value') ?? 0;
 
@@ -131,7 +131,6 @@ class OrderController extends Controller
         }
         $quantity = $request->quantity;
 
-        // به‌روزرسانی مقادیر کلی سفارش
         $totalQuantity = $order->orderItems()->sum('quantity');
         $totalPrice = $order->orderItems()->sum(\DB::raw('price * quantity'));
 
@@ -161,7 +160,6 @@ class OrderController extends Controller
         DB::beginTransaction();
 
         try {
-            // بروزرسانی وضعیت سفارش و جمع مقادیر
             $order->status = Order::STATUS_PAYMENT;
 
             $totalQuantity = 0;
@@ -173,7 +171,6 @@ class OrderController extends Controller
             $order->quantity = $totalQuantity;
             $order->total_price = $totalPrice;
 
-            // فرض کنیم هزینه ارسال از تنظیمات خوانده می‌شود و به final_price اضافه می‌شود
             $shippingCost = Setting::where('key', 'هزینه ارسال')->value('value') ?? 0;
             $order->final_price = $totalPrice + $shippingCost;
 
@@ -226,11 +223,9 @@ class OrderController extends Controller
 
         DB::beginTransaction();
         try {
-            // بروزرسانی وضعیت سفارش و جمع مقادیر
             $order->status = Order::STATUS_CONFIRMATION;;
             $order->save();
 
-            // بروزرسانی هر آیتم سفارش و ذخیره ساب‌پروداکت‌ها
             foreach ($order->orderItems as $item) {
                 $item->status = OrderItem::STATUS_SOLD_OUT;
                 $item->save();
@@ -263,9 +258,35 @@ class OrderController extends Controller
     }
 
 
-    public function edit(string $id)
+    public function edit(Request $request)
     {
-        //
+        $customers = Customer::all();
+        $products = Product::where('status', Product::STATUS_ACTIVE)
+            ->whereHas('activeSubProducts')
+            ->withCount(['activeSubProducts as active_sub_product_count'])
+            ->with(['media', 'activeSubProducts'])
+            ->get();
+
+        $subProductQuantities = [];
+
+        if ($request->customer_id) {
+            $subProductQuantities = DB::table('order_items')
+                ->select('product_id', DB::raw('SUM(quantity) as total_quantity'))
+                ->whereIn('order_id', function ($query) use ($request) {
+                    $query->select('id')
+                        ->from('orders')
+                        ->where('customer_id', $request->customer_id)
+                        ->where('status', Order::STATUS_SHOPPING_CART);
+
+                })
+                ->groupBy('product_id')
+                ->pluck('total_quantity', 'product_id')
+                ->toArray();
+
+        }
+
+        return view('admin.layouts.orders.edit_order', compact('customers', 'products', 'subProductQuantities'));
+
     }
 
     public function update(Request $request, string $id)
