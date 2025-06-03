@@ -54,7 +54,7 @@ class OrderDataTable extends DataTable
                   <i class="bi bi-three-dots-vertical"></i>
               </button>
                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="' . route('orders.preview', $order->customer_id) . '"><i class="bi bi-pencil me-1"></i> نمایش</a></li>
+                      <li><a class="dropdown-item" href="' . route('orders.preview', $order->customer_id) . '"><i class="bi bi-eye me-1"></i> نمایش</a></li>
                       <li><a class="dropdown-item" href="' . route('orders.edit', $order->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
                       <li><a class="dropdown-item" href="#" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
                   </ul>
