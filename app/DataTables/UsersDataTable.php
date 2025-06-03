@@ -34,11 +34,19 @@ class UsersDataTable extends DataTable
             })
             ->addColumn('action', function ($user) {
                 return '
-                <a href="' . route('users.edit', $user->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteUser(' . $user->id . ')"><i class="bi bi-trash"></i></button>
-                 <a href="' . route('users.edit.password', $user->id) . '" class="btn btn-sm btn-secondary">ویرایش رمز</a>
-        ';
+    <div class="dropdown text-center">
+        <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+            <i class="bi bi-three-dots-vertical"></i>
+        </button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="' . route('users.edit', $user->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+            <li><a class="dropdown-item" href="#" onclick="deleteUser(' . $user->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
+            <li><a class="dropdown-item" href="' . route('users.edit.password', $user->id) . '"><i class="bi bi-lock me-1"></i> تغییر رمز</a></li>
+        </ul>
+    </div>
+    ';
             })
+
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }

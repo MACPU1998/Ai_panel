@@ -52,11 +52,19 @@ class CustomerDataTable extends DataTable
                 }
                 return '-';
             })
+
             ->addColumn('action', function ($customer) {
                 return '
-                <a href="' . route('customers.edit', $customer->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteCustomer(' . $customer->id . ')"><i class="bi bi-trash"></i></button>
-        ';
+            <div class="dropdown text-center">
+               <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+              </button>
+                   <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="' . route('customers.edit', $customer->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="deleteCustomer(' . $customer->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
+                  </ul>
+             </div>
+    ';
             })
             ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');

@@ -43,6 +43,21 @@ class ProductCurrencyDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteProductCurrency(' . $productCurrency->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
+
+            ->addColumn('action', function ($productCurrency) {
+                return '
+            <div class="dropdown text-center">
+               <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+              </button>
+                   <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="' . route('productCurrencies.edit', $productCurrency->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="deleteProductCurrency(' . $productCurrency->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
+                  </ul>
+             </div>
+    ';
+            })
+
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }

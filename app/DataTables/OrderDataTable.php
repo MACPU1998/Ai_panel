@@ -49,11 +49,19 @@ class OrderDataTable extends DataTable
             })
             ->addColumn('action', function ($order) {
                 return '
-                <a href="' . route('orders.preview', $order->customer_id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-eye"></i></a>
-                <a href="' . route('orders.edit', $order->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash"></i></button>
-        ';
+            <div class="dropdown text-center">
+               <button class="btn btn-sm btn-light dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                  <i class="bi bi-three-dots-vertical"></i>
+              </button>
+                   <ul class="dropdown-menu">
+                      <li><a class="dropdown-item" href="' . route('orders.preview', $order->customer_id) . '"><i class="bi bi-pencil me-1"></i> نمایش</a></li>
+                      <li><a class="dropdown-item" href="' . route('orders.edit', $order->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+                      <li><a class="dropdown-item" href="#" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
+                  </ul>
+             </div>
+    ';
             })
+
             ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
