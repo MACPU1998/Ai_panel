@@ -78,5 +78,11 @@ class SettingController extends Controller
      */
     public function destroy(Setting $setting)
     {
+        try {
+            $setting->delete();
+            return response()->json(['success' => true], 200);
+        } catch (\Exception $e) {
+            return response()->json(['success' => false, 'message' => 'خطا در حذف تنظیمات'], 500);
+        }
     }
 }
