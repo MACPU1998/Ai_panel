@@ -84,6 +84,7 @@ return [
     'subProducts' => 'زیر محصولات',
     'add_sub_product' => 'اضافه کردن زیر محصول',
     'add_group_sub_product' => 'اضافه کردن زیر محصول گروهی',
+    'add_excel_sub_product' => 'اضافه کردن با اکسل',
     'edit_sub_product' => 'ویرایش زیرمحصول',
     'delete_sub_product' => 'حذف زیرمحصول',
     'serie_year'=>'سری سال',

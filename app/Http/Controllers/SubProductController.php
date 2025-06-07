@@ -46,6 +46,11 @@ class SubProductController extends Controller
         return view('admin.layouts.sub_products.add_sub_product_group', compact('products'));
     }
 
+    public function createExcel()
+    {
+
+    }
+
     public function store(SubProductRequest $request)
     {
         $validated = $request->validated();
@@ -83,6 +88,11 @@ class SubProductController extends Controller
         }
 
         return redirect()->route('subProducts.index')->with('success', "{$count} زیرمحصول با موفقیت ایجاد شد.");
+    }
+
+    public function storeExcel(SubProductGroupRequest $request)
+    {
+
     }
 
     public function getSubProductData()

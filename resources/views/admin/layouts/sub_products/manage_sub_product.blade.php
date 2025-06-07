@@ -14,8 +14,13 @@
                     <a href="{{ route('subProducts.create') }}" class="btn btn-success mb-2 w-auto">
                         {{ __("general.add_sub_product") }}
                     </a>
-                    <a href="{{ route('subProducts.create.group') }}" class="btn btn-success w-auto">
+
+                    <a href="{{ route('subProducts.create.group') }}" class="btn btn-success  mb-2 w-auto">
                         {{ __("general.add_group_sub_product") }}
+                    </a>
+
+                    <a href="{{ route('subProducts.create.excel') }}" class="btn btn-success w-auto">
+                        {{ __("general.add_excel_sub_product") }}
                     </a>
                 </div>
 
