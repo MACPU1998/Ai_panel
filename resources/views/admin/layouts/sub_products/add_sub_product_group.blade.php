@@ -68,22 +68,6 @@
 
                         <div class="col-md-6">
                             <div class="mb-3">
-                                <label for="barcode" class="form-label">{{__("general.barcode")}}</label>
-                                <input type="text" class="form-control @error('barcode') is-invalid @enderror"
-                                       id="barcode"
-                                       name="barcode"
-                                >
-                                @error('barcode')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-
-
-                        <div class="col-md-6">
-                            <div class="mb-3">
                                 <label for="count" class="form-label">{{__("general.count")}}</label>
                                 <input type="text" class="form-control @error('count') is-invalid @enderror" id="count"
                                        name="count">

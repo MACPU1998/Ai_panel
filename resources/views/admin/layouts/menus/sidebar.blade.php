@@ -146,7 +146,7 @@
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
                                 <iconify-icon icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
-                                <span class="hide-menu">{{__("general.warehouses")}}</span>
+                                <span class="hide-menu">{{__("general.warehouse")}}</span>
                             </a>
                         </li>
 

@@ -151,7 +151,7 @@
 
                                     @endforeach
                                 </select>
-                                @error('warehouse_id')
+                                @error('warehouse')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>

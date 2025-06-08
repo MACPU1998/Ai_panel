@@ -67,7 +67,7 @@ class SubProductController extends Controller
     public function store(SubProductRequest $request)
     {
         $validated = $request->validated();
-        $finalBarcode = trim($validated['serial_prefix']) . trim($validated['barcode']);
+        $finalBarcode = trim($validated['barcode']);
         unset($validated['serial_prefix']);
         $validated['barcode'] = $finalBarcode;
         SubProduct::create($validated);
@@ -80,18 +80,29 @@ class SubProductController extends Controller
 
         $count = $data['count'] ?? 1;
         $serial_prefix = $data['serial_prefix'] ?? '';
-        $barcode = $data['barcode'];
         $serieYear = $data['serie_year'];
         $serieMonth = $data['serie_month'];
 
-        $base = $serial_prefix .$barcode. $serieYear . $serieMonth;
+        $base = $serial_prefix . $serieYear . $serieMonth;
 
-        $lastNumber = SubProduct::where('barcode', 'like', $base . '%')
-            ->count();
+        // پیدا کردن بزرگ‌ترین شماره‌ای که تاکنون برای این بارکد ساخته شده
+        $lastBarcode = SubProduct::where('barcode', 'like', $base . '%')
+            ->orderBy('barcode', 'desc')
+            ->value('barcode');
+
+        // استخراج عدد چهار رقمی آخر بارکد
+        $lastNumber = 0;
+        if ($lastBarcode) {
+            $lastNumber = (int)substr($lastBarcode, -4); // فقط ۴ رقم آخر
+        }
+
+        if ($lastNumber + $count > 9999) {
+            return redirect()->back()->withErrors(['count' => 'تعداد درخواستی از محدودیت عددی بارکد بیشتر است. لطفا تعداد کمتری وارد کنید']);
+        }
 
         for ($i = 1; $i <= $count; $i++) {
             $number = $lastNumber + $i;
-            $barcode = $base . str_pad($number, STR_PAD_LEFT);
+            $barcode = $base . str_pad($number, 4, '0', STR_PAD_LEFT);
 
             $subProductData = $data;
             $subProductData['barcode'] = $barcode;
