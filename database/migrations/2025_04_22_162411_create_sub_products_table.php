@@ -14,10 +14,12 @@ return new class extends Migration {
             $table->id();
             $table->unsignedBigInteger('product_id');
             $table->foreign('product_id')->references('id')->on('products');
-            $table->string('barcode', 255);
+            $table->string('barcode', 255)->nullable();
             $table->string('serie_year')->nullable();
             $table->string('serie_month')->nullable();
             $table->string('label')->nullable();
+            $table->string('production_date')->nullable();
+            $table->string('expiration_date')->nullable();
             $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
