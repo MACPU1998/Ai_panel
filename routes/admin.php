@@ -146,6 +146,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/create', [SubProductController::class, 'create'])->name('subProducts.create')->addMeta(true, ["super admin:admin"]);
         Route::get('/create-group', [SubProductController::class, 'createGroup'])->name('subProducts.create.group')->addMeta(true, ["super admin:admin"]);
         Route::get('/create-excel', [SubProductController::class, 'createExcel'])->name('subProducts.create.excel')->addMeta(true, ["super admin:admin"]);
+      //  Route::post('/import-excel', [SubProductController::class, 'importExcel'])->name('subProducts.import.excel')->addMeta(true, ["super admin:admin"]);
+        Route::get('/download-excel-sample', [SubProductController::class, 'downloadSampleExcel'])->name('subProducts.download.excel')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [SubProductController::class, 'store'])->name('subProducts.store')->addMeta(true, ["super admin:admin"]);
         Route::post('/store-group', [SubProductController::class, 'storeGroup'])->name('subProducts.store.group')->addMeta(true, ["super admin:admin"]);
         Route::post('/store-excel', [SubProductController::class, 'storeExcel'])->name('subProducts.store.excel')->addMeta(true, ["super admin:admin"]);

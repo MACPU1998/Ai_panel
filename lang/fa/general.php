@@ -41,7 +41,7 @@ return [
     'add_warehouse' => 'اضافه کردن انبار',
     'edit_warehouse' => 'ویرایش انبار',
     'delete_warehouse' => 'حذف انبار',
-    'warehouses' => 'انبار',
+    'warehouse' => 'انبار',
 
     'manage_category' => 'مدیریت دسته بندی محصولات',
     'add_category' => 'اضافه کردن دسته بندی محصول',
@@ -90,6 +90,10 @@ return [
     'serie_year'=>'سری سال',
     'serie_month'=>'سری ماه',
     'label'=>'لیبل',
+    'download_excel_sample'=>'دانلود فایل نمونه اکسل',
+    'import_SP_with_excel'=>'ایمپورت زیرمحصولات از طریق فایل Excel',
+    'select_excel'=>'انتخاب فایل Excel',
+    'upload_and_save'=>'آپلود و ذخیره زیرمحصولات',
 
     'manage_product_attribute' => 'مدیریت ویژگی محصولات',
     'add_product_attribute' => 'اضافه کردن ویژگی',
