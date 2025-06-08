@@ -15,15 +15,17 @@ use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Wallet\WalletTransactionController;
+
+
+
 
 
 Route::prefix('admin')->group(function () {
+//    Route::get('/wallet/{adminId}', [WalletController::class, 'showOrCreate']);
+//    Route::post('/wallet/deposit/{adminId}', [WalletController::class, 'deposit']);
 
-
-
-    Route::get('/wallet/{adminId}', [WalletController::class, 'showOrCreate']);
-    Route::post('/wallet', [WalletController::class, 'deposit']);
-
+//    Route::get('wallets/{customer}/transactions', [WalletTransactionController::class, 'index'])->name('wallet.transactions.index');
 
 
     Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')->middleware('AdminAuthenticated')->addMeta(true, ["super admin:admin"]);
@@ -173,6 +175,11 @@ Route::prefix('admin')->group(function () {
         Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{customer}/update', [CustomerController::class, 'update'])->name('customers.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
+
+// web.php
+        Route::get('/{customer}/wallet', [WalletController::class, 'editWallet'])->name('wallet.edit');
+        Route::put('/{customer}/wallet', [WalletController::class, 'updateWallet'])->name('wallet.update');
+
 
 
     });

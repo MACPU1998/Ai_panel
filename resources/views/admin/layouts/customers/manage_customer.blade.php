@@ -42,9 +42,11 @@
                     {  data: 'phone', name: 'phone'},
                     {  data: 'national_id', name: 'national_id'},
                     {  data: 'birth_date', name: 'birth_date'},
-                    {  data: 'country_id', name: 'country_id'},
-                    {  data: 'state_id', name: 'state_id'},
+                    // {  data: 'country_id', name: 'country_id'},
+                    // {  data: 'state_id', name: 'state_id'},
                     {  data: 'city_id', name: 'city_id'},
+                    { data: 'wallet_id', name: 'wallet_id' },
+                    { data: 'wallet_amount', name: 'wallet_id' },
                     {
                         data: 'image',
                         name: 'image',

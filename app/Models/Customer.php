@@ -21,17 +21,23 @@ class Customer extends Model implements HasMedia
         'country_id',
         'state_id',
         'city_id',
+        'wallet_id'
     ];
 
     public function registerMediaCollections(): void
     {
         $this->addMediaCollection('customer_images')->singleFile();
     }
+    public function wallet()
+    {
+        return $this->hasOne(Wallet::class, 'user_id', 'id');
+    }
 
     public function country()
     {
         return $this->belongsTo(Country::class);
     }
+
 
     public function state()
     {

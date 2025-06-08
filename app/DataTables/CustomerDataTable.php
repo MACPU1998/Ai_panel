@@ -52,12 +52,32 @@ class CustomerDataTable extends DataTable
                 }
                 return '-';
             })
+            ->addColumn('wallet_amount', function ($customer) {
+                return $customer->wallet ? number_format($customer->wallet->balance) . ' تومان' : '-';
+
+            })
+
+
             ->addColumn('action', function ($customer) {
                 return '
-                <a href="' . route('customers.edit', $customer->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-               <button class="btn btn-sm btn-danger" onclick="deleteCustomer(' . $customer->id . ')"><i class="bi bi-trash"></i></button>
-        ';
+        <a href="' . route('customers.edit', $customer->id) . '" class="btn btn-sm btn-primary">
+            <i class="bi bi-pencil"></i>
+        </a>
+
+        <a href="' . route('wallet.edit', $customer->id) . '" class="btn btn-sm btn-warning mx-1" title="مدیریت کیف پول">
+            <i class="bi bi-wallet2"></i>
+        </a>
+
+        <button class="btn btn-sm btn-danger" onclick="deleteCustomer(' . $customer->id . ')">
+            <i class="bi bi-trash"></i>
+        </button>
+    ';
             })
+
+
+
+
+
             ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
@@ -67,7 +87,7 @@ class CustomerDataTable extends DataTable
      */
     public function query(Customer $customer): QueryBuilder
     {
-        return $customer->newQuery()->with(['country', 'state', 'city']);
+        return $customer->newQuery()->with(['country', 'state', 'city', 'wallet']);
     }
 
     /**
@@ -98,12 +118,16 @@ class CustomerDataTable extends DataTable
             Column::make('phone')->title('شماره همراه'),
             Column::make('national_id')->title('کد ملی'),
             Column::make('birth_date')->title('تاریخ تولد'),
-            Column::make('country_id')->title('کشور'),
-            Column::make('state_id')->title('استان'),
+//            Column::make('country_id')->title('کشور'),
+//            Column::make('state_id')->title('استان'),
             Column::make('city_id')->title('شهر'),
+            Column::make('wallet_id')->title('کیف پول'),
+            Column::make('wallet_amount')->title('موجودی کیف پول'),
             Column::make('image')->title('عکس'),
             Column::make('created_at')->title('تاریخ ایجاد'),
             Column::make('updated_at')->title('تاریخ آپدیت'),
+
+
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
