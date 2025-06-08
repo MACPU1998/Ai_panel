@@ -24,7 +24,7 @@ class SubProductGroupRequest extends FormRequest
 
         $rules = [
             'product_id' => 'nullable|integer|exists:products,id',
-            'barcode' => 'required|string|max:255',
+            'barcode' => 'nullable|string|max:255',
             'serial_prefix' => 'nullable|string',
             'serie_year' => 'required|string',
             'serie_month' => 'required|string',
