@@ -85,11 +85,11 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="date" class="form-control" name="production_date" value="{{ $filters['production_date'] ?? '' }}">
+                            <input type="date" class="form-control" name="production_date" id="production_date  " value="{{ $filters['production_date'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="date" class="form-control" name="expiration_date" value="{{ $filters['expiration_date'] ?? '' }}">
+                            <input type="date" class="form-control" name="expiration_date" id="expiration_date" value="{{ $filters['expiration_date'] ?? '' }}">
                         </div>
 
                         <div class="col-md-3">

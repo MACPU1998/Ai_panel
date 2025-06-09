@@ -49,15 +49,15 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="date" class="form-control" name="serial_prefix" value="{{ $filters['serial_prefix'] ?? '' }}">
+                            <input type="text" class="form-control" name="serial_prefix" placeholder="شناسه کالا"  value="{{ $filters['serial_prefix'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="date" class="form-control" name="price" value="{{ $filters['price'] ?? '' }}">
+                            <input type="text" class="form-control" name="price" placeholder="مبلغ کل" value="{{ $filters['price'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="date" class="form-control" name="final_price" value="{{ $filters['final_price'] ?? '' }}">
+                            <input type="text" class="form-control" name="final_price" placeholder="مبلغ نهایی" value="{{ $filters['final_price'] ?? '' }}">
                         </div>
 
                         <div class="col-md-3">
