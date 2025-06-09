@@ -18,9 +18,28 @@ use Yajra\DataTables\DataTables;
 class OrderController extends Controller
 {
 
-    public function index(OrderDataTable $dataTable)
+    public function index(OrderDataTable $dataTable,Request $request)
     {
-        return $dataTable->render('admin.layouts.orders.manage_order');
+        if ($request->hasAny([
+            'customer_id',
+            'quantity',
+            'total_price',
+            'final_price',
+            'label',
+            'status',
+        ])) {
+            session(['order-filters' => $request->only([
+                'customer_id',
+                'quantity',
+                'total_price',
+                'final_price',
+                'status',
+            ])]);
+        }
+
+        $filters = session('order-filters', []);
+
+        return $dataTable->render('admin.layouts.orders.manage_order', compact('filters'));
     }
 
     public function create(Request $request)

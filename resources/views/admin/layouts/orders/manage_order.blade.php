@@ -11,6 +11,69 @@
                 <h5 class="mb-4">{{__("general.manage_order")}}</h5>
                 <a href="{{route('orders.create')}}" class="btn btn-success mb-3">{{__("general.add_order")}}</a>
 
+
+                <div class="accordion mb-4" id="filterAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="filterHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                                فیلترها
+                            </button>
+                        </h2>
+                        <div id="filterCollapse" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-bs-parent="#filterAccordion">
+                            <div class="accordion-body">
+
+                                <form id="filter-form" class="mb-4" method="GET" action="{{ route('orders.index') }}">
+                                    <div class="row g-2">
+
+                                        <div class="col-md-3">
+                                            <select class="form-select" name="customer_id">
+                                                <option value="">همه مشتریان</option>
+                                                @foreach(\App\Models\Customer::all() as $customer)
+                                                    <option value="{{ $customer->id }}" {{ ($filters['customer_id'] ?? '') == $customer->id ? 'selected' : '' }}>
+                                                        {{ $customer->first_name }} {{ $customer->last_name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="quantity" placeholder="تعداد" value="{{ $filters['quantity'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="total_price" placeholder="مبلغ کل" value="{{ $filters['total_price'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="final_price" placeholder="مبلغ نهایی" value="{{ $filters['final_price'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <select class="form-select" name="status">
+                                                <option value="">وضعیت</option>
+                                                <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>لغو شده</option>
+                                                <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>سبد خرید</option>
+                                                <option value="2" {{ ($filters['status'] ?? '') === '2' ? 'selected' : '' }}>پرداخت شده</option>
+                                                <option value="3" {{ ($filters['status'] ?? '') === '3' ? 'selected' : '' }}>تایید ادمین</option>
+                                                <option value="4" {{ ($filters['status'] ?? '') === '4' ? 'selected' : '' }}>در حال پردازش</option>
+                                                <option value="5" {{ ($filters['status'] ?? '') === '5' ? 'selected' : '' }}>آماده ارسال</option>
+                                                <option value="6" {{ ($filters['status'] ?? '') === '6' ? 'selected' : '' }}>ارسال شده</option>
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+                                            <a href="{{ route('orders.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>
         </div>
@@ -27,7 +90,16 @@
             $('#orders-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('orders.datatable') }}',
+                ajax: {
+                    url: '{{ route('orders.datatable') }}',
+                    data: function (d) {
+                        d.product_id = $('select[name=customer_id]').val();
+                        d.barcode = $('input[name=quantity]').val();
+                        d.serie_year = $('input[name=total_price]').val();
+                        d.serie_month = $('input[name=final_price]').val();
+                        d.status = $('select[name=status]').val();
+                    }
+                },
                 stateSave: true,
                 stateLoadParams: function (settings, data) {
                     if (data.start !== undefined) {

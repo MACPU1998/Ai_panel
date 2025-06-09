@@ -23,6 +23,9 @@ class OrderDataTable extends DataTable
             ->editColumn('shipping_price', function ($order) {
                 return $order->shipping_price ? $order->shipping_price : '-';
             })
+            ->editColumn('customer_id', function ($order) {
+                return $order->customer_id ? $order->customer->first_name . ' ' . $order->customer->last_name : '-';
+            })
             ->editColumn('status', function ($order) {
                 return $order->status_label;
             })
@@ -71,7 +74,28 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $order): QueryBuilder
     {
-        return $order->newQuery();
+        $query = $order->newQuery()->with('customer');
+
+        $filters = session('order-filters', []);
+
+        if (!empty($filters['customer_id'])) {
+            $query->where('customer_id', $filters['customer_id']);
+        }
+        if (!empty($filters['quantity'])) {
+            $query->where('quantity', $filters['quantity']);
+        }
+        if (!empty($filters['total_price'])) {
+            $query->where('total_price', $filters['total_price']);
+        }
+        if (!empty($filters['final_price'])) {
+            $query->where('final_price', $filters['final_price']);
+        }
+        if (isset($filters['status']) && $filters['status'] !== '') {
+            $query->where('status', $filters['status']);
+        }
+
+
+        return $query;
     }
 
     /**
