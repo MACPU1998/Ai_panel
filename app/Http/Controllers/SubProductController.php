@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\SubProductDataTable;
 use App\Http\Requests\SubProduct\SubProductGroupRequest;
 use App\Http\Requests\SubProduct\SubProductRequest;
+use App\Http\Requests\SubProduct\UpdateSubProductRequest;
 use App\Models\Product;
 use App\Models\SubProduct;
 use App\Models\Warehouse;
@@ -35,7 +36,8 @@ class SubProductController extends Controller
 
     public function index(SubProductDataTable $dataTable)
     {
-        return $dataTable->render('admin.layouts.sub_products.manage_sub_product');
+        $warehouses = Warehouse::all();
+        return $dataTable->render('admin.layouts.sub_products.manage_sub_product', compact('warehouses'));
     }
 
     public function create()
@@ -261,7 +263,7 @@ class SubProductController extends Controller
         return view('admin.layouts.sub_products.edit_sub_product', compact('subProduct', 'products', 'warehouses'));
     }
 
-    public function update(SubProductRequest $request, SubProduct $subProduct)
+    public function update(UpdateSubProductRequest $request, SubProduct $subProduct)
     {
         $subProduct->update($request->validated());
         return redirect()->route('subProducts.index')->with('success', 'زیرمحصول با موفقیت ویرایش شد.');
