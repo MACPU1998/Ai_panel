@@ -18,8 +18,8 @@ return new class extends Migration {
             $table->string('serie_year')->nullable();
             $table->string('serie_month')->nullable();
             $table->string('label')->nullable();
-            $table->string('production_date')->nullable();
-            $table->string('expiration_date')->nullable();
+            $table->timestamp('production_date')->nullable();
+            $table->timestamp('expiration_date')->nullable();
             $table->tinyInteger('status');
             $table->softDeletes();
             $table->timestamps();
