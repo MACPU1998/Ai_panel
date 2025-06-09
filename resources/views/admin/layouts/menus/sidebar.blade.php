@@ -113,7 +113,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('products.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="solar:box-outline"></iconify-icon>
                                 <span class="hide-menu">{{__("general.products")}}</span>
                             </a>
                         </li>
@@ -121,7 +121,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('subProducts.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="solar:box-bold"></iconify-icon>
                                 <span class="hide-menu">{{__("general.subProducts")}}</span>
                             </a>
                         </li>
@@ -129,7 +129,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('productAttributes.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="material-symbols-light:app-registration-outline"></iconify-icon>
                                 <span class="hide-menu">{{__("general.product_attributes")}}</span>
                             </a>
                         </li>

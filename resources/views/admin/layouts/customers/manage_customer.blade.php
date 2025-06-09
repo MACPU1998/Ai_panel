@@ -109,6 +109,7 @@
         $(document).ready(function () {
             $('#customers-table').DataTable({
                 processing: true,
+                scrollX: true,
                 serverSide: true,
                 ajax: {
                     url: '{{ route('customers.datatable') }}',

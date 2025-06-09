@@ -27,6 +27,7 @@
         $(document).ready(function () {
             $('#products-attributes-table').DataTable({
                 processing: true,
+                scrollX: true,
                 serverSide: true,
                 ajax: '{{ route('productAttributes.datatable') }}',
                 stateSave: true,

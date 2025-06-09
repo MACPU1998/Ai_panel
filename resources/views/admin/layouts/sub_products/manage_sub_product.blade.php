@@ -10,19 +10,24 @@
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_sub_product")}}</h5>
 
-                <div class="d-flex flex-column align-items-start mb-3">
-                    <a href="{{ route('subProducts.create') }}" class="btn btn-success mb-2 w-auto">
+
+                <div class="d-flex flex-row flex-wrap align-items-center mb-3 gap-2">
+                    <a href="{{ route('subProducts.create') }}" class="btn btn-primary w-auto">
+                        <i class="bi bi-plus-lg me-1"></i>
                         {{ __("general.add_sub_product") }}
                     </a>
 
-                    <a href="{{ route('subProducts.create.group') }}" class="btn btn-success  mb-2 w-auto">
+                    <a href="{{ route('subProducts.create.group') }}" class="btn btn-primary w-auto">
+                        <i class="bi bi-plus-lg me-1"></i>
                         {{ __("general.add_group_sub_product") }}
                     </a>
 
-                    <a href="{{ route('subProducts.create.excel') }}" class="btn btn-success w-auto">
+                    <a href="{{ route('subProducts.create.excel') }}" class="btn btn-primary w-auto">
+                        <i class="bi bi-plus-lg me-1"></i>
                         {{ __("general.add_excel_sub_product") }}
                     </a>
                 </div>
+
 
                 <div class="accordion mb-4" id="filterAccordion">
                     <div class="accordion-item">
@@ -104,7 +109,7 @@
                     </div>
                 </div>
 
-                {{ $dataTable->table(['id' => 'sub-products-table', 'class' => 'table table-striped table-bordered']) }}
+                {{ $dataTable->table(['id' => 'sub-products-table', 'class' => 'table table-striped table-bordered ']) }}
 
             </div>
         </div>
@@ -119,6 +124,7 @@
     <script>
         $(document).ready(function () {
             $('#sub-products-table').DataTable({
+                scrollX: true,
                 processing: true,
                 serverSide: true,
                 ajax: {
