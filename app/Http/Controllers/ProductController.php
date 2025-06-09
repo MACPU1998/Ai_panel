@@ -12,9 +12,30 @@ use Yajra\DataTables\DataTables;
 class ProductController extends Controller
 {
 
-    public function index(ProductDataTable $dataTable)
+    public function index(ProductDataTable $dataTable, Request $request)
     {
-        return $dataTable->render('admin.layouts.products.manage_product');
+        if ($request->hasAny([
+            'name',
+            'status',
+            'currency_id',
+            'serial_prefix',
+            'price',
+            'final_price'
+        ]))
+        {
+            session(['product-filters' => $request->only([
+                'name',
+                'status',
+                'currency_id',
+                'serial_prefix',
+                'price',
+                'final_price',
+            ])]);
+        }
+
+        $filters = session('product-filters', []);
+
+        return $dataTable->render('admin.layouts.products.manage_product', compact('filters'));
     }
 
     public function create()

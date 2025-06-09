@@ -78,7 +78,31 @@ class ProductDataTable extends DataTable
      */
     public function query(Product $product): QueryBuilder
     {
-        return $product->newQuery()->with('currency');
+        $query = $product->newQuery()->with(['currency']);
+
+        $filters = session('product-filters', []);
+
+        if (!empty($filters['name'])) {
+            $query->where('name', $filters['name']);
+        }
+        if (isset($filters['status']) && $filters['status'] !== '') {
+            $query->where('status', $filters['status']);
+        }
+        if (!empty($filters['currency_id'])) {
+            $query->where('currency_id', $filters['currency_id']);
+        }
+       if (!empty($filters['serial_prefix'])) {
+            $query->where('serial_prefix', $filters['serial_prefix']);
+        }
+        if (!empty($filters['price'])) {
+            $query->where('price', $filters['price']);
+        }
+          if (!empty($filters['final_price'])) {
+            $query->where('final_price', $filters['final_price']);
+        }
+
+
+        return $query;
     }
 
     /**

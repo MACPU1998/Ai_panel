@@ -11,6 +11,67 @@
                 <h5 class="mb-4">{{__("general.manage_product")}}</h5>
                 <a href="{{route('products.create')}}" class="btn btn-success mb-3">{{__("general.add_product")}}</a>
 
+                <div class="accordion mb-4" id="filterAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="filterHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                                فیلترها
+                            </button>
+                        </h2>
+                        <div id="filterCollapse" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-bs-parent="#filterAccordion">
+                            <div class="accordion-body">
+
+                <form id="filter-form" class="mb-4" method="GET" action="{{ route('products.index') }}">
+                    <div class="row g-2">
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="name" placeholder="نام محصول" value="{{ $filters['name'] ?? '' }}">
+                        </div>
+
+
+                        <div class="col-md-3">
+                            <select class="form-select" name="currency_id">
+                                <option value="">همه ارزها</option>
+                                @foreach(\App\Models\ProductCurrency::all() as $currency)
+                                    <option value="{{ $currency->id }}" {{ ($filters['currency_id'] ?? '') == $currency->id ? 'selected' : '' }}>
+                                        {{ $currency->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select class="form-select" name="status">
+                                <option value="">وضعیت</option>
+                                <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>فعال</option>
+                                <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>غیرفعال</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="serial_prefix" value="{{ $filters['serial_prefix'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="price" value="{{ $filters['price'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="final_price" value="{{ $filters['final_price'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+                            <a href="{{ route('products.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                        </div>
+                    </div>
+                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>
         </div>
@@ -27,8 +88,17 @@
             $('#products-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('products.datatable') }}',
-                stateSave: true,
+                ajax: {
+                    url: '{{ route('products.datatable') }}',
+                    data: function (d) {
+                        d.barcode = $('input[name=name]').val();
+                        d.status = $('select[name=status]').val();
+                        d.warehouse_id = $('select[name=currency_id]').val();
+                        d.production_date = $('input[name=serial_prefix]').val();
+                        d.expiration_date = $('input[name=price]').val();
+                        d.expiration_date = $('input[name=final_price]').val();
+                    }
+                },                stateSave: true,
                 stateLoadParams: function (settings, data) {
                     if (data.start !== undefined) {
                         settings._iDisplayStart = data.start;
