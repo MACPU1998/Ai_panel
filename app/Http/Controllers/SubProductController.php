@@ -34,10 +34,37 @@ class SubProductController extends Controller
         ]);
     }
 
-    public function index(SubProductDataTable $dataTable)
+    public function index(SubProductDataTable $dataTable,Request $request)
     {
         $warehouses = Warehouse::all();
-        return $dataTable->render('admin.layouts.sub_products.manage_sub_product', compact('warehouses'));
+
+        if ($request->hasAny([
+            'product_id',
+            'barcode',
+            'serie_year',
+            'serie_month',
+            'label',
+            'warehouse_id',
+            'status',
+            'production_date',
+            'expiration_date'
+        ])) {
+            session(['sub-product-filters' => $request->only([
+                'product_id',
+                'barcode',
+                'serie_year',
+                'serie_month',
+                'label',
+                'warehouse_id',
+                'status',
+                'production_date',
+                'expiration_date'
+            ])]);
+        }
+
+        $filters = session('sub-product-filters', []);
+
+        return $dataTable->render('admin.layouts.sub_products.manage_sub_product', compact('warehouses', 'filters'));
     }
 
     public function create()

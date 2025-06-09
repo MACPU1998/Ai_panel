@@ -164,6 +164,7 @@
                                 <select name="status" id="status" class="form-control">
                                     <option value="1">فعال</option>
                                     <option value="0">غیر فعال</option>
+                                    <option value="2">مرجوعی</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback" role="alert">

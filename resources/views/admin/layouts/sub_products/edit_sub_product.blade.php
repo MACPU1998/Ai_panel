@@ -162,6 +162,7 @@
                                 <select name="status" id="status" class="form-control">
                                     <option value="1" {{$subProduct->status == '1' ? 'selected' :''}}>فعال</option>
                                     <option value="0" {{$subProduct->status == '0' ? 'selected' :''}}>غیرفعال</option>
+                                    <option value="0" {{$subProduct->status == '2' ? 'selected' :''}}>مرجوعی</option>
                                 </select>
                                 @error('status')
                                 <span class="invalid-feedback" role="alert">

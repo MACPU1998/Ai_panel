@@ -24,7 +24,88 @@
                     </a>
                 </div>
 
-                {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
+                <div class="accordion mb-4" id="filterAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="filterHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                                فیلترها
+                            </button>
+                        </h2>
+                        <div id="filterCollapse" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-bs-parent="#filterAccordion">
+                            <div class="accordion-body">
+
+                <form id="filter-form" class="mb-4" method="GET" action="{{ route('subProducts.index') }}">
+                    <div class="row g-2">
+                        <div class="col-md-3">
+                            <select class="form-select" name="product_id">
+                                <option value="">همه محصولات</option>
+                                @foreach(\App\Models\Product::all() as $product)
+                                    <option value="{{ $product->id }}" {{ ($filters['product_id'] ?? '') == $product->id ? 'selected' : '' }}>
+                                        {{ $product->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="barcode" placeholder="بارکد" value="{{ $filters['barcode'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="serie_year" placeholder="سری سال" value="{{ $filters['serie_year'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="serie_month" placeholder="سری ماه" value="{{ $filters['serie_month'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="text" class="form-control" name="label" placeholder="لیبل" value="{{ $filters['label'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-3">
+                            <select class="form-select" name="warehouse_id">
+                                <option value="">همه انبارها</option>
+                                @foreach(\App\Models\Warehouse::all() as $warehouse)
+                                    <option value="{{ $warehouse->id }}" {{ ($filters['warehouse_id'] ?? '') == $warehouse->id ? 'selected' : '' }}>
+
+                                    {{ $warehouse->name }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <select class="form-select" name="status">
+                                <option value="">وضعیت</option>
+                                <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>فعال</option>
+                                <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>غیرفعال</option>
+                                <option value="2" {{ ($filters['status'] ?? '') === '2' ? 'selected' : '' }}>مرجوعی</option>
+                            </select>
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="production_date" value="{{ $filters['production_date'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-2">
+                            <input type="date" class="form-control" name="expiration_date" value="{{ $filters['expiration_date'] ?? '' }}">
+                        </div>
+
+                        <div class="col-md-3">
+                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+                            <a href="{{ route('subProducts.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                        </div>
+                    </div>
+                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                {{ $dataTable->table(['id' => 'sub-products-table', 'class' => 'table table-striped table-bordered']) }}
+
             </div>
         </div>
     </div>
@@ -40,7 +121,20 @@
             $('#sub-products-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('subProducts.datatable') }}',
+                ajax: {
+                    url: '{{ route('subProducts.datatable') }}',
+                    data: function (d) {
+                        d.product_id = $('select[name=product_id]').val();
+                        d.barcode = $('input[name=barcode]').val();
+                        d.serie_year = $('input[name=serie_year]').val();
+                        d.serie_month = $('input[name=serie_month]').val();
+                        d.label = $('input[name=label]').val();
+                        d.warehouse_id = $('select[name=warehouse_id]').val();
+                        d.status = $('select[name=status]').val();
+                        d.production_date = $('input[name=production_date]').val();
+                        d.expiration_date = $('input[name=expiration_date]').val();
+                    }
+                },
                 stateSave: true,
                 stateLoadParams: function (settings, data) {
                     if (data.start !== undefined) {

@@ -122,7 +122,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{product}/update', [ProductController::class, 'update'])->name('products.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->addMeta(true, ["super admin:admin"]);
-
+        Route::get('/reset-filters', function () {
+            session()->forget('product-filters');
+            return redirect()->route('products.index');
+        })->name('products.resetFilters');
     });
 
     //Route product attributes
@@ -156,6 +159,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/{subProduct}/edit', [SubProductController::class, 'edit'])->name('subProducts.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{subProduct}/update', [SubProductController::class, 'update'])->name('subProducts.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{subProduct}', [SubProductController::class, 'destroy'])->name('subProducts.destroy')->addMeta(true, ["super admin:admin"]);
+        Route::get('/reset-filters', function () {
+            session()->forget('sub-product-filters');
+            return redirect()->route('subProducts.index');
+        })->name('subProducts.resetFilters');
 
     });
 
@@ -170,7 +177,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/{customer}/edit', [CustomerController::class, 'edit'])->name('customers.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{customer}/update', [CustomerController::class, 'update'])->name('customers.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{customer}', [CustomerController::class, 'destroy'])->name('customers.destroy')->addMeta(true, ["super admin:admin"]);
-
+        Route::get('/reset-filters', function () {
+            session()->forget('customer-filters');
+            return redirect()->route('customers.index');
+        })->name('customers.resetFilters');
 
     });
 
@@ -204,7 +214,10 @@ Route::prefix('admin')->group(function () {
         Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{order}/update', [OrderController::class, 'update'])->name('orders.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{order}', [OrderController::class, 'destroy'])->name('orders.destroy')->addMeta(true, ["super admin:admin"]);
-
+        Route::get('/reset-filters', function () {
+            session()->forget('order-filters');
+            return redirect()->route('orders.index');
+        })->name('orders.resetFilters');
     });
 
     //Route setting

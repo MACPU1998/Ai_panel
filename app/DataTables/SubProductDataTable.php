@@ -37,13 +37,13 @@ class SubProductDataTable extends DataTable
             ->editColumn('expiration_date', function ($subProduct) {
                 return $subProduct->expiration_date ?? '-';
             })
-            ->addColumn('created_at', function ($subProduct) {
+            ->editColumn('created_at', function ($subProduct) {
                 if ($subProduct->created_at) {
                     return Jalalian::fromCarbon($subProduct->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
                 return '-';
             })
-            ->addColumn('updated_at', function ($subProduct) {
+            ->editColumn('updated_at', function ($subProduct) {
                 if ($subProduct->updated_at) {
                     return Jalalian::fromCarbon($subProduct->updated_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
                 }
@@ -73,8 +73,41 @@ class SubProductDataTable extends DataTable
      */
     public function query(SubProduct $subProduct): QueryBuilder
     {
-        return $subProduct->newQuery()->with('product');
+        $query = $subProduct->newQuery()->with(['product', 'warehouse']);
+
+        $filters = session('sub-product-filters', []);
+
+        if (!empty($filters['product_id'])) {
+            $query->where('product_id', $filters['product_id']);
+        }
+        if (!empty($filters['barcode'])) {
+            $query->where('barcode', 'like', '%' . $filters['barcode'] . '%');
+        }
+        if (!empty($filters['serie_year'])) {
+            $query->where('serie_year', $filters['serie_year']);
+        }
+        if (!empty($filters['serie_month'])) {
+            $query->where('serie_month', $filters['serie_month']);
+        }
+        if (!empty($filters['label'])) {
+            $query->where('label', 'like', '%' . $filters['label'] . '%');
+        }
+        if (!empty($filters['warehouse_id'])) {
+            $query->where('warehouse_id', $filters['warehouse_id']);
+        }
+        if (isset($filters['status']) && $filters['status'] !== '') {
+            $query->where('status', $filters['status']);
+        }
+        if (!empty($filters['production_date'])) {
+            $query->whereDate('production_date', $filters['production_date']);
+        }
+        if (!empty($filters['expiration_date'])) {
+            $query->whereDate('expiration_date', $filters['expiration_date']);
+        }
+
+        return $query;
     }
+
 
     /**
      * Optional method if you want to use the html builder.
