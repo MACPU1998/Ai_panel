@@ -75,7 +75,40 @@ class CustomerDataTable extends DataTable
      */
     public function query(Customer $customer): QueryBuilder
     {
-        return $customer->newQuery()->with(['country', 'state', 'city']);
+        $query = $customer->newQuery()->with(['country', 'state','city']);
+
+        $filters = session('customer-filters', []);
+
+        if (!empty($filters['first_name'])) {
+            $query->where('first_name', $filters['first_name']);
+        }
+
+        if (!empty($filters['last_name'])) {
+            $query->where('last_name', $filters['last_name']);
+        }
+
+        if (!empty($filters['phone'])) {
+            $query->where('phone', $filters['phone']);
+        }
+        if (!empty($filters['national_id'])) {
+            $query->where('national_id', $filters['national_id']);
+        }
+
+        if (!empty($filters['birth_date'])) {
+            $query->where('birth_date', $filters['birth_date']);
+        }
+
+        if (!empty($filters['country_id'])) {
+            $query->whereDate('country_id', $filters['country_id']);
+        }
+        if (!empty($filters['state_id'])) {
+            $query->whereDate('state_id', $filters['state_id']);
+        }
+        if (!empty($filters['city_id'])) {
+            $query->whereDate('city_id', $filters['city_id']);
+        }
+
+        return $query;
     }
 
     /**

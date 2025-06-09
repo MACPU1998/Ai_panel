@@ -8,14 +8,38 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\State;
+use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
 class CustomerController extends Controller
 {
 
-    public function index(CustomerDataTable $dataTable)
+    public function index(CustomerDataTable $dataTable,Request $request)
     {
-        return $dataTable->render('admin.layouts.customers.manage_customer');
+        if ($request->hasAny([
+            'first_name',
+            'last_name',
+            'phone',
+            'national_id',
+            'birth_date',
+            'country_id',
+            'state_id',
+            'city_id',
+        ])) {
+            session(['customer-filters' => $request->only([
+                'first_name',
+                'last_name',
+                'phone',
+                'national_id',
+                'birth_date',
+                'country_id',
+                'state_id',
+                'city_id'
+            ])]);
+        }
+        $filters = session('customer-filters', []);
+
+        return $dataTable->render('admin.layouts.customers.manage_customer', compact('filters'));
     }
 
     public function create()

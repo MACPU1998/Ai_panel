@@ -11,6 +11,89 @@
                 <h5 class="mb-4">{{__("general.manage_customer")}}</h5>
                 <a href="{{route('customers.create')}}" class="btn btn-success mb-3">{{__("general.add_customer")}}</a>
 
+
+                <div class="accordion mb-4" id="filterAccordion">
+                    <div class="accordion-item">
+                        <h2 class="accordion-header" id="filterHeading">
+                            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#filterCollapse" aria-expanded="false" aria-controls="filterCollapse">
+                                فیلترها
+                            </button>
+                        </h2>
+                        <div id="filterCollapse" class="accordion-collapse collapse" aria-labelledby="filterHeading" data-bs-parent="#filterAccordion">
+                            <div class="accordion-body">
+
+                                <form id="filter-form" class="mb-4" method="GET" action="{{ route('customers.index') }}">
+                                    <div class="row g-2">
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="first_name" placeholder="نام" value="{{ $filters['first_name'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="last_name" placeholder="نام خانوادگی" value="{{ $filters['last_name'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="phone" placeholder="تلفن همراه" value="{{ $filters['phone'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="text" class="form-control" name="national_id" placeholder="کد ملی" value="{{ $filters['national_id'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <select class="form-select" name="country_id">
+                                                <option value="">همه کشورها</option>
+                                                @foreach(\App\Models\Country::all() as $country)
+                                                    <option value="{{ $country->id }}" {{ ($filters['country_id'] ?? '') == $country->id ? 'selected' : '' }}>
+
+                                                        {{ $country->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <select class="form-select" name="state_id">
+                                                <option value="">همه استان ها</option>
+                                                @foreach(\App\Models\City::all() as $state)
+                                                    <option value="{{ $state->id }}" {{ ($filters['state_id'] ?? '') == $state->id ? 'selected' : '' }}>
+
+                                                        {{ $state->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <select class="form-select" name="city_id">
+                                                <option value="">همه شهرها</option>
+                                                @foreach(\App\Models\City::all() as $city)
+                                                    <option value="{{ $city->id }}" {{ ($filters['city_id'] ?? '') == $city->id ? 'selected' : '' }}>
+
+                                                        {{ $city->name }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+
+                                        <div class="col-md-2">
+                                            <input type="date" class="form-control" name="birth_date" placeholder="تاریخ تولد" value="{{ $filters['birth_date'] ?? '' }}">
+                                        </div>
+
+                                        <div class="col-md-3">
+                                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
+                                            <a href="{{ route('customers.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                                        </div>
+                                    </div>
+                                </form>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>
         </div>
@@ -27,8 +110,20 @@
             $('#customers-table').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{{ route('customers.datatable') }}',
-                stateSave: true,
+                ajax: {
+                    url: '{{ route('customers.datatable') }}',
+                    data: function (d) {
+                        d.first_name = $('select[name=first_name]').val();
+                        d.last_name = $('input[name=last_name]').val();
+                        d.phone = $('input[name=phone]').val();
+                        d.national_id = $('input[name=national_id]').val();
+                        d.birth_date = $('input[name=birth_date]').val();
+                        d.country_id = $('select[name=country_id]').val();
+                        d.state_id = $('select[name=state_id]').val();
+                        d.city_id = $('select[name=city_id]').val();
+
+                    }
+                },                stateSave: true,
                 stateLoadParams: function (settings, data) {
                     if (data.start !== undefined) {
                         settings._iDisplayStart = data.start;
