@@ -10,7 +10,9 @@
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_product_attribute")}}</h5>
                 <a href="{{route('productAttributes.create')}}"
-                   class="btn btn-primary mb-3">{{__("general.add_product_attribute")}}</a>
+                   class="btn btn-primary mb-3">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    {{__("general.add_product_attribute")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

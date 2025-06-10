@@ -9,7 +9,9 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_customer")}}</h5>
-                <a href="{{route('customers.create')}}" class="btn btn-primary mb-3">{{__("general.add_customer")}}</a>
+                <a href="{{route('customers.create')}}" class="btn btn-primary mb-3">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    {{__("general.add_customer")}}</a>
 
 
                 <div class="accordion mb-4" id="filterAccordion">

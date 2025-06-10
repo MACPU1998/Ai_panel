@@ -9,7 +9,9 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_order")}}</h5>
-                <a href="{{route('orders.create')}}" class="btn btn-primary mb-3">{{__("general.add_order")}}</a>
+                <a href="{{route('orders.create')}}" class="btn btn-primary mb-3">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    {{__("general.add_order")}}</a>
 
 
                 <div class="accordion mb-4" id="filterAccordion">

@@ -9,7 +9,9 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_warehouse")}}</h5>
-                <a href="{{route('warehouses.create')}}" class="btn btn-primary mb-3">{{__("general.add_warehouse")}}</a>
+                <a href="{{route('warehouses.create')}}" class="btn btn-primary mb-3">
+                    <i class="bi bi-plus-lg me-1"></i>
+                    {{__("general.add_warehouse")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

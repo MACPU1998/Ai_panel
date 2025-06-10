@@ -90,12 +90,12 @@ class UserController extends Controller
         }
     }
 
-    public function editPassword(User $user)
+    public function editPassword(Admin $admin)
     {
-        return view('admin.layouts.users.edit_user_password', compact('user'));
+        return view('admin.layouts.users.edit_user_password', compact('admin'));
     }
 
-    public function updatePassword(User $user, Request $request)
+    public function updatePassword(Admin $admin, Request $request)
     {
         $request->validate([
             'current_password' => 'required',
@@ -103,11 +103,11 @@ class UserController extends Controller
         ]);
 
         // بررسی صحت رمز فعلی
-        if (!Hash::check($request->current_password, $user->password)) {
+        if (!Hash::check($request->current_password, $admin->password)) {
             return back()->withErrors(['current_password' => 'رمز فعلی اشتباه است.']);
         }
 
-        $user->update([
+        $admin->update([
             'password' => bcrypt($request->password),
         ]);
 

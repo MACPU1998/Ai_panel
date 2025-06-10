@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_admin_password")}}</h5>
 
-                <form id="edit_user_passwors" action="{{route('users.update.password',$user->id)}}" method="POST"
+                <form id="edit_user_password" action="{{route('users.update.password',$admin->id)}}" method="POST"
                       class="my-10">
                     @csrf
                     @method('PUT')
@@ -67,6 +67,6 @@
     </script>
 
     <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\User\UserUpdateRequest', '#edit_user_passwors') !!}
+    {!! JsValidator::formRequest('App\Http\Requests\User\UserUpdateRequest', '#edit_user_password') !!}
 
 @endsection

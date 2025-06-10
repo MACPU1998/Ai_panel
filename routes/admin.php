@@ -42,9 +42,9 @@ Route::prefix('admin')->group(function () {
         Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable')->addMeta(true, ["super admin:admin"]);
         Route::get('/{admin}/edit', [UserController::class, 'edit'])->name('users.edit')->addMeta(true, ["super admin:admin"]);
         Route::put('/{admin}/update', [UserController::class, 'update'])->name('users.update')->addMeta(true, ["super admin:admin"]);
-        Route::get('password/{user}/edit', [UserController::class, 'editPassword'])->name('users.edit.password')->addMeta(true, ["super admin:admin"]);
-        Route::put('password/{user}/update', [UserController::class, 'updatePassword'])->name('users.update.password')->addMeta(true, ["super admin:admin"]);
-        Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy')->addMeta(true, ["super admin:admin"]);
+        Route::get('password/{admin}/edit', [UserController::class, 'editPassword'])->name('users.edit.password')->addMeta(true, ["super admin:admin"]);
+        Route::put('password/{admin}/update', [UserController::class, 'updatePassword'])->name('users.update.password')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{admin}', [UserController::class, 'destroy'])->name('users.destroy')->addMeta(true, ["super admin:admin"]);
     });
 
     //Route Role
