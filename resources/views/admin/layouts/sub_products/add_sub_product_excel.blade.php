@@ -4,10 +4,29 @@
 
     @section('content')
         <div class="container mt-1">
-            <h4>    {{__("general.import_SP_with_excel")}}</h4>
+            <h6>{{__("general.import_SP_with_excel")}}</h6>
 
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
+            @if(session('import_errors'))
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach(session('import_errors') as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
             <div class="mb-4">
-                <a href="{{ route('subProducts.download.excel') }}" class="btn btn-outline-primary">
+                <a href="{{ route('subProducts.download.excel') }}" class="btn btn-outline-primary mt-3">
                     {{__("general.download_excel_sample")}}
                 </a>
             </div>
