@@ -23,25 +23,30 @@
                             <div class="accordion-body">
 
                                 <form id="filter-form" class="mb-4" method="GET" action="{{ route('customers.index') }}">
-                                    <div class="row g-2">
+                                    <div class="row g-3">
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="first_name" placeholder="نام" value="{{ $filters['first_name'] ?? '' }}">
+                                            <label class="form-label">نام</label>
+                                            <input type="text" class="form-control" name="first_name" value="{{ $filters['first_name'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="last_name" placeholder="نام خانوادگی" value="{{ $filters['last_name'] ?? '' }}">
+                                            <label class="form-label">نام خانوادگی</label>
+                                            <input type="text" class="form-control" name="last_name" value="{{ $filters['last_name'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="phone" placeholder="تلفن همراه" value="{{ $filters['phone'] ?? '' }}">
+                                            <label class="form-label">تلفن همراه</label>
+                                            <input type="text" class="form-control" name="phone" value="{{ $filters['phone'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="national_id" placeholder="کد ملی" value="{{ $filters['national_id'] ?? '' }}">
+                                            <label class="form-label">کد ملی</label>
+                                            <input type="text" class="form-control" name="national_id" value="{{ $filters['national_id'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-3">
+                                            <label class="form-label">کشور</label>
                                             <select class="form-select" name="country_id">
                                                 <option value="">همه کشورها</option>
                                                 @foreach(\App\Models\Country::all() as $country)
@@ -54,6 +59,7 @@
                                         </div>
 
                                         <div class="col-md-3">
+                                            <label class="form-label">استان</label>
                                             <select class="form-select" name="state_id">
                                                 <option value="">همه استان ها</option>
                                                 @foreach(\App\Models\City::all() as $state)
@@ -66,6 +72,7 @@
                                         </div>
 
                                         <div class="col-md-3">
+                                            <label class="form-label">شهر</label>
                                             <select class="form-select" name="city_id">
                                                 <option value="">همه شهرها</option>
                                                 @foreach(\App\Models\City::all() as $city)
@@ -78,12 +85,13 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="date" class="form-control" name="birth_date" placeholder="تاریخ تولد" value="{{ $filters['birth_date'] ?? '' }}">
+                                            <label class="form-label">تاریخ تولد</label>
+                                            <input type="date" class="form-control" name="birth_date" value="{{ $filters['birth_date'] ?? '' }}">
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-                                            <a href="{{ route('customers.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-outline-primary">اعمال فیلتر</button>
+                                            <a href="{{ route('customers.resetFilters') }}" class="btn btn-outline-danger ms-2">ریست</a>
                                         </div>
                                     </div>
                                 </form>

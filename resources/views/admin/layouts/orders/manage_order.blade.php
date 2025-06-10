@@ -23,9 +23,10 @@
                             <div class="accordion-body">
 
                                 <form id="filter-form" class="mb-4" method="GET" action="{{ route('orders.index') }}">
-                                    <div class="row g-2">
+                                    <div class="row g-3">
 
                                         <div class="col-md-3">
+                                            <label class="form-label">مشتریان</label>
                                             <select class="form-select" name="customer_id">
                                                 <option value="">همه مشتریان</option>
                                                 @foreach(\App\Models\Customer::all() as $customer)
@@ -37,20 +38,24 @@
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="quantity" placeholder="تعداد" value="{{ $filters['quantity'] ?? '' }}">
+                                            <label class="form-label">تعداد</label>
+                                            <input type="text" class="form-control" name="quantity" value="{{ $filters['quantity'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="total_price" placeholder="مبلغ کل" value="{{ $filters['total_price'] ?? '' }}">
+                                            <label class="form-label">مبلغ کل</label>
+                                            <input type="text" class="form-control" name="total_price" value="{{ $filters['total_price'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
-                                            <input type="text" class="form-control" name="final_price" placeholder="مبلغ نهایی" value="{{ $filters['final_price'] ?? '' }}">
+                                            <label class="form-label">مبلغ نهایی</label>
+                                            <input type="text" class="form-control" name="final_price" value="{{ $filters['final_price'] ?? '' }}">
                                         </div>
 
                                         <div class="col-md-2">
+                                            <label class="form-label">وضعیت</label>
                                             <select class="form-select" name="status">
-                                                <option value="">وضعیت</option>
+                                                <option value="">همه وضعیت</option>
                                                 <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>لغو شده</option>
                                                 <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>سبد خرید</option>
                                                 <option value="2" {{ ($filters['status'] ?? '') === '2' ? 'selected' : '' }}>پرداخت شده</option>
@@ -61,9 +66,9 @@
                                             </select>
                                         </div>
 
-                                        <div class="col-md-3">
-                                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-                                            <a href="{{ route('orders.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                                        <div class="col-12 d-flex justify-content-end">
+                                            <button type="submit" class="btn btn-outline-primary">اعمال فیلتر</button>
+                                            <a href="{{ route('orders.resetFilters') }}" class="btn btn-outline-danger ms-2">ریست</a>
                                         </div>
                                     </div>
                                 </form>

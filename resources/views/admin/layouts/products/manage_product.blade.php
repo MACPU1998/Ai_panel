@@ -22,14 +22,16 @@
                             <div class="accordion-body">
 
                 <form id="filter-form" class="mb-4" method="GET" action="{{ route('products.index') }}">
-                    <div class="row g-2">
+                    <div class="row g-3">
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="name" placeholder="نام محصول" value="{{ $filters['name'] ?? '' }}">
+                            <label class="form-label">نام محصول</label>
+                            <input type="text" class="form-control" name="name" value="{{ $filters['name'] ?? '' }}">
                         </div>
 
 
                         <div class="col-md-3">
+                            <label class="form-label">ارز</label>
                             <select class="form-select" name="currency_id">
                                 <option value="">همه ارزها</option>
                                 @foreach(\App\Models\ProductCurrency::all() as $currency)
@@ -41,28 +43,32 @@
                         </div>
 
                         <div class="col-md-2">
+                            <label class="form-label">وضعیت</label>
                             <select class="form-select" name="status">
-                                <option value="">وضعیت</option>
+                                <option value="">همه وضعیت</option>
                                 <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>فعال</option>
                                 <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>غیرفعال</option>
                             </select>
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="serial_prefix" placeholder="شناسه کالا"  value="{{ $filters['serial_prefix'] ?? '' }}">
+                            <label class="form-label">شناسه کالا</label>
+                            <input type="text" class="form-control" name="serial_prefix" value="{{ $filters['serial_prefix'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="price" placeholder="مبلغ کل" value="{{ $filters['price'] ?? '' }}">
+                            <label class="form-label">مبلغ کل</label>
+                            <input type="text" class="form-control" name="price" value="{{ $filters['price'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="final_price" placeholder="مبلغ نهایی" value="{{ $filters['final_price'] ?? '' }}">
+                            <label class="form-label">مبلغ نهایی</label>
+                            <input type="text" class="form-control" name="final_price" value="{{ $filters['final_price'] ?? '' }}">
                         </div>
 
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-                            <a href="{{ route('products.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-outline-primary">اعمال فیلتر</button>
+                            <a href="{{ route('products.resetFilters') }}" class="btn btn-outline-danger ms-2">ریست</a>
                         </div>
                     </div>
                 </form>

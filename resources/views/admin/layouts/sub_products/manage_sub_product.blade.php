@@ -40,8 +40,9 @@
                             <div class="accordion-body">
 
                 <form id="filter-form" class="mb-4" method="GET" action="{{ route('subProducts.index') }}">
-                    <div class="row g-2">
+                    <div class="row g-3">
                         <div class="col-md-3">
+                            <label class="form-label">نام محصول</label>
                             <select class="form-select" name="product_id">
                                 <option value="">همه محصولات</option>
                                 @foreach(\App\Models\Product::all() as $product)
@@ -53,22 +54,27 @@
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="barcode" placeholder="بارکد" value="{{ $filters['barcode'] ?? '' }}">
+                            <label class="form-label">بارکد</label>
+                            <input type="text" class="form-control" name="barcode" value="{{ $filters['barcode'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="serie_year" placeholder="سری سال" value="{{ $filters['serie_year'] ?? '' }}">
+                            <label class="form-label">سری سال</label>
+                            <input type="text" class="form-control" name="serie_year"  value="{{ $filters['serie_year'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="serie_month" placeholder="سری ماه" value="{{ $filters['serie_month'] ?? '' }}">
+                            <label class="form-label">سری ماه</label>
+                            <input type="text" class="form-control" name="serie_month" value="{{ $filters['serie_month'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
-                            <input type="text" class="form-control" name="label" placeholder="لیبل" value="{{ $filters['label'] ?? '' }}">
+                            <label class="form-label">لیبل</label>
+                            <input type="text" class="form-control" name="label" value="{{ $filters['label'] ?? '' }}">
                         </div>
 
                         <div class="col-md-3">
+                            <label class="form-label">انبار</label>
                             <select class="form-select" name="warehouse_id">
                                 <option value="">همه انبارها</option>
                                 @foreach(\App\Models\Warehouse::all() as $warehouse)
@@ -81,8 +87,9 @@
                         </div>
 
                         <div class="col-md-2">
+                            <label class="form-label">وضعیت</label>
                             <select class="form-select" name="status">
-                                <option value="">وضعیت</option>
+                                <option value="">همه وضعیت</option>
                                 <option value="1" {{ ($filters['status'] ?? '') === '1' ? 'selected' : '' }}>فعال</option>
                                 <option value="0" {{ ($filters['status'] ?? '') === '0' ? 'selected' : '' }}>غیرفعال</option>
                                 <option value="2" {{ ($filters['status'] ?? '') === '2' ? 'selected' : '' }}>مرجوعی</option>
@@ -90,16 +97,18 @@
                         </div>
 
                         <div class="col-md-2">
+                            <label class="form-label">تاریخ تولید</label>
                             <input type="date" class="form-control" name="production_date" id="production_date  " value="{{ $filters['production_date'] ?? '' }}">
                         </div>
 
                         <div class="col-md-2">
+                            <label class="form-label">تاریخ انقضا</label>
                             <input type="date" class="form-control" name="expiration_date" id="expiration_date" value="{{ $filters['expiration_date'] ?? '' }}">
                         </div>
 
-                        <div class="col-md-3">
-                            <button type="submit" class="btn btn-">اعمال فیلتر</button>
-                            <a href="{{ route('subProducts.resetFilters') }}" class="btn btn-danger">ریست</a>
+                        <div class="col-12 d-flex justify-content-end">
+                            <button type="submit" class="btn btn-outline-primary">اعمال فیلتر</button>
+                            <a href="{{ route('subProducts.resetFilters') }}" class="btn btn-outline-danger ms-2">ریست</a>
                         </div>
                     </div>
                 </form>
