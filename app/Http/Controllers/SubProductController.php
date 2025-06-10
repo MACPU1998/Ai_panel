@@ -9,6 +9,7 @@ use App\Http\Requests\SubProduct\UpdateSubProductRequest;
 use App\Models\Product;
 use App\Models\SubProduct;
 use App\Models\Warehouse;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
@@ -34,7 +35,7 @@ class SubProductController extends Controller
         ]);
     }
 
-    public function index(SubProductDataTable $dataTable,Request $request)
+    public function index(SubProductDataTable $dataTable, Request $request)
     {
         $warehouses = Warehouse::all();
 
@@ -78,7 +79,7 @@ class SubProductController extends Controller
     {
         $products = Product::where('status', 1)->get(['id', 'name', 'serial_prefix']);
         $warehouses = Warehouse::where('status', 1)->get();
-        return view('admin.layouts.sub_products.add_sub_product_group', compact('products','warehouses'));
+        return view('admin.layouts.sub_products.add_sub_product_group', compact('products', 'warehouses'));
     }
 
     public function createExcel()
@@ -89,7 +90,7 @@ class SubProductController extends Controller
 
     public function downloadSampleExcel()
     {
-        $path = public_path('samples/sub_products_sample.xlsx');
+        $path = public_path('excel/sub_products_example.xlsx');
         return response()->download($path, 'نمونه_اکسل.xlsx');
     }
 
@@ -166,19 +167,20 @@ class SubProductController extends Controller
 
             // فرض: A=product_id یا نام محصول، B=barcode, C=serie_year, D=serie_month, E=label, F=production_date, G=expiration_date, H=status, I=warehouse_id
             $data = [
-                'product_id'       => trim($row['A']),
-                'barcode'          => trim($row['B']),
-                'serie_year'       => trim($row['C']),
-                'serie_month'      => trim($row['D']),
-                'label'            => trim($row['E']),
-                'production_date'  => trim($row['F']),
-                'expiration_date'  => trim($row['G']),
-                'status'           => trim($row['H']),
-                'warehouse_id'     => trim($row['I']),
+                'product_id' => trim($row['A']),
+                'barcode' => trim($row['B']),
+                'serie_year' => trim($row['C']),
+                'serie_month' => trim($row['D']),
+                'label' => trim($row['E']),
+                'production_date' => trim($row['F']),
+                'expiration_date' => trim($row['G']),
+                'status' => trim($row['H']),
+                'warehouse_id' => trim($row['I']),
             ];
 
             if (!is_numeric($data['product_id'])) {
-                $product = Product::where('name', $data['product_id'])->first();
+                $productName=trim($data['product_id']);
+                $product = Product::where('name', $productName)->first();
                 if ($product) {
                     $data['product_id'] = $product->id;
                 } else {
@@ -188,14 +190,16 @@ class SubProductController extends Controller
             }
 
             if (!is_numeric($data['warehouse_id'])) {
-                $warehouse= Warehouse::where('name', $data['warehouse_id'])->first();
+                $warehouseName = trim($data['warehouse_id']);
+                $warehouse = Warehouse::where('name', $warehouseName)->first();
                 if ($warehouse) {
                     $data['warehouse_id'] = $warehouse->id;
                 } else {
-                    $errors[] = "ردیف {$rowIndex}: انبار با نام «{$data['warehouse_id']}» یافت نشد.";
+                    $errors[] = "ردیف {$rowIndex}: انبار با نام «{$warehouseName}» یافت نشد.";
                     continue;
                 }
             }
+
 
             $statusMap = [
                 'غیر فعال' => 0,
@@ -211,38 +215,39 @@ class SubProductController extends Controller
                 continue;
             }
 
-//            // تبدیل تاریخ شمسی به میلادی و فرمت مناسب timestamp دیتابیس
-//            try {
-//                if (!empty($data['production_date'])) {
-//                    $carbonDate =Jalalian::fromFormat('Y/m/d', $data['production_date'])->toCarbon();
-//                    $data['production_date'] = $carbonDate->format('Y-m-d H:i:s');
-//                } else {
-//                    $data['production_date'] = null;
-//                }
-//                if (!empty($data['expiration_date'])) {
-//                    $carbonDate =Jalalian::fromFormat('Y/m/d', $data['expiration_date'])->toCarbon();
-//                    $data['expiration_date'] = $carbonDate->format('Y-m-d H:i:s');
-//                } else {
-//                    $data['expiration_date'] = null;
-//                }
-//            } catch (\Exception $e) {
-//                $errors[] = "ردیف {$rowIndex}: فرمت تاریخ تولید یا انقضا صحیح نیست (باید به صورت 1403/03/01 باشد).";
-//                continue;
-//            }
-
-
+// ✅ تبدیل تاریخ‌ها به فرمت  Y-m-d
+            try {
+                foreach (['production_date', 'expiration_date'] as $dateField) {
+                    if (!empty($data[$dateField])) {
+                        // اگر مقدار عددی باشد (فرمت Excel serial number)
+                        if (is_numeric($data[$dateField])) {
+                            $excelDate = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($data[$dateField]);
+                            $data[$dateField] = $excelDate->format('Y-m-d');
+                        } else {
+                            // فرض بر اینکه کاربر تاریخ میلادی وارد کرده مثل YYYY-MM-DD
+                            $date = Carbon::parse($data[$dateField]);
+                            $data[$dateField] = $date->format('Y-m-d');
+                        }
+                    } else {
+                        $data[$dateField] = null;
+                    }
+                }
+            } catch (\Exception $e) {
+                $errors[] = "ردیف {$rowIndex}: فرمت تاریخ تولید یا انقضا معتبر نیست.";
+                continue;
+            }
 
             // اعتبارسنجی
             $validator = Validator::make($data, [
-                'product_id'      => 'required|exists:products,id',
-                'barcode'         => 'required|string|max:255',
-                'serie_year'      => 'nullable|string',
-                'serie_month'     => 'nullable|string',
-                'label'           => 'nullable|string|max:255',
+                'product_id' => 'required|exists:products,id',
+                'barcode' => 'required|string|max:255',
+                'serie_year' => 'nullable|string',
+                'serie_month' => 'nullable|string',
+                'label' => 'nullable|string|max:255',
                 'production_date' => 'nullable|date',
                 'expiration_date' => 'nullable|date',
-                'status'          => 'required|in:0,1,2',
-                'warehouse_id'    => 'nullable|exists:warehouses,id',
+                'status' => 'required|in:0,1,2',
+                'warehouse_id' => 'nullable|exists:warehouses,id',
             ]);
 
             if ($validator->fails()) {
