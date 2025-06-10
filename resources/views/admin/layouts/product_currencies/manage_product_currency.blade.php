@@ -10,7 +10,7 @@
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_product_currency")}}</h5>
                 <a href="{{route('productCurrencies.create')}}"
-                   class="btn btn-success mb-3">{{__("general.add_product_currency")}}</a>
+                   class="btn btn-primary mb-3">{{__("general.add_product_currency")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

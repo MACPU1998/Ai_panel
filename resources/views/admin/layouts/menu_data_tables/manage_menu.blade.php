@@ -9,7 +9,7 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_menu")}}</h5>
-                <a href="{{route('menus.create')}}" class="btn btn-success mb-3">{{__("general.add_menu")}}</a>
+                <a href="{{route('menus.create')}}" class="btn btn-primary mb-3">{{__("general.add_menu")}}</a>
 
                 {{ $dataTable->table(['class' => 'table table-striped table-bordered']) }}
             </div>

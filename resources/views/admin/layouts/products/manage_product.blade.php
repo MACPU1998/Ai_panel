@@ -9,7 +9,7 @@
         <div class="card">
             <div class="container mt-8 my-10">
                 <h5 class="mb-4">{{__("general.manage_product")}}</h5>
-                <a href="{{route('products.create')}}" class="btn btn-success mb-3">{{__("general.add_product")}}</a>
+                <a href="{{route('products.create')}}" class="btn btn-primary mb-3">{{__("general.add_product")}}</a>
 
                 <div class="accordion mb-4" id="filterAccordion">
                     <div class="accordion-item">

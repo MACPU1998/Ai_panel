@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-primary">ذخیره تغییرات و برگشت به صفحه</button>
+                        <button type="submit" class="btn btn-success">ذخیره تغییرات و برگشت به صفحه</button>
                     </div>
                 </form>
             </div>

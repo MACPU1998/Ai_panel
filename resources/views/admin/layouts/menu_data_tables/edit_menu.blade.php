@@ -96,7 +96,7 @@
                                 </div>
                             </div>
                             <div>
-                                <button class="btn btn-primary" type="submit">{{__("general.create_btn")}}</button>
+                                <button class="btn btn-success" type="submit">{{__("general.create_btn")}}</button>
                             </div>
                         </form>
                     </div>

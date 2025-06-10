@@ -98,8 +98,8 @@
                         </div>
 
                         <div class="col-md-3">
-                            <button type="submit" class="btn btn-primary">اعمال فیلتر</button>
-                            <a href="{{ route('subProducts.resetFilters') }}" class="btn btn-secondary">ریست</a>
+                            <button type="submit" class="btn btn-">اعمال فیلتر</button>
+                            <a href="{{ route('subProducts.resetFilters') }}" class="btn btn-danger">ریست</a>
                         </div>
                     </div>
                 </form>
