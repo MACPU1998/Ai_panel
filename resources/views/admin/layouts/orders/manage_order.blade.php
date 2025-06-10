@@ -89,7 +89,6 @@
         $(document).ready(function () {
             $('#orders-table').DataTable({
                 processing: true,
-                scrollX: true,
                 serverSide: true,
                 ajax: {
                     url: '{{ route('orders.datatable') }}',

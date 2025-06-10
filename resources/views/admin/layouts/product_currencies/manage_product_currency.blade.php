@@ -27,7 +27,6 @@
         $(document).ready(function () {
             $('#products-currencies-table').DataTable({
                 processing: true,
-                scrollX: true,
                 serverSide: true,
                 ajax: '{{ route('productCurrencies.datatable') }}',
                 stateSave: true,
