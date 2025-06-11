@@ -10,6 +10,7 @@
         "barryvdh/laravel-dompdf": "^3.1",
         "laravel/framework": "^11.31",
         "laravel/tinker": "^2.9",
+        "maestroerror/laragent": "^0.4.1",
         "morilog/jalali": "^3.4",
         "proengsoft/laravel-jsvalidation": "^4.9",
         "reliese/laravel": "^1.3",

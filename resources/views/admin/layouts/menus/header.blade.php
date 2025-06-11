@@ -54,7 +54,7 @@
                         <li class="nav-item position-relative">
                             <a href="#" id="cart-link"
                                class="nav-link nav-icon-hover-bg rounded-circle" title="کیف پول">
-                                <iconify-icon icon="material-symbols-light:account-balance-wallet-outline" class="fs-7"></iconify-icon>
+                                <iconify-icon icon="hugeicons:wallet-01" class="fs-7"></iconify-icon>
                                 <span id="cart-wallet" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
                             </a>
                         </li>

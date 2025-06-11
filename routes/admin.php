@@ -250,6 +250,7 @@ Route::prefix('admin')->group(function () {
     //Route setting
     Route::prefix('smarts')->group(function () {
         Route::get('/', [SmartController::class, 'index'])->name('smarts.index')->addMeta(true, ["super admin:admin"]);
+        Route::post('/send', [SmartController::class, 'send'])->name('smarts.send');
     });
 
 

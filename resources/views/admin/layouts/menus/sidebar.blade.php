@@ -50,44 +50,102 @@
                             </a>
                         </li>
 
+                        {{--                        <li class="sidebar-item">--}}
+                        {{--                            <a class="sidebar-link" href="{{route('menus.index')}}" aria-expanded="false">--}}
+                        {{--                                <iconify-icon icon="mdi-light:menu"></iconify-icon>--}}
+                        {{--                                <span class="hide-menu">{{__("general.manage_menu")}}</span>--}}
+                        {{--                            </a>--}}
+                        {{--                        </li>--}}
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('menus.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:menu"></iconify-icon>
-                                <span class="hide-menu">{{__("general.manage_menu")}}</span>
+                            <a class="sidebar-link has-arrow" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#managementMenu" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:cog"></iconify-icon>
+                                <span class="hide-menu">مدیریت اصلی</span>
                             </a>
+                            <ul id="mainManagementMenu" class="collapse list-unstyled">
+
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.manage_amin")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('customers.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="carbon:user"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.manage_customer")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('wallets.index')}}" aria-expanded="false">
+                                        <iconify-icon
+                                            icon="material-symbols-light:account-balance-wallet-outline"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.wallet")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('orders.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="mdi-light:cart"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.order")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="mdi-light:settings"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.setting")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
+                                        <iconify-icon
+                                            icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.warehouse")}}</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:account"></iconify-icon>
-                                <span class="hide-menu">{{__("general.manage_amin")}}</span>
-                            </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('customers.index')}}" aria-expanded="false">
-                                <iconify-icon icon="carbon:user"></iconify-icon>
-                                <span class="hide-menu">{{__("general.manage_customer")}}</span>
-                            </a>
-                        </li>
 
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('wallets.index')}}" aria-expanded="false">
-                                <iconify-icon icon="material-symbols-light:account-balance-wallet-outline"></iconify-icon>
-                                <span class="hide-menu">{{__("general.wallet")}}</span>
+                            <a class="sidebar-link has-arrow" href="#" data-bs-toggle="collapse"
+                               data-bs-target="#managementMenu" aria-expanded="false">
+                                <iconify-icon icon="solar:box-outline"></iconify-icon>
+                                <span class="hide-menu">مدیریت محصول</span>
                             </a>
+                            <ul id="productManagementMenu" class="collapse list-unstyled">
+
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('productCurrencies.index')}}"
+                                       aria-expanded="false">
+                                        <iconify-icon icon="material-symbols-light:attach-money-rounded"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.productCurrencies")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('productAttributes.index')}}"
+                                       aria-expanded="false">
+                                        <iconify-icon
+                                            icon="material-symbols-light:app-registration-outline"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.product_attributes")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('products.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="solar:box-outline"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.products")}}</span>
+                                    </a>
+                                </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('subProducts.index')}}" aria-expanded="false">
+                                        <iconify-icon icon="solar:box-bold"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.subProducts")}}</span>
+                                    </a>
+                                </li>
+
+                            </ul>
                         </li>
-
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('orders.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:cart"></iconify-icon>
-                                <span class="hide-menu">{{__("general.order")}}</span>
-                            </a>
-                        </li>
-
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
@@ -95,7 +153,6 @@
                                 <span class="hide-menu">{{__("general.roles")}}</span>
                             </a>
                         </li>
-
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
@@ -109,54 +166,6 @@
                                 <span class="hide-menu">{{__("general.smart_consultant")}}</span>
                             </a>
                         </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('productCurrencies.index')}}" aria-expanded="false">
-                                <iconify-icon icon="material-symbols-light:attach-money-rounded"></iconify-icon>
-                                <span class="hide-menu">{{__("general.productCurrencies")}}</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('products.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:box-outline"></iconify-icon>
-                                <span class="hide-menu">{{__("general.products")}}</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('subProducts.index')}}" aria-expanded="false">
-                                <iconify-icon icon="solar:box-bold"></iconify-icon>
-                                <span class="hide-menu">{{__("general.subProducts")}}</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('productAttributes.index')}}" aria-expanded="false">
-                                <iconify-icon icon="material-symbols-light:app-registration-outline"></iconify-icon>
-                                <span class="hide-menu">{{__("general.product_attributes")}}</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('settings.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:settings"></iconify-icon>
-                                <span class="hide-menu">{{__("general.setting")}}</span>
-                            </a>
-                        </li>
-
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
-                                <iconify-icon icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
-                                <span class="hide-menu">{{__("general.warehouse")}}</span>
-                            </a>
-                        </li>
-
 
 
                         @php
