@@ -13,6 +13,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WalletController;
 use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
@@ -231,6 +232,18 @@ Route::prefix('admin')->group(function () {
         Route::put('/{warehouse}/update', [WarehouseController::class, 'update'])->name('warehouses.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouses.destroy')->addMeta(true, ["super admin:admin"]);
 
+    });
+
+    //Route setting
+    Route::prefix('wallets')->group(function () {
+        Route::get('/', [WalletController::class, 'index'])->name('wallets.index')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [WalletController::class, 'create'])->name('wallets.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [WalletController::class, 'store'])->name('wallets.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/data', [WalletController::class, 'getWalletData'])->name('wallets.getData')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [WalletController::class, 'datatable'])->name('wallets.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{wallet}/edit', [WalletController::class, 'edit'])->name('wallets.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{wallet}/update', [WalletController::class, 'update'])->name('wallets.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{wallet}', [WalletController::class, 'destroy'])->name('wallets.destroy')->addMeta(true, ["super admin:admin"]);
 
     });
 

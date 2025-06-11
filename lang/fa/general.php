@@ -23,6 +23,10 @@ return [
     'customer' => 'مشتری',
     'customers' => 'مشتریان',
 
+    'manage_wallet' => 'مدیریت کیف پول',
+    'add_wallet' => 'اضافه کردن کیف پول',
+    'edit_wallet' => 'ویرایش کیف پول',
+
     'manage_order' => 'مدیریت سفارشات',
     'add_order' => 'اضافه کردن سفارش',
     'edit_order' => 'ویرایش سفارش',

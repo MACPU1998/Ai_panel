@@ -9,7 +9,7 @@ use Spatie\Permission\Traits\HasRoles;
 
 class Admin extends Authenticatable
 {
-    use HasRoles,SoftDeletes;
+    use HasRoles, SoftDeletes;
 
     protected $table = 'admins';
     protected $guard_name = 'admin';
@@ -18,7 +18,8 @@ class Admin extends Authenticatable
 
     protected $hidden = ['password', 'remember_token'];
 
-    public function wallet(){
-        return $this->hasOne(Wallet::class);
+    public function walletTransactions()
+    {
+        return $this->hasMany(WalletTransaction::class);
     }
 }

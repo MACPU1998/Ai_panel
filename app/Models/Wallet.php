@@ -11,15 +11,15 @@ class Wallet extends Model
     use HasFactory,SoftDeletes;
     protected $table = 'wallets';
     protected $fillable = [
-        'admin_id',
+        'customer_id',
         'balance',
     ];
 
-    public function admin(){
-        return $this->belongsTo(Admin::class);
+    public function customer(){
+        return $this->belongsTo(Customer::class);
     }
 
-    public function transaction(){
-        return $this->hasMany(Transaction::class);
+    public function walletTransactions(){
+        return $this->hasMany(WalletTransaction::class);
     }
 }

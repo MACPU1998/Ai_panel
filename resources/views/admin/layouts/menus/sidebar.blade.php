@@ -73,7 +73,7 @@
 
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
+                            <a class="sidebar-link" href="{{route('wallets.index')}}" aria-expanded="false">
                                 <iconify-icon icon="material-symbols-light:account-balance-wallet-outline"></iconify-icon>
                                 <span class="hide-menu">{{__("general.wallet")}}</span>
                             </a>
