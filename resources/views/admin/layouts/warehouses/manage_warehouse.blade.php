@@ -29,7 +29,6 @@
         $(document).ready(function () {
             $('#warehouses-table').DataTable({
                 processing: true,
-                scrollX: true,
                 serverSide: true,
                 ajax: '{{ route('warehouses.datatable') }}',
                 columns: [

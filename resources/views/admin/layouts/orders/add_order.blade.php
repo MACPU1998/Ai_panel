@@ -36,7 +36,7 @@
                                     @enderror
                                 </div>
                             </div>
-                            <a href="{{ route('customers.create') }}" class="btn btn-success mb-3">{{ __("general.add_customer") }}</a>
+                            <a href="{{ route('customers.create') }}" class="btn btn-primary mb-3">{{ __("general.add_customer") }}</a>
                         </div>
 
                         <div class="col-md-12">
@@ -92,7 +92,7 @@
                     </div>
 
                     <div class="text-end mt-4">
-                        <button type="submit" class="btn btn-success">{{ __("general.settlement") }}</button>
+                        <button type="submit" class="btn btn-primary">{{ __("general.settlement") }}</button>
                     </div>
                 </form>
 

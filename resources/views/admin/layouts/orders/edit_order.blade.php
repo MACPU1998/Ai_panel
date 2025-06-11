@@ -53,7 +53,7 @@
                                                        style="width: 70px;">
 
                                                 <button type="button"
-                                                        class="btn btn-sm btn-outline-success add-to-cart"
+                                                        class="btn btn-sm btn-outline-primary add-to-cart"
                                                         data-product-id="{{ $product->id }}">
                                                     افزودن
                                                 </button>

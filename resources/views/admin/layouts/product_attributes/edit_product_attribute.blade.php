@@ -84,7 +84,7 @@
                             </div>
                         </div>
                     </div>
-                    <button type="submit" class="btn btn-success">{{__("general.edit_btn")}}</button>
+                    <button type="submit" class="btn btn-primary">{{__("general.edit_btn")}}</button>
                 </form>
             </div>
         </div>

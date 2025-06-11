@@ -46374,3 +46374,8 @@ pre[class*="language-"] {
 .dropify-wrapper .dropify-message span {
     font-size: 18px !important;
 }
+
+.sidebar-link.custom-bold-{
+    font-weight: 700;
+    color: #0d6efd;
+}

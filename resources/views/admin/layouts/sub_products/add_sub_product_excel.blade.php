@@ -42,7 +42,7 @@
                     @enderror
                 </div>
 
-                <button type="submit" class="btn btn-success mt-3">  {{__("general.upload_and_save")}}</button>
+                <button type="submit" class="btn btn-primary mt-3">  {{__("general.upload_and_save")}}</button>
             </form>
         </div>
     @endsection

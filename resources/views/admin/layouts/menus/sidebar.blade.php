@@ -104,6 +104,13 @@
                         </li>
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link custom-bold-" href="#" aria-expanded="false">
+                                <iconify-icon icon="material-icon-theme:smarty"></iconify-icon>
+                                <span class="hide-menu">{{__("general.smart_consultant")}}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('productCurrencies.index')}}" aria-expanded="false">
                                 <iconify-icon icon="material-symbols-light:attach-money-rounded"></iconify-icon>
                                 <span class="hide-menu">{{__("general.productCurrencies")}}</span>
@@ -150,12 +157,7 @@
                             </a>
                         </li>
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="#" aria-expanded="false">
-                                <iconify-icon icon="material-symbols-light:bar-chart-4-bars-rounded"></iconify-icon>
-                                <span class="hide-menu">گزارشگیری و آمار</span>
-                            </a>
-                        </li>
+
 
                         @php
                             $menus = $menus ?? collect();

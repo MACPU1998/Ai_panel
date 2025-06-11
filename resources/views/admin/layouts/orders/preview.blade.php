@@ -123,7 +123,7 @@
                                 <form method="POST" action="{{ route('orders.store') }}">
                                     @csrf
                                     <input type="hidden" name="customer_id" value="{{ $customer->id }}">
-                                    <button type="submit" class="btn btn-success">{{ __("general.payment") }}</button>
+                                    <button type="submit" class="btn btn-primary">{{ __("general.payment") }}</button>
                                 </form>
 
                             @elseif($latestOrder->status == 2)
