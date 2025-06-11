@@ -11,6 +11,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SettingController;
+use App\Http\Controllers\SmartController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WalletController;
@@ -245,6 +246,10 @@ Route::prefix('admin')->group(function () {
         Route::put('/{wallet}/update', [WalletController::class, 'update'])->name('wallets.update')->addMeta(true, ["super admin:admin"]);
         Route::delete('/{wallet}', [WalletController::class, 'destroy'])->name('wallets.destroy')->addMeta(true, ["super admin:admin"]);
 
+    });
+    //Route setting
+    Route::prefix('smarts')->group(function () {
+        Route::get('/', [SmartController::class, 'index'])->name('smarts.index')->addMeta(true, ["super admin:admin"]);
     });
 
 
