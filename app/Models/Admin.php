@@ -17,4 +17,8 @@ class Admin extends Authenticatable
     protected $fillable = ['first_name', 'last_name', 'email', 'phone', 'password'];
 
     protected $hidden = ['password', 'remember_token'];
+
+    public function wallet(){
+        return $this->hasOne(Wallet::class);
+    }
 }
