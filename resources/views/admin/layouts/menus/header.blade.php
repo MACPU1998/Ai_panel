@@ -51,34 +51,20 @@
                         <!-- start language Dropdown -->
                         <!-- end language Dropdown -->
                         <!-- ------------------------------- -->
-
-{{--                        <li class="nav-item position-relative">--}}
-{{--                            <a id="cart-icon" class="nav-link nav-icon-hover-bg rounded-circle" href="#">--}}
-{{--                                <iconify-icon icon="solar:cart-large-2-line-duotone" class="fs-5"></iconify-icon>--}}
-{{--                                <span id="cart-count"--}}
-{{--                                      class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0--}}
-{{--                                </span>--}}
-
-{{--                            </a>--}}
-{{--                        </li>--}}
+                        <li class="nav-item position-relative">
+                            <a href="#" id="cart-link"
+                               class="nav-link nav-icon-hover-bg rounded-circle" title="کیف پول">
+                                <iconify-icon icon="material-symbols-light:account-balance-wallet-outline" class="fs-7"></iconify-icon>
+                                <span id="cart-wallet" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
+                            </a>
+                        </li>
 
 
-
-{{--                        @if(request()->routeIs('orders.create'))--}}
-{{--                            <li class="nav-item position-relative">--}}
-{{--                                <a href="{{ route('orders.preview', ['customer' => session('selected_customer_id') ?? 0]) }}"--}}
-{{--                                   class="nav-link nav-icon-hover-bg rounded-circle" title="مشاهده سبد خرید">--}}
-{{--                                    <iconify-icon icon="material-symbols-light:add-shopping-cart-rounded" class="fs-5"></iconify-icon>--}}
-{{--                                    <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>--}}
-{{--                                </a>--}}
-{{--                            </li>--}}
-{{--                        @endif--}}
-
-                        @if(request()->routeIs('orders.create'))
+                    @if(request()->routeIs('orders.create'))
                             <li class="nav-item position-relative">
                                 <a href="#" id="cart-link"
                                    class="nav-link nav-icon-hover-bg rounded-circle" title="مشاهده سبد خرید">
-                                    <iconify-icon icon="material-symbols-light:add-shopping-cart-rounded" class="fs-5"></iconify-icon>
+                                    <iconify-icon icon="material-symbols-light:add-shopping-cart-rounded" class="fs-6"></iconify-icon>
                                     <span id="cart-count" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
                                 </a>
                             </li>

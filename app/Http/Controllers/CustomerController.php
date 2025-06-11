@@ -8,6 +8,7 @@ use App\Models\City;
 use App\Models\Country;
 use App\Models\Customer;
 use App\Models\State;
+use App\Models\Wallet;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
 
@@ -56,6 +57,15 @@ class CustomerController extends Controller
         if ($request->hasFile('image')) {
             $customer->addMediaFromRequest('image')->toMediaCollection('customer_images');
         }
+
+        $wallet = Wallet::create([
+            'customer_id' => $customer->id,
+            'balance' => 0,
+        ]);
+
+        $customer->update([
+            'wallet_id' => $wallet->id,
+        ]);
 
         return redirect()->route('customers.index')->with('success', 'محصول با موفقیت ایجاد شد.');
     }

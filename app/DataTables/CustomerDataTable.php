@@ -143,6 +143,7 @@ class CustomerDataTable extends DataTable
             Column::make('state_id')->title('استان'),
             Column::make('city_id')->title('شهر'),
             Column::make('image')->title('عکس'),
+            Column::make('wallet_id')->title('کیف پول'),
             Column::make('created_at')->title('تاریخ ایجاد'),
             Column::make('updated_at')->title('تاریخ آپدیت'),
             Column::computed('action')
