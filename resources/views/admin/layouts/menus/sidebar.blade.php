@@ -161,8 +161,8 @@
                         </li>
 
                         <li class="sidebar-item">
-                            <a class="sidebar-link custom-bold" href="{{route('smarts.index')}}" aria-expanded="false">
-                                <iconify-icon icon="material-icon-theme:smarty"></iconify-icon>
+                            <a class="sidebar-link custom-bold smart" href="{{route('smarts.index')}}" aria-expanded="false">
+                                <iconify-icon icon="iconoir:light-bulb"></iconify-icon>
                                 <span class="hide-menu">{{__("general.smart_consultant")}}</span>
                             </a>
                         </li>

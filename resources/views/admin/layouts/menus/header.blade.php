@@ -51,12 +51,16 @@
                         <!-- start language Dropdown -->
                         <!-- end language Dropdown -->
                         <!-- ------------------------------- -->
-                        <li class="nav-item position-relative">
-                            <a href="#" id="cart-link"
-                               class="nav-link nav-icon-hover-bg rounded-circle" title="کیف پول">
-                                <iconify-icon icon="hugeicons:wallet-01" class="fs-7"></iconify-icon>
-                                <span id="cart-wallet" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger d-none">0</span>
-                            </a>
+
+                        <li class="nav-item">
+                            <div class="d-flex align-items-center border rounded-pill px-10 py-1 bg-light">
+
+                                <a href="{{route("wallets.index")}}" class="btn btn-sm btn-light p-1 d-flex align-items-center justify-content-center me-3 " title="کیف پول">
+                                    <iconify-icon icon="hugeicons:wallet-01" class="fs-5 "></iconify-icon>
+                                </a>
+
+                                <span class="text-muted me-4"> 0 ریال</span>
+                            </div>
                         </li>
 
 
