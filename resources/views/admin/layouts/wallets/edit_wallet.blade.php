@@ -13,15 +13,14 @@
                     @csrf
                     @method('PUT')
                     <div class="row">
-
                         <div class="col-md-3">
                             <div class="mb-3">
-                                <label for="first_name" class="form-label">{{__("general.first_name")}}</label>
-                                <input type="text" class="form-control @error('first_name') is-invalid @enderror"
-                                       id="first_name"
-                                       name="first_name"
-                                       value="{{ old('first_name', $admin->first_name) }}" required>
-                                @error('first_name')
+                                <label for="balance" class="form-label">{{__("general.balance")}}</label>
+                                <input type="number" class="form-control @error('balance') is-invalid @enderror"
+                                       id="balance"
+                                       name="balance" autocomplete="off"
+                                       required>
+                                @error('balance')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
@@ -29,73 +28,20 @@
                             </div>
                         </div>
 
-                        <div class="col-md-3">
+                        <div class="col-md-8">
                             <div class="mb-3">
-                                <label for="last_name" class="form-label">{{__("general.last_name")}}</label>
-                                <input type="text" class="form-control @error('last_name') is-invalid @enderror"
-                                       id="last_name"
-                                       name="last_name"
-                                       value="{{ old('last_name', $admin->last_name) }}" required>
-                                @error('last_name')
+                                <label for="description" class="form-label">{{__("general.description")}}</label>
+                                <input type="text" class="form-control @error('description') is-invalid @enderror"
+                                       id="description"
+                                       name="description" autocomplete="off"
+                                       >
+                                @error('description')
                                 <span class="invalid-feedback" role="alert">
                             <strong>{{ $message }}</strong>
                         </span>
                                 @enderror
                             </div>
                         </div>
-
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="email" class="form-label">{{__("general.email")}}</label>
-                                <input type="email" class="form-control @error('email') is-invalid @enderror" id="email"
-                                       name="email"
-                                       value="{{ old('email', $admin->email) }}" required>
-                                @error('email')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="phone" class="form-label">{{__("general.phone")}}</label>
-                                <input type="number" class="form-control @error('phone') is-invalid @enderror"
-                                       id="phone"
-                                       name="phone"
-                                       value="{{ old('phone', $admin->phone) }}" required>
-                                @error('phone')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-
-                        <div class="col-md-3">
-                            <div class="mb-3">
-                                <label for="role" class="form-label">{{__("general.role")}}</label>
-                                <select type="text" class="form-control select2 @error('role') is-invalid @enderror"
-                                        id="role"
-                                        name="role"
-                                        required>
-                                    <option value="">یک نقش را انتخاب کنید</option>
-                                    @foreach($roles as $role)
-                                        <option
-                                            value="{{ $role->name }}" {{ isset($admin) && $admin->roles->pluck('name')->first() == $role->name ? 'selected' : '' }}>
-                                            {{ $role->name }}
-                                        </option>
-                                    @endforeach
-                                </select>
-                                @error('role')
-                                <span class="invalid-feedback" role="alert">
-                            <strong>{{ $message }}</strong>
-                        </span>
-                                @enderror
-                            </div>
-                        </div>
-
                     </div>
                     <button type="submit" class="btn btn-primary">{{__("general.edit_btn")}}</button>
                 </form>
@@ -113,19 +59,20 @@
             });
         });
     </script>
-
     <script>
-        $(document).ready(function () {
-            $('#role').select2({
-                placeholder: "یک نقش را انتخاب کنید",
-                allowClear: false,
-                width: '100%',
-                dropdownParent: $('body')
-            });
+        const balanceInput = document.getElementById('balance');
+
+        balanceInput.addEventListener('input', function () {
+            let raw = this.value.replace(/[^0-9]/g, '');
+            this.value = raw.replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+        });
+
+        document.getElementById('walletForm').addEventListener('submit', function () {
+            balanceInput.value = balanceInput.value.replace(/,/g, '');
         });
     </script>
 
-    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>
-    {!! JsValidator::formRequest('App\Http\Requests\User\UserUpdateRequest', '#edit_user') !!}
+{{--    <script src="{{ asset('vendor/jsvalidation/js/jsvalidation.js') }}"></script>--}}
+{{--    {!! JsValidator::formRequest('App\Http\Requests\User\UserUpdateRequest', '#edit_user') !!}--}}
 
 @endsection
