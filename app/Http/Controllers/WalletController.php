@@ -9,9 +9,8 @@ use App\Http\Requests\User\UserUpdateRequest;
 use App\Models\Admin;
 use App\Models\User;
 use App\Models\Wallet;
+use App\Models\WalletTransaction;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
-use Spatie\Permission\Models\Role;
 use Yajra\DataTables\DataTables;
 
 class WalletController extends Controller
@@ -23,7 +22,7 @@ class WalletController extends Controller
 
     public function create()
     {
-        return view('admin.layouts.users.add_wallet');
+       return view('admin.layouts.wallets.add_wallet');
     }
 
     public function store(UserRequest $request)
@@ -62,12 +61,12 @@ class WalletController extends Controller
 
     public function edit(Admin $admin)
     {
+        return view('admin.layouts.wallets.edit_wallet');
 
     }
 
     public function update(UserUpdateRequest $request, Admin $admin)
     {
-
     }
 
     public function destroy(Wallet $wallet)
