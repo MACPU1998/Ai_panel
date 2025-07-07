@@ -9,7 +9,7 @@
             <div class="container mt-8">
                 <h5 class="mb-4">{{__("general.edit_wallet")}}</h5>
 
-                <form id="edit_wallet" action="{{route('wallets.update',$wallet->id)}}" method="POST" class="my-10">
+                <form id="edit_wallet" action="{{route('wallets.update',$wallet->id,$customer->id)}}" method="POST" class="my-10">
                     @csrf
                     @method('PUT')
                     <div class="row">

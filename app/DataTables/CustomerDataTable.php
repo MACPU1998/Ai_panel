@@ -40,6 +40,9 @@ class CustomerDataTable extends DataTable
             ->editColumn('city_id', function ($customer) {
                 return $customer->city->name ?? '-';
             })
+            ->editColumn('wallet_id', function ($customer) {
+                return $customer->wallet->balance ?? '-';
+            })
             ->addColumn('created_at', function ($customer) {
                 if ($customer->created_at) {
                     return Jalalian::fromCarbon($customer->created_at->setTimezone('Asia/Tehran'))->format('Y/m/d - H:i');
@@ -60,7 +63,8 @@ class CustomerDataTable extends DataTable
                   <i class="bi bi-three-dots-vertical"></i>
               </button>
                    <ul class="dropdown-menu">
-                      <li><a class="dropdown-item" href="' . route('customers.edit', $customer->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+                      <li><a class="dropdown-item" href="' . route('customers.edit', $customer->id) . '"><i class="bi bi-pencil me-1"></i>ویرایش مشتری</a></li>
+                      <li><a class="dropdown-item" href="' . route('wallets.edit', $customer->id) . '"><i class="bi bi-pencil me-1"></i>ویرایش کیف پول</a></li>
                       <li><a class="dropdown-item" href="#" onclick="deleteCustomer(' . $customer->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
                   </ul>
              </div>
@@ -75,7 +79,7 @@ class CustomerDataTable extends DataTable
      */
     public function query(Customer $customer): QueryBuilder
     {
-        $query = $customer->newQuery()->with(['country', 'state','city']);
+        $query = $customer->newQuery()->with(['country', 'state','city','wallet']);
 
         $filters = session('customer-filters', []);
 

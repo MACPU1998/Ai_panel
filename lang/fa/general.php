@@ -149,6 +149,7 @@ return [
     'expiration_date' => 'تاریخ انقضا',
     'address' => 'آدرس',
     'wallet' => 'کیف پول',
+    'balance' => 'مقدار',
     'management' => 'مدیریت',
     'smart_consultant' => 'مشاور هوشمند',
 

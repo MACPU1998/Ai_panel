@@ -95,13 +95,6 @@
                                         <span class="hide-menu">{{__("general.setting")}}</span>
                                     </a>
                                 </li>
-                                <li class="sidebar-item">
-                                    <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
-                                        <iconify-icon
-                                            icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
-                                        <span class="hide-menu">{{__("general.warehouse")}}</span>
-                                    </a>
-                                </li>
 
                             </ul>
                         </li>
@@ -143,6 +136,14 @@
                                         <span class="hide-menu">{{__("general.subProducts")}}</span>
                                     </a>
                                 </li>
+                                <li class="sidebar-item">
+                                    <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
+                                        <iconify-icon
+                                            icon="material-symbols-light:warehouse-outline-rounded"></iconify-icon>
+                                        <span class="hide-menu">{{__("general.warehouse")}}</span>
+                                    </a>
+                                </li>
+
 
                             </ul>
                         </li>
