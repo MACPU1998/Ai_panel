@@ -152,5 +152,6 @@ return [
     'balance' => 'مقدار',
     'management' => 'مدیریت',
     'smart_consultant' => 'مشاور هوشمند',
+    'set_default_warehouse' => '  تنظیم به عنوان انبار پیش‌فرض',
 
 ];

@@ -33,6 +33,7 @@ class WarehouseRequest extends FormRequest
             'address' => 'nullable|string|min:3|max:255',
             'description' => 'nullable|string',
             'status' => 'required',
+            'make_default' => 'boolean',
         ];
     }
 }

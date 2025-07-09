@@ -28,6 +28,9 @@ class WarehouseDataTable extends DataTable
             })
             ->editColumn('description', function ($warehouse) {
                 return $warehouse->description ?? '-';
+
+            })->editColumn('make_default', function ($warehouse) {
+                return $warehouse->make_default == 1 ? 'انبار پیش فرض' : '-';
             })
             ->addColumn('created_at', function ($warehouse) {
                 if ($warehouse->created_at) {
@@ -41,7 +44,6 @@ class WarehouseDataTable extends DataTable
                 }
                 return '-'; // مقدار پیش‌فرض برای زمانی که updated_at خالی باشد
             })
-
             ->addColumn('action', function ($warehouse) {
                 return '
             <div class="dropdown text-center">
@@ -55,7 +57,6 @@ class WarehouseDataTable extends DataTable
              </div>
     ';
             })
-
             ->rawColumns(['action']) // برای تفسیر HTML در ستون action
             ->setRowId('id');
     }
@@ -89,20 +90,21 @@ class WarehouseDataTable extends DataTable
      */
     public function getColumns(): array
     {
-    return [
-        Column::make('id')->title('شناسه'),
-        Column::make('name')->title('نام'),
-        Column::make('address')->title('آدرس'),
-        Column::make('status')->title('وضعیت'),
-        Column::make('description')->title('توضیحات'),
-        Column::make('created_at')->title('تاریخ ایجاد'),
-        Column::make('updated_at')->title('تاریخ آپدیت'),
-        Column::computed('action')
-            ->exportable(false)
-            ->printable(false)
-            ->addClass('text-center')
-            ->title('عملیات'),
-    ];
+        return [
+            Column::make('id')->title('شناسه'),
+            Column::make('name')->title('نام'),
+            Column::make('address')->title('آدرس'),
+            Column::make('status')->title('وضعیت'),
+            Column::make('description')->title('توضیحات'),
+            Column::make('make_default')->title('پیش فرض'),
+            Column::make('created_at')->title('تاریخ ایجاد'),
+            Column::make('updated_at')->title('تاریخ آپدیت'),
+            Column::computed('action')
+                ->exportable(false)
+                ->printable(false)
+                ->addClass('text-center')
+                ->title('عملیات'),
+        ];
     }
 
     /**

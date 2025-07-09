@@ -71,6 +71,26 @@
                             </div>
                         </div>
 
+                        <div class="col-md-6">
+                            <div class="form-check mb-3">
+                                <input type="checkbox"
+                                       class="form-check-input @error('make_default') is-invalid @enderror"
+                                       id="make_default"
+                                       name="make_default"
+                                       value="1"
+                                    {{ old('make_default') ? 'checked' : '' }}>
+                                <label class="form-check-label" for="make_default">
+                                    {{__("general.set_default_warehouse")}}
+                                </label>
+                                @error('make_default')
+                                <span class="invalid-feedback d-block" role="alert">
+                                  <strong>{{ $message }}</strong>
+                                </span>
+                                @enderror
+                            </div>
+                        </div>
+
+
                     </div>
 
                     <button type="submit" class="btn btn-primary">{{__("general.create_btn")}}</button>

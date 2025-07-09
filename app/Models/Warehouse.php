@@ -30,7 +30,7 @@ class Warehouse extends Model
         'address',
         'status',
         'description',
-
+        'make_default'
     ];
 
     public function subProducts()

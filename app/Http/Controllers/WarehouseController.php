@@ -32,10 +32,21 @@ class WarehouseController extends Controller
      */
     public function store(WarehouseRequest $request)
     {
-        Warehouse::create($request->validated());
-        return redirect()->route('warehouses.index')->with('success', 'انبار با موفقیت ایجاد شد.');
+        $data = $request->validated();
 
+        if (!empty($data['make_default'])) {
+            Warehouse::where('make_default', true)->update(['make_default' => false]);
+        } else {
+            if (!Warehouse::where('make_default', true)->exists()) {
+                $data['make_default'] = true;
+            }
+        }
+
+        Warehouse::create($data);
+
+        return redirect()->route('warehouses.index')->with('success', 'انبار با موفقیت ایجاد شد.');
     }
+
 
     public function getWarehousesData(Request $request)
     {
@@ -68,9 +79,26 @@ class WarehouseController extends Controller
      */
     public function update(UpdateWarehouseRequest $request, Warehouse $warehouse)
     {
-        $warehouse->update($request->validated());
-        return redirect()->route('warehouses.index')->with('success', 'انبار با موفقیت ویرایش شد.');
+        $data = $request->validated();
 
+        if (!empty($data['make_default'])) {
+            Warehouse::where('id', '!=', $warehouse->id)
+                ->where('make_default', true)
+                ->update(['make_default' => false]);
+        } else {
+            $isLastDefault = $warehouse->make_default &&
+                !Warehouse::where('id', '!=', $warehouse->id)
+                    ->where('make_default', true)
+                    ->exists();
+
+            if ($isLastDefault) {
+                return redirect()->back()
+                    ->withErrors(['make_default' => 'حداقل یک انبار باید به عنوان پیش‌فرض باقی بماند.']);
+            }
+        }
+        $warehouse->update($data);
+
+        return redirect()->route('warehouses.index')->with('success', 'انبار با موفقیت بروزرسانی شد.');
     }
 
     /**
