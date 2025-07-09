@@ -13,7 +13,6 @@ use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
-use Morilog\Jalali\Jalalian;
 use PhpOffice\PhpSpreadsheet\IOFactory;
 use Yajra\DataTables\DataTables;
 
@@ -144,7 +143,6 @@ class SubProductController extends Controller
         return redirect()->route('subProducts.index')->with('success', "{$count} زیرمحصول با موفقیت ایجاد شد.");
     }
 
-
     public function storeExcel(Request $request)
     {
         $request->validate([
@@ -156,98 +154,37 @@ class SubProductController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray(null, true, true, true);
 
-        // حذف ردیف اول (هدرها)
         array_shift($rows);
 
-        $errors = [];
         $validRows = [];
+        $errors = [];
 
         foreach ($rows as $index => $row) {
-            $rowIndex = $index + 2; // چون ردیف اول هدره، از 2 شروع میشه
+            $rowIndex = $index + 1;
 
-            // فرض: A=product_id یا نام محصول، B=barcode, C=serie_year, D=serie_month, E=label, F=production_date, G=expiration_date, H=status, I=warehouse_id
+            $productId = trim($row['A']);
+            $barcode = trim($row['B']);
+
+            // بررسی وجود محصول
+            if (!is_numeric($productId) || !Product::where('id', $productId)->exists()) {
+                $errors[] = "ردیف {$rowIndex}: شناسه محصول «{$productId}» معتبر نیست یا وجود ندارد.";
+                continue;
+            }
+
+            if (empty($barcode)) {
+                $errors[] = "ردیف {$rowIndex}: بارکد وارد نشده است.";
+                continue;
+            }
+
             $data = [
-                'product_id' => trim($row['A']),
-                'barcode' => trim($row['B']),
-                'serie_year' => trim($row['C']),
-                'serie_month' => trim($row['D']),
-                'label' => trim($row['E']),
-                'production_date' => trim($row['F']),
-                'expiration_date' => trim($row['G']),
-                'status' => trim($row['H']),
-                'warehouse_id' => trim($row['I']),
+                'product_id' => $productId,
+                'barcode' => $barcode,
+                'status' => 0,
             ];
 
-            if (!is_numeric($data['product_id'])) {
-                $productName=trim($data['product_id']);
-                $product = Product::where('name', $productName)->first();
-                if ($product) {
-                    $data['product_id'] = $product->id;
-                } else {
-                    $errors[] = "ردیف {$rowIndex}: محصول با نام «{$data['product_id']}» یافت نشد.";
-                    continue;
-                }
-            }
-
-            if (!is_numeric($data['warehouse_id'])) {
-                $warehouseName = trim($data['warehouse_id']);
-                $warehouse = Warehouse::where('name', $warehouseName)->first();
-                if ($warehouse) {
-                    $data['warehouse_id'] = $warehouse->id;
-                } else {
-                    $errors[] = "ردیف {$rowIndex}: انبار با نام «{$warehouseName}» یافت نشد.";
-                    continue;
-                }
-            }
-
-
-            $statusMap = [
-                'غیر فعال' => 0,
-                'فعال' => 1,
-                'مرجوعی' => 2,
-            ];
-
-            $statusFa = $data['status'];
-            if (isset($statusMap[$statusFa])) {
-                $data['status'] = $statusMap[$statusFa];
-            } else {
-                $errors[] = "ردیف {$rowIndex}: مقدار وضعیت «{$statusFa}» نامعتبر است.";
-                continue;
-            }
-
-// ✅ تبدیل تاریخ‌ها به فرمت  Y-m-d
-            try {
-                foreach (['production_date', 'expiration_date'] as $dateField) {
-                    if (!empty($data[$dateField])) {
-                        // اگر مقدار عددی باشد (فرمت Excel serial number)
-                        if (is_numeric($data[$dateField])) {
-                            $excelDate = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($data[$dateField]);
-                            $data[$dateField] = $excelDate->format('Y-m-d');
-                        } else {
-                            // فرض بر اینکه کاربر تاریخ میلادی وارد کرده مثل YYYY-MM-DD
-                            $date = Carbon::parse($data[$dateField]);
-                            $data[$dateField] = $date->format('Y-m-d');
-                        }
-                    } else {
-                        $data[$dateField] = null;
-                    }
-                }
-            } catch (\Exception $e) {
-                $errors[] = "ردیف {$rowIndex}: فرمت تاریخ تولید یا انقضا معتبر نیست.";
-                continue;
-            }
-
-            // اعتبارسنجی
             $validator = Validator::make($data, [
                 'product_id' => 'required|exists:products,id',
-                'barcode' => 'required|string|max:255',
-                'serie_year' => 'nullable|string',
-                'serie_month' => 'nullable|string',
-                'label' => 'nullable|string|max:255',
-                'production_date' => 'nullable|date',
-                'expiration_date' => 'nullable|date',
-                'status' => 'required|in:0,1,2',
-                'warehouse_id' => 'nullable|exists:warehouses,id',
+                'barcode' => 'required|string|max:255|unique:sub_products,barcode',
             ]);
 
             if ($validator->fails()) {
@@ -258,17 +195,21 @@ class SubProductController extends Controller
             $validRows[] = $data;
         }
 
-        // اگر خطایی وجود داشت، نمایش به کاربر
         if (!empty($errors)) {
             return back()->withErrors(['import_errors' => $errors]);
         }
 
-        // ذخیره اطلاعات در جدول
-        foreach ($validRows as $data) {
-            SubProduct::create($data);
+        DB::beginTransaction();
+        try {
+            foreach ($validRows as $data) {
+                SubProduct::create($data);
+            }
+            DB::commit();
+            return redirect()->route('subProducts.index')->with('success', 'زیرمحصولات با موفقیت ثبت شدند.');
+        } catch (\Exception $e) {
+            DB::rollBack();
+            return back()->withErrors(['import_errors' => ['خطا در ذخیره‌سازی داده‌ها: ' . $e->getMessage()]]);
         }
-
-        return redirect()->route('subProducts.index')->with('success', 'زیرمحصولات با موفقیت ایمپورت شدند.');
     }
 
     public function getSubProductData()

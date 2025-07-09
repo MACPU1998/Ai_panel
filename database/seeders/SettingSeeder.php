@@ -15,13 +15,13 @@ class SettingSeeder extends Seeder
         $settings = [
                 [
                     'key' => 'هزینه ارسال',
-                    'value' => '50000',
+                    'value' => '0',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
             [
                     'key' => 'مالیات',
-                    'value' => '1',
+                    'value' => '0',
                     'created_at' => now(),
                     'updated_at' => now(),
                 ],
