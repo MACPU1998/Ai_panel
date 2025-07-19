@@ -151,6 +151,7 @@ return [
     'wallet' => 'کیف پول',
     'balance' => 'مقدار',
     'management' => 'مدیریت',
+    'import_file' => 'فایل',
     'smart_consultant' => 'مشاور هوشمند',
     'set_default_warehouse' => '  تنظیم به عنوان انبار پیش‌فرض',
 

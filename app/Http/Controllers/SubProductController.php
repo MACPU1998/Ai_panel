@@ -143,6 +143,76 @@ class SubProductController extends Controller
         return redirect()->route('subProducts.index')->with('success', "{$count} زیرمحصول با موفقیت ایجاد شد.");
     }
 
+//    public function storeExcel(Request $request)
+//    {
+//        $request->validate([
+//            'import_file' => 'required|file|mimes:xlsx,xls',
+//        ]);
+//
+//        $file = $request->file('import_file');
+//        $spreadsheet = IOFactory::load($file->getPathname());
+//        $sheet = $spreadsheet->getActiveSheet();
+//        $rows = $sheet->toArray(null, true, true, true);
+//
+//        array_shift($rows);
+//
+//        $validRows = [];
+//        $errors = [];
+//
+//        foreach ($rows as $index => $row) {
+//            $rowIndex = $index + 1;
+//
+//            $productId = trim($row['A']);
+//            $barcode = trim($row['B']);
+//
+//            // بررسی وجود محصول
+//            if (!is_numeric($productId) || !Product::where('id', $productId)->exists()) {
+//                $errors[] = "ردیف {$rowIndex}: شناسه محصول «{$productId}» معتبر نیست یا وجود ندارد.";
+//                continue;
+//            }
+//
+//            if (empty($barcode)) {
+//                $errors[] = "ردیف {$rowIndex}: بارکد وارد نشده است.";
+//                continue;
+//            }
+//
+//            $data = [
+//                'product_id' => $productId,
+//                'barcode' => $barcode,
+//                'status' => 0,
+////                'warehouse'=> اوون انباری که پیفرض هست
+//            ];
+//
+//            $validator = Validator::make($data, [
+//                'product_id' => 'required|exists:products,id',
+//                'barcode' => 'required|string|max:255|unique:sub_products,barcode',
+//            ]);
+//
+//            if ($validator->fails()) {
+//                $errors[] = "ردیف {$rowIndex}: " . implode(' - ', $validator->errors()->all());
+//                continue;
+//            }
+//
+//            $validRows[] = $data;
+//        }
+//
+//        if (!empty($errors)) {
+//            return back()->withErrors(['import_errors' => $errors]);
+//        }
+//
+//        DB::beginTransaction();
+//        try {
+//            foreach ($validRows as $data) {
+//                SubProduct::create($data);
+//            }
+//            DB::commit();
+//            return redirect()->route('subProducts.index')->with('success', 'زیرمحصولات با موفقیت ثبت شدند.');
+//        } catch (\Exception $e) {
+//            DB::rollBack();
+//            return back()->withErrors(['import_errors' => ['خطا در ذخیره‌سازی داده‌ها: ' . $e->getMessage()]]);
+//        }
+//    }
+
     public function storeExcel(Request $request)
     {
         $request->validate([
@@ -154,16 +224,26 @@ class SubProductController extends Controller
         $sheet = $spreadsheet->getActiveSheet();
         $rows = $sheet->toArray(null, true, true, true);
 
-        array_shift($rows);
+        array_shift($rows); // حذف هدر
 
         $validRows = [];
         $errors = [];
 
-        foreach ($rows as $index => $row) {
-            $rowIndex = $index + 1;
+        // گرفتن ID انبار پیش‌فرض
+        $defaultWarehouse = \App\Models\Warehouse::where('make_default', true)->first();
+        $defaultWarehouseId = $defaultWarehouse ? $defaultWarehouse->id : null;
 
-            $productId = trim($row['A']);
-            $barcode = trim($row['B']);
+        foreach ($rows as $index => $row) {
+            $rowIndex = $index + 1; // چون هدر حذف شده، شماره واقعی ردیف اکسل
+
+            $productId = trim($row['A'] ?? '');
+            $barcode = trim($row['B'] ?? '');
+            $serieYear = trim($row['C'] ?? '');
+            $serieMonth = trim($row['D'] ?? '');
+            $label = trim($row['E'] ?? '');
+            $productionDate = trim($row['F'] ?? '');
+            $expirationDate = trim($row['G'] ?? '');
+            $warehouseId = trim($row['H'] ?? '');
 
             // بررسی وجود محصول
             if (!is_numeric($productId) || !Product::where('id', $productId)->exists()) {
@@ -176,15 +256,57 @@ class SubProductController extends Controller
                 continue;
             }
 
+            // استفاده از انبار پیش‌فرض اگر ID ندادند
+            if (empty($warehouseId)) {
+                $warehouseId = $defaultWarehouseId;
+            } else {
+                // بررسی وجود انبار فقط اگر مقدار داده شده
+                if (!Warehouse::where('id', $warehouseId)->exists()) {
+                    $errors[] = "ردیف {$rowIndex}: انبار با شناسه «{$warehouseId}» وجود ندارد.";
+                    continue;
+                }
+            }
+
+            // تبدیل تاریخ‌ها
+            foreach (['productionDate' => 'production_date', 'expirationDate' => 'expiration_date'] as $inputField => $dbField) {
+                if (!empty($$inputField)) {
+                    try {
+                        if (is_numeric($$inputField)) {
+                            $date = \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($$inputField);
+                            $$dbField = $date->format('Y-m-d');
+                        } else {
+                            $$dbField = \Carbon\Carbon::parse($$inputField)->format('Y-m-d');
+                        }
+                    } catch (\Exception $e) {
+                        $errors[] = "ردیف {$rowIndex}: فرمت تاریخ معتبر نیست.";
+                        continue 2; // می‌ره سراغ ردیف بعدی
+                    }
+                } else {
+                    $$dbField = null;
+                }
+            }
+
             $data = [
                 'product_id' => $productId,
                 'barcode' => $barcode,
+                'serie_year' => $serieYear ?: null,
+                'serie_month' => $serieMonth ?: null,
+                'label' => $label ?: null,
+                'production_date' => $production_date ?? null,
+                'expiration_date' => $expiration_date ?? null,
                 'status' => 0,
+                'warehouse_id' => $warehouseId,
             ];
 
             $validator = Validator::make($data, [
                 'product_id' => 'required|exists:products,id',
                 'barcode' => 'required|string|max:255|unique:sub_products,barcode',
+                'warehouse_id' => 'nullable|exists:warehouses,id',
+                'serie_year' => 'nullable|string|max:255',
+                'serie_month' => 'nullable|string|max:255',
+                'label' => 'nullable|string|max:255',
+                'production_date' => 'nullable|date',
+                'expiration_date' => 'nullable|date',
             ]);
 
             if ($validator->fails()) {
@@ -208,7 +330,7 @@ class SubProductController extends Controller
             return redirect()->route('subProducts.index')->with('success', 'زیرمحصولات با موفقیت ثبت شدند.');
         } catch (\Exception $e) {
             DB::rollBack();
-            return back()->withErrors(['import_errors' => ['خطا در ذخیره‌سازی داده‌ها: ' . $e->getMessage()]]);
+            return back()->withErrors(['import_errors' => ['خطا در ذخیره‌سازی: ' . $e->getMessage()]]);
         }
     }
 
