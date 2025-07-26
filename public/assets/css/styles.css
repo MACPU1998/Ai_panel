@@ -17423,10 +17423,10 @@
 }
 
 [data-bs-theme=light][data-color-theme=Blue_Theme]:root .btn-primary {
-    --bs-btn-bg: #635BFF;
-    --bs-btn-border-color: #635BFF;
-    --bs-btn-hover-bg: #5249fe;
-    --bs-btn-hover-border-color: #5249fe
+    --bs-btn-bg: #0cbcb7;
+    --bs-btn-border-color: #0cbcb7;
+    --bs-btn-hover-bg: #0ec6c1;
+    --bs-btn-hover-border-color: #0cbcb7
 }
 
 [data-bs-theme=light][data-color-theme=Blue_Theme]:root .btn-secondary {
