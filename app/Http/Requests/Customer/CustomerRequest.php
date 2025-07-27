@@ -33,7 +33,7 @@ class CustomerRequest extends FormRequest
         ];
 
         if ($this->isMethod('post')) {
-            $rules['image'] = 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
+            $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         } else if ($this->isMethod('put')) {
             $rules['image'] = 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048';
         }
