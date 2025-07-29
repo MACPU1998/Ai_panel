@@ -1,6 +1,6 @@
     @extends('admin.layouts.project_master_admin')
 
-    @section('title', 'ایمپورت زیرمحصولات با اکسل')
+    @section('title', 'افزودن زیرمحصولات با اکسل')
 
     @section('content')
         <div class="container mt-1">

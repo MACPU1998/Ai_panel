@@ -95,7 +95,7 @@ return [
     'serie_month'=>'سری ماه',
     'label'=>'لیبل',
     'download_excel_sample'=>'دانلود فایل نمونه اکسل',
-    'import_SP_with_excel'=>'ایمپورت زیرمحصولات از طریق فایل Excel',
+    'import_SP_with_excel'=>'افزودن زیرمحصولات از طریق فایل Excel',
     'select_excel'=>'انتخاب فایل Excel',
     'upload_and_save'=>'آپلود و ذخیره زیرمحصولات',
 
