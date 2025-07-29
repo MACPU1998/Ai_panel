@@ -29,6 +29,8 @@
             <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
                 <div class="d-flex align-items-center justify-content-between">
                     <ul class="navbar-nav flex-row mx-auto ms-lg-auto align-items-center justify-content-center">
+
+{{--                        theme--}}
                         <li class="nav-item">
                             <a class="nav-link moon dark-layout nav-icon-hover-bg rounded-circle"
                                href="javascript:void(0)">
@@ -52,6 +54,7 @@
                         <!-- end language Dropdown -->
                         <!-- ------------------------------- -->
 
+{{--                        wallet--}}
                         <li class="nav-item">
                             <div class="d-flex align-items-center border rounded-pill px-10 py-1 bg-light">
 

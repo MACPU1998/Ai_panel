@@ -13,7 +13,7 @@ class AdminAuthController extends Controller
 {
     public function index()
     {
-        return view('admin.layouts.auth.login-admin');
+        return view('admin.layouts.auth.login-admin2');
     }
 
     public function login(Request $request)
