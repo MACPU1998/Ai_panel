@@ -28204,7 +28204,7 @@ textarea.form-control-lg {
 }
 
 .bg-primary-subtle {
-    background-color: var(--bs-primary-bg-subtle) !important
+    background-color: rgba(17, 198, 193, 0.26) !important
 }
 
 .bg-secondary-subtle {

@@ -139,7 +139,7 @@
             <div class="col-lg-4">
                 <div class="card">
                     <div class="card-body">
-                        <h5 class="card-title mb-4">Annual Profit</h5>
+                        <h5 class="card-title mb-4">خلاصه گزارش</h5>
                         <div class="bg-primary-subtle rounded overflow-hidden mb-4">
                             <div class="p-4 mb-7">
                                 <div class="d-flex align-items-center justify-content-between">
@@ -151,32 +151,32 @@
                         </div>
                         <div class="d-flex align-items-center justify-content-between pb-6 border-bottom">
                             <div>
-                                <span class="text-muted fw-medium">Added to Cart</span>
-                                <span class="fs-11 fw-medium d-block mt-1">5 clicks</span>
+                                <span class="text-muted fw-medium">تعداد کل مشتریان</span>
+                                <span class="fs-11 fw-medium d-block mt-1">مشتریانی که امروز ثبت نام کردند</span>
                             </div>
                             <div class="text-end">
-                                <h6 class="fw-bolder mb-1">$21,120.70</h6>
-                                <span class="fs-11 fw-medium text-success">+13.2%</span>
+                                <h6 class="fw-bolder mb-1">0</h6>
+                                <span class="fs-11 fw-medium text-success">2</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between py-6 border-bottom">
                             <div>
-                                <span class="text-muted fw-medium">Reached to Checkout</span>
-                                <span class="fs-11 fw-medium d-block mt-1">12 clicks</span>
+                                <span class="text-muted fw-medium">تعداد کل سفارشات</span>
+                                <span class="fs-11 fw-medium d-block mt-1">سفارشات در حال پرداخت</span>
                             </div>
                             <div class="text-end">
-                                <h6 class="fw-bolder mb-1">$16,100.00</h6>
-                                <span class="fs-11 fw-medium text-danger">-7.4%</span>
+                                <h6 class="fw-bolder mb-1">15</h6>
+                                <span class="fs-11 fw-medium text-success">2</span>
                             </div>
                         </div>
                         <div class="d-flex align-items-center justify-content-between pt-6">
                             <div>
-                                <span class="text-muted fw-medium">Added to Cart</span>
-                                <span class="fs-11 fw-medium d-block mt-1">24 views</span>
+                                <span class="text-muted fw-medium">تعداد محصولات</span>
+                                <span class="fs-11 fw-medium d-block mt-1">تعداد زیر محصول</span>
                             </div>
                             <div class="text-end">
-                                <h6 class="fw-bolder mb-1">$6,400.50</h6>
-                                <span class="fs-11 fw-medium text-success">+9.3%</span>
+                                <h6 class="fw-bolder mb-1">200</h6>
+                                <span class="fs-11 fw-medium text-success">8</span>
                             </div>
                         </div>
                     </div>
