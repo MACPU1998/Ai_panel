@@ -30,9 +30,7 @@ Route::prefix('admin')->group(function () {
     Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout')->addMeta(true, ["super admin:admin"]);
 
     Route::middleware('auth:admin')->group(function () {
-        Route::get('/dashboard', function () {
-            return view('admin.dashboard');
-        })->name('admin.dashboard')->addMeta(true, ["super admin:admin"]);
+        Route::get('/dashboard', [AdminAuthController::class, 'dashboard'])->name('admin.dashboard')->addMeta(true, ["super admin:admin"]);
     });
 
     //Route User

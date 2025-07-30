@@ -5,12 +5,45 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Admin\AdminPasswordUpdateRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
 use App\Models\Admin;
+use App\Models\Customer;
+use App\Models\Order;
+use App\Models\Product;
+use App\Models\SubProduct;
+use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
 class AdminAuthController extends Controller
 {
+
+    public function dashboard()
+    {
+        $totalCustomers = Customer::count();
+        $todayCustomers = Customer::whereDate('created_at', now()->toDateString())->count();
+
+        $totalOrders = Order::count();
+        $payingOrders = Order::where('status', 'STATUS_SHOPPING_CART')->count();
+
+        $totalProducts = Product::count();
+        $totalSubProducts = SubProduct::count();
+
+        $warehouse=Warehouse::count();
+        $totalSales = Order::where('status', '>=', Order::STATUS_PAYMENT)->sum('final_price');
+
+
+        return view('admin.dashboard', compact(
+            'totalCustomers',
+            'todayCustomers',
+            'totalOrders',
+            'payingOrders',
+            'totalProducts',
+            'totalSubProducts',
+            'warehouse',
+            'totalSales',
+        ));
+    }
+
     public function index()
     {
         return view('admin.layouts.auth.login-admin2');
