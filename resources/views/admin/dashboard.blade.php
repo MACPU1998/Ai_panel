@@ -87,11 +87,11 @@
                             <div class="hstack gap-9 mt-4 mt-md-0">
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="d-block flex-shrink-0 round-10 bg-primary rounded-circle"></span>
-                                    <span class="text-nowrap text-muted">2024</span>
+                                    <span class="text-nowrap text-muted">2025</span>
                                 </div>
                                 <div class="d-flex align-items-center gap-2">
                                     <span class="d-block flex-shrink-0 round-10 bg-danger rounded-circle"></span>
-                                    <span class="text-nowrap text-muted">2023</span>
+                                    <span class="text-nowrap text-muted">2024</span>
                                 </div>
                             </div>
                         </div>
