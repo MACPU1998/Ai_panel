@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\Menu;
 use Illuminate\Auth\Middleware\RedirectIfAuthenticated;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Routing\Route;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\View;
@@ -55,5 +56,8 @@ class AppServiceProvider extends ServiceProvider
             $menus = Menu::where('status', 1)->orderBy('parent_id')->orderBy('title')->get();
             $view->with('menus', $menus);
         });
+
+        Paginator::useBootstrap();
+
     }
 }

@@ -52,6 +52,7 @@ class WarehouseDataTable extends DataTable
               </button>
                    <ul class="dropdown-menu">
                       <li><a class="dropdown-item" href="' . route('warehouses.edit', $warehouse->id) . '"><i class="bi bi-pencil me-1"></i> ویرایش</a></li>
+                      <li><a class="dropdown-item" href="' . route('warehouses.show', $warehouse->id) . '"><i class="bi bi-pencil me-1"></i> لیست زیر محصول</a></li>
                       <li><a class="dropdown-item" href="#" onclick="deleteWarehouse(' . $warehouse->id . ')"><i class="bi bi-trash me-1 text-danger"></i> حذف</a></li>
                   </ul>
              </div>

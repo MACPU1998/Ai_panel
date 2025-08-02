@@ -46,6 +46,7 @@ return [
     'edit_warehouse' => 'ویرایش انبار',
     'delete_warehouse' => 'حذف انبار',
     'warehouse' => 'انبار',
+    'warehouse_list' => 'لیست انبار',
 
     'manage_category' => 'مدیریت دسته بندی محصولات',
     'add_category' => 'اضافه کردن دسته بندی محصول',

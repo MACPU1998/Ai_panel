@@ -19,6 +19,26 @@ class WarehouseController extends Controller
         return $dataTable->render('admin.layouts.warehouses.manage_warehouse');
     }
 
+    public function show(Warehouse $warehouse)
+    {
+        $subProducts = $warehouse->subProducts()->paginate(20);
+
+        return view('admin.layouts.warehouses.show_warehouse', compact('warehouse', 'subProducts'));
+    }
+
+    public function transferSubProducts(Request $request)
+    {
+        $request->validate([
+            'sub_product_ids' => 'required|array',
+            'warehouse_id' => 'required|exists:warehouses,id',
+        ]);
+
+        \App\Models\SubProduct::whereIn('id', $request->sub_product_ids)
+            ->update(['warehouse_id' => $request->warehouse_id]);
+
+        return redirect()->back()->with('success', 'زیرمحصولات با موفقیت منتقل شدند.');
+    }
+
     /**
      * Show the form for creating a new resource.
      */
