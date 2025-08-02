@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\DataTables\WarehouseDataTable;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
 use App\Http\Requests\Warehouse\WarehouseRequest;
+use App\Models\SubProduct;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Yajra\DataTables\DataTables;
@@ -21,7 +22,9 @@ class WarehouseController extends Controller
 
     public function show(Warehouse $warehouse)
     {
-        $subProducts = $warehouse->subProducts()->paginate(20);
+        $subProducts = $warehouse->subProducts()
+            ->where('status',SubProduct::STATUS_AVAILABLE)
+            ->paginate(20);
 
         return view('admin.layouts.warehouses.show_warehouse', compact('warehouse', 'subProducts'));
     }
