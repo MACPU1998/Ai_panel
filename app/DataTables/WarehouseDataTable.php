@@ -29,8 +29,12 @@ class WarehouseDataTable extends DataTable
             ->editColumn('description', function ($warehouse) {
                 return $warehouse->description ?? '-';
 
-            })->editColumn('make_default', function ($warehouse) {
+            })
+            ->editColumn('make_default', function ($warehouse) {
                 return $warehouse->make_default == 1 ? 'انبار پیش فرض' : '-';
+            })
+            ->editColumn('count_of_SP', function ($warehouse) {
+                return $warehouse->subProducts->count() ?? '-';
             })
             ->addColumn('created_at', function ($warehouse) {
                 if ($warehouse->created_at) {
@@ -98,6 +102,7 @@ class WarehouseDataTable extends DataTable
             Column::make('status')->title('وضعیت'),
             Column::make('description')->title('توضیحات'),
             Column::make('make_default')->title('پیش فرض'),
+            Column::make('count_of_SP')->title('تعداد اقلام'),
             Column::make('created_at')->title('تاریخ ایجاد'),
             Column::make('updated_at')->title('تاریخ آپدیت'),
             Column::computed('action')

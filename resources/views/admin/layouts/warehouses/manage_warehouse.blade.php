@@ -38,6 +38,7 @@
                     {data: 'status', name: 'status'},
                     {data: 'description', name: 'description'},
                     {data: 'make_default', name: 'make_default'},
+                    {data: 'count_of_SP', name: 'count_of_SP'},
                     {data: 'created_at', name: 'created_at'},
                     {data: 'updated_at', name: 'updated_at'},
                     {data: 'action', name: 'action', orderable: false, searchable: false}
