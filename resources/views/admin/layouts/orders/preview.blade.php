@@ -3,8 +3,8 @@
 @section('title', 'پیش‌نمایش سفارش')
 
 @section('content')
-    <div class="container mt-5">
-        <h3 class="mb-4">پیش‌نمایش سفارش مشتری</h3>
+    <div class="container mt-1">
+        <h4 class="mb-4">پیش‌نمایش سفارش مشتری</h4>
 
         <form method="POST" action="{{ route('orders.store') }}">
             @csrf
