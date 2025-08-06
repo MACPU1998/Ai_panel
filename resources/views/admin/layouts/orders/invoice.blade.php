@@ -4,10 +4,28 @@
     <meta charset="UTF-8">
     <title>فاکتور سفارش</title>
     <style>
-        body { font-family: DejaVu Sans, sans-serif; direction: rtl; }
-        table { width: 100%; border-collapse: collapse; margin-top: 20px; }
-        th, td { border: 1px solid #999; padding: 8px; text-align: center; }
-        h2 { text-align: center; margin-bottom: 20px; }
+
+        body {
+            font-family: 'vazir', sans-serif;
+            direction: rtl;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        th, td {
+            border: 1px solid #999;
+            padding: 8px;
+            text-align: center;
+        }
+
+        h2 {
+            text-align: center;
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>

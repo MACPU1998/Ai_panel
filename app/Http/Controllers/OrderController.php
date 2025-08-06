@@ -13,6 +13,7 @@ use App\Models\SubProduct;
 use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Mpdf\Mpdf;
 use Yajra\DataTables\DataTables;
 
 class OrderController extends Controller
@@ -261,14 +262,56 @@ class OrderController extends Controller
         }
     }
 
+//    public function invoice(Order $order)
+//    {
+//        $customer = $order->customer;
+//        $orderItems = $order->orderItems()->with('product')->get();
+//
+//        $pdf = Pdf::loadView('admin.layouts.orders.invoice', compact('order', 'customer', 'orderItems'));
+//
+//        return $pdf->download("فاکتور-سفارش-{$order->id}.pdf");
+//    }
+
     public function invoice(Order $order)
     {
         $customer = $order->customer;
         $orderItems = $order->orderItems()->with('product')->get();
 
-        $pdf = Pdf::loadView('admin.layouts.orders.invoice', compact('order', 'customer', 'orderItems'));
+        // محتوای HTML را از ویو بگیر
+        $html = view('admin.layouts.orders.invoice', compact('order', 'customer', 'orderItems'))->render();
 
-        return $pdf->download("فاکتور-سفارش-{$order->id}.pdf");
+        // پیکربندی mpdf
+        $mpdf = new Mpdf([
+            'mode' => 'utf-8',
+            'format' => 'A4',
+            'default_font' => 'vazir',
+            'default_font_size' => 12,
+            'tempDir' => storage_path('app/mpdf-temp') // برای ویندوز مهم است
+        ]);
+
+        // افزودن فونت فارسی سفارشی
+        $fontDir = resource_path('fonts');
+        $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+        $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+
+        $mpdf = new Mpdf([
+            'tempDir' => storage_path('app/mpdf-temp'),
+            'format' => 'A4',
+            'mode' => 'utf-8',
+            'fontDir' => array_merge($defaultConfig['fontDir'], [$fontDir]),
+            'fontdata' => $defaultFontConfig['fontdata'] + [
+                    'vazir' => [
+                        'R' => 'Vazir-Regular.ttf',
+                    ]
+                ],
+            'default_font' => 'vazir'
+        ]);
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+
+        $mpdf->WriteHTML($html);
+        return response($mpdf->Output("فاکتور-سفارش-{$order->id}.pdf", 'S'))
+            ->header('Content-Type', 'application/pdf');
     }
 
     public function edit($id)
