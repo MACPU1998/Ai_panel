@@ -13,6 +13,7 @@
             <tr>
                 <th><input type="checkbox" id="check-all" /></th>
                 <th>شناسه</th>
+                <th>نام</th>
                 <th>برچسب</th>
                 <th>بارکد</th>
                 <th>وضعیت</th>
@@ -25,6 +26,7 @@
                 <tr>
                     <td><input type="checkbox" name="sub_product_ids[]" value="{{ $subProduct->id }}"></td>
                     <td>{{ $subProduct->id }}</td>
+                    <td>{{ $subProduct->product->name ?? '---' }}</td>
                     <td>{{ $subProduct->label }}</td>
                     <td>{{ $subProduct->barcode }}</td>
                     <td>{{ $subProduct->status_label }}</td>

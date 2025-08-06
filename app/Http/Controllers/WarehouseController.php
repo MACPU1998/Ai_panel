@@ -23,6 +23,7 @@ class WarehouseController extends Controller
     public function show(Warehouse $warehouse)
     {
         $subProducts = $warehouse->subProducts()
+            ->with('product')
             ->where('status',SubProduct::STATUS_AVAILABLE)
             ->paginate(20);
 
