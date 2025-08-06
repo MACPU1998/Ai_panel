@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\DataTables\WarehouseDataTable;
 use App\Http\Requests\Warehouse\UpdateWarehouseRequest;
 use App\Http\Requests\Warehouse\WarehouseRequest;
+use App\Models\Order;
 use App\Models\SubProduct;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
+use Mpdf\Mpdf;
 use Yajra\DataTables\DataTables;
 
 class WarehouseController extends Controller
@@ -41,6 +43,42 @@ class WarehouseController extends Controller
             ->update(['warehouse_id' => $request->warehouse_id]);
 
         return redirect()->back()->with('success', 'زیرمحصولات با موفقیت منتقل شدند.');
+    }
+
+    public function warehouseExportPdf(Warehouse $warehouse)
+    {
+        $subProducts = $warehouse->subProducts()
+            ->with('product')
+            ->where('status', SubProduct::STATUS_AVAILABLE)
+            ->get();
+
+        $html = view('admin.layouts.warehouses.export_warehouse', compact('warehouse', 'subProducts'))->render();
+
+        $fontDir = resource_path('fonts');
+        $defaultConfig = (new \Mpdf\Config\ConfigVariables())->getDefaults();
+        $defaultFontConfig = (new \Mpdf\Config\FontVariables())->getDefaults();
+
+        $mpdf = new Mpdf([
+            'tempDir' => storage_path('app/mpdf-temp'),
+            'format' => 'A4',
+            'mode' => 'utf-8',
+            'fontDir' => array_merge($defaultConfig['fontDir'], [$fontDir]),
+            'fontdata' => $defaultFontConfig['fontdata'] + [
+                    'vazir' => [
+                        'R' => 'Vazir-Regular.ttf',
+                    ]
+                ],
+            'default_font' => 'vazir',
+        ]);
+
+        // 👇 بسیار مهم برای درست چسبیدن حروف فارسی
+        $mpdf->autoScriptToLang = true;
+        $mpdf->autoLangToFont = true;
+
+        $mpdf->WriteHTML($html);
+
+        return response($mpdf->Output("زیرمحصولات-انبار-{$warehouse->id}.pdf", 'S'))
+            ->header('Content-Type', 'application/pdf');
     }
 
     /**

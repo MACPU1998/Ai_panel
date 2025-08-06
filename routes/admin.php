@@ -226,6 +226,8 @@ Route::prefix('admin')->group(function () {
         Route::get('/warehouses/{warehouse}', [WarehouseController::class, 'show'])->name('warehouses.show')->addMeta(true, ["super admin:admin"]);
         Route::post('/transfer-sub-products', [WarehouseController::class, 'transferSubProducts'])
             ->name('warehouses.transferSubProducts');
+        Route::get('/warehouses/{warehouse}/export-pdf', [WarehouseController::class, 'warehouseExportPdf'])
+            ->name('warehouses.exportPdf');
         Route::get('/create', [WarehouseController::class, 'create'])->name('warehouses.create')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [WarehouseController::class, 'store'])->name('warehouses.store')->addMeta(true, ["super admin:admin"]);
         Route::get('/data', [WarehouseController::class, 'getWarehousesData'])->name('warehouses.getData')->addMeta(true, ["super admin:admin"]);

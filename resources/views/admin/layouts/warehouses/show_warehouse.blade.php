@@ -4,7 +4,7 @@
 
 @section('content')
 
-    <h5>زیرمحصول‌های انبار: {{ $warehouse->name }}</h5>
+    <h5>زیرمحصول‌های : {{ $warehouse->name }}</h5>
 
     <form id="transfer-form" method="POST" action="{{ route('warehouses.transferSubProducts') }}">
         @csrf
@@ -37,7 +37,18 @@
             </tbody>
         </table>
 
-        <button type="button" class="btn btn-primary" id="open-transfer-modal">انتقال</button>
+        <div class="d-flex justify-content-between mb-3">
+            <button type="button" class="btn btn-outline-primary" id="open-transfer-modal">
+                <i class="bi bi-arrow-left-right"></i>
+                انتقال زیرمحصولات
+            </button>
+
+            <a href="{{ route('warehouses.exportPdf', $warehouse->id) }}" class="btn btn-primary" target="_blank">
+                <i class="bi bi-file-earmark-pdf"></i>
+                دانلود PDF
+            </a>
+        </div>
+
 
         <div class="d-flex justify-content-center mt-3">
             {{ $subProducts->links() }}
