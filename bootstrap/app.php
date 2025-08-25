@@ -2,7 +2,6 @@
 
 use App\Http\Middleware\AdminAuthenticated;
 use App\Http\Middleware\AdminMiddleware;
-use App\Http\Middleware\CustomerAuthenticated;
 use Illuminate\Foundation\Application;
 use Illuminate\Foundation\Configuration\Exceptions;
 use Illuminate\Foundation\Configuration\Middleware;
@@ -17,7 +16,6 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->alias([
             'admin' => AdminMiddleware::class,
             'AdminAuthenticated' => AdminAuthenticated::class,
-            'CustomerAuthenticated' => CustomerAuthenticated::class,
 
         ]);
 
