@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'edit_admin'=>'ویرایش مشخصات ادمین',
+    'edit_admin' => 'ویرایش مشخصات ادمین',
     'edit_admin_password' => 'ویرایش رمز ادمین',
     'manage_permission' => 'مدیریت مجوزها',
     'permissions' => 'مجوزها',
@@ -75,14 +75,32 @@ return [
     'add_group_sub_product' => 'اضافه کردن زیر محصول گروهی',
     'edit_sub_product' => 'ویرایش زیرمحصول',
     'delete_sub_product' => 'حذف زیرمحصول',
-    'serie_year'=>'سری سال',
-    'serie_month'=>'سری ماه',
-    'label'=>'لیبل',
+    'serie_year' => 'سری سال',
+    'serie_month' => 'سری ماه',
+    'label' => 'لیبل',
 
     'manage_product_attribute' => 'مدیریت ویژگی محصولات',
     'add_product_attribute' => 'اضافه کردن ویژگی',
     'edit_product_attribute' => 'ویرایش ویژگی',
     'delete_product_attribute' => 'حذف ویژگی',
+
+    'cashier' => 'صندوق فروش',
+    'cashier_pos' => 'صندوقدار (POS)',
+    'search_product' => 'جستجوی محصول',
+    'scan_barcode' => 'اسکن بارکد',
+    'select_customer' => 'انتخاب مشتری',
+    'register_customer' => 'ثبت مشتری جدید',
+    'payment' => 'پرداخت',
+    'payment_cash' => 'نقدی',
+    'payment_card' => 'کارت',
+    'payment_mixed' => 'ترکیبی',
+    'confirm_order' => 'ثبت و پرداخت',
+    'cart' => 'سبد خرید',
+
+    'role_permission_management' => 'مدیریت نقش‌ها و دسترسی‌ها',
+    'manage_roles' => 'لیست نقش‌ها',
+    'manage_permissions' => 'لیست دسترسی‌ها',
+    'assign_permissions' => 'تخصیص دسترسی به نقش',
 
     'guard_name' => 'نام گارد',
     'welcome' => 'به وبسایت ما خوش آمدید',
