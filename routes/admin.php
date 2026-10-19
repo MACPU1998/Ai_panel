@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\MenuController;
@@ -17,32 +18,63 @@ use Illuminate\Support\Facades\Route;
 
 Route::prefix('admin')->group(function () {
 
-    Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')->middleware('AdminAuthenticated')->addMeta(true, ["super admin:admin"]);
-    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login')->addMeta(true, ["super admin:admin"]);
-    Route::get('/edit', [AdminAuthController::class, 'edit'])->name('admin.edit')->addMeta(true, ["super admin:admin"]);
-    Route::put('/update', [AdminAuthController::class, 'update'])->name('admin.update')->addMeta(true, ["super admin:admin"]);
-    Route::get('/password/edit', [AdminAuthController::class, 'editPassword'])->name('admin.edit.password')->addMeta(true, ["super admin:admin"]);
-    Route::put('/password/update', [AdminAuthController::class, 'updatePassword'])->name('admin.update.password')->addMeta(true, ["super admin:admin"]);
-    Route::get('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout')->addMeta(true, ["super admin:admin"]);
+
+    Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')
+        ->middleware('AdminAuthenticated');
+
+    Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
     Route::middleware('auth:admin')->group(function () {
+
         Route::get('/dashboard', function () {
             return view('admin.dashboard');
-        })->name('admin.dashboard')->addMeta(true, ["super admin:admin"]);
+        })->name('admin.dashboard');
+
+        Route::get('/profile/edit', [AdminAuthController::class, 'edit'])->name('admin.edit');
+
+        Route::put('/profile/update', [AdminAuthController::class, 'update'])->name('admin.update');
+
+        Route::get('/profile/password/edit', [AdminAuthController::class, 'editPassword'])->name('admin.edit.password');
+
+        Route::put('/profile/password/update', [AdminAuthController::class, 'updatePassword'])->name('admin.update.password');
+
+
+        Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 
-    //Route User
-    Route::prefix('users')->group(function () {
-        Route::get('/', [UserController::class, 'index'])->name('users.index')->addMeta(true, ["super admin:admin"]);
-        Route::get('/create', [UserController::class, 'create'])->name('users.create')->addMeta(true, ["super admin:admin"]);
-        Route::post('/store', [UserController::class, 'store'])->name('users.store')->addMeta(true, ["super admin:admin"]);
-        Route::get('users/data', [UserController::class, 'getUsersData'])->name('users.getData')->addMeta(true, ["super admin:admin"]);
-        Route::get('/datatable', [UserController::class, 'datatable'])->name('users.datatable')->addMeta(true, ["super admin:admin"]);
-        Route::get('/{admin}/edit', [UserController::class, 'edit'])->name('users.edit')->addMeta(true, ["super admin:admin"]);
-        Route::put('/{admin}/update', [UserController::class, 'update'])->name('users.update')->addMeta(true, ["super admin:admin"]);
-        Route::get('password/{user}/edit', [UserController::class, 'editPassword'])->name('users.edit.password')->addMeta(true, ["super admin:admin"]);
-        Route::put('password/{user}/update', [UserController::class, 'updatePassword'])->name('users.update.password')->addMeta(true, ["super admin:admin"]);
-        Route::delete('/{user}', [UserController::class, 'destroy'])->name('users.destroy')->addMeta(true, ["super admin:admin"]);
+    Route::prefix('admins')->name('admins.')->middleware('auth:admin')->group(function () {
+
+        Route::get('/', [AdminController::class, 'index'])->name('index');
+
+        Route::get('/data', [AdminController::class, 'getAdminsData'])->name('data');
+
+        Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('edit');
+
+        Route::put('/{admin}/update', [AdminController::class, 'update'])->name('update');
+    });
+
+    // user
+    Route::prefix('users')->name('users.')->middleware('auth:admin')->group(function () {
+
+        Route::get('/', [UserController::class, 'index'])->name('index');
+
+        Route::get('/create', [UserController::class, 'create'])->name('create');
+
+        Route::post('/store', [UserController::class, 'store'])->name('store');
+
+        Route::get('/data', [UserController::class, 'getUsersData'])->name('getData');
+
+        Route::get('/datatable', [UserController::class, 'datatable'])->name('datatable');
+
+        Route::get('/{user}/edit', [UserController::class, 'edit'])->name('edit');
+
+        Route::put('/{user}/update', [UserController::class, 'update'])->name('update');
+
+        Route::get('/password/{user}/edit', [UserController::class, 'editPassword'])->name('edit.password');
+
+        Route::put('/password/{user}/update', [UserController::class, 'updatePassword'])->name('update.password');
+
+        Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
     });
 
     //Route Role
@@ -177,6 +209,7 @@ Route::prefix('admin')->group(function () {
         //Route::get('/cart-count/{customer}', [OrderController::class, 'cartCount'])->name('orders.cart_count')->addMeta(true, ["super admin:admin"]);
         Route::post('/add-to-order', [OrderController::class, 'addToOrder'])->name('orders.add_to_order')->addMeta(true, ["super admin:admin"]);
         Route::post('/store', [OrderController::class, 'store'])->name('orders.store')->addMeta(true, ["super admin:admin"]);
+        Route::post('/finalize', [OrderController::class, 'finalizeOrder'])->name('orders.finalize')->addMeta(true, ["super admin:admin"]);
         Route::get('/data', [OrderController::class, 'getOrdersData'])->name('orders.getData')->addMeta(true, ["super admin:admin"]);
         Route::get('/datatable', [OrderController::class, 'datatable'])->name('orders.datatable')->addMeta(true, ["super admin:admin"]);
         Route::get('/{order}/edit', [OrderController::class, 'edit'])->name('orders.edit')->addMeta(true, ["super admin:admin"]);
@@ -185,6 +218,17 @@ Route::prefix('admin')->group(function () {
 
     });
 
-
+    // Route صندوقدار
+    Route::prefix('cashier')->group(function () {
+        Route::get('/', [CashierController::class, 'index'])->name('cashier.index')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::get('/search-products', [CashierController::class, 'searchProducts'])->name('cashier.search_products')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::post('/add-to-cart', [CashierController::class, 'addToCart'])->name('cashier.add_to_cart')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::post('/update-cart-item', [CashierController::class, 'updateCartItem'])->name('cashier.update_cart_item')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::delete('/remove-cart-item', [CashierController::class, 'removeCartItem'])->name('cashier.remove_cart_item')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::get('/cart/{customerId}', [CashierController::class, 'getCart'])->name('cashier.get_cart')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::post('/register-customer', [CashierController::class, 'registerCustomer'])->name('cashier.register_customer')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::post('/checkout', [CashierController::class, 'checkout'])->name('cashier.checkout')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+        Route::get('/search-customers', [CashierController::class, 'searchCustomers'])->name('cashier.search_customers')->addMeta(true, ["super admin:admin", "cashier:admin"]);
+    });
 
 });

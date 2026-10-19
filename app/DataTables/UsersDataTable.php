@@ -2,7 +2,7 @@
 
 namespace App\DataTables;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Morilog\Jalali\Jalalian;
 use Yajra\DataTables\EloquentDataTable;
@@ -46,7 +46,7 @@ class UsersDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Admin $model): QueryBuilder
+    public function query(User $model): QueryBuilder
     {
         return $model->newQuery();
     }

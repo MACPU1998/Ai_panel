@@ -71,6 +71,12 @@
                             </a>
                         </li>
 
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('cashier.index')}}" aria-expanded="false">
+                                <iconify-icon icon="solar:cash-out-bold-duotone"></iconify-icon>
+                                <span class="hide-menu">{{__("general.cashier_pos")}}</span>
+                            </a>
+                        </li>
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('orders.index')}}" aria-expanded="false">
@@ -80,18 +86,31 @@
                         </li>
 
 
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('roles.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:file-plus"></iconify-icon>
-                                <span class="hide-menu">{{__("general.roles")}}</span>
+                        {{-- Role & Permission Group --}}
+                        <li class="sidebar-item has-submenu" id="menu-item-role-permission">
+                            <a class="sidebar-link" href="javascript:void(0)" aria-expanded="false"
+                               onclick="toggleSubMenu(event, 'submenu-role-permission')">
+                                <iconify-icon icon="solar:shield-keyhole-minimalistic-line-duotone"></iconify-icon>
+                                <span class="hide-menu">{{__("general.role_permission_management")}}</span>
+                                <iconify-icon id="icon-role-permission"
+                                              icon="solar:chevron-down-circle-line-duotone"
+                                              class="submenu-toggle-icon"></iconify-icon>
                             </a>
-                        </li>
-
-                        <li class="sidebar-item">
-                            <a class="sidebar-link" href="{{route('permissions.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
-                                <span class="hide-menu">{{__("general.permissions")}}</span>
-                            </a>
+                            <ul class="sidebar-submenu mt-3" id="submenu-role-permission"
+                                style="display: none; opacity: 0; transition: opacity 0.3s ease;">
+                                <li class="mt-3 mb-3 ms-4">
+                                    <a href="{{route('roles.index')}}">
+                                        <iconify-icon icon="solar:user-id-line-duotone"></iconify-icon>
+                                        {{__("general.manage_roles")}}
+                                    </a>
+                                </li>
+                                <li class="mt-3 mb-3 ms-4">
+                                    <a href="{{route('permissions.index')}}">
+                                        <iconify-icon icon="solar:lock-keyhole-minimalistic-line-duotone"></iconify-icon>
+                                        {{__("general.manage_permissions")}}
+                                    </a>
+                                </li>
+                            </ul>
                         </li>
 
                         <li class="sidebar-item">

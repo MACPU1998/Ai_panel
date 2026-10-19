@@ -152,9 +152,52 @@ class OrderController extends Controller
 
     public function store(Request $request)
     {
+        //  session()->forget('cart_count');
+    }
 
-      //  session()->forget('cart_count');
+    /**
+     * ثبت نهایی سفارش از صفحه سفارشات عادی (تغییر وضعیت از سبد به pending)
+     */
+    public function finalizeOrder(Request $request)
+    {
+        $request->validate([
+            'order_id'       => 'required|exists:orders,id',
+            'payment_method' => 'required|in:cash,card,mixed',
+            'cash_amount'    => 'nullable|numeric|min:0',
+            'card_amount'    => 'nullable|numeric|min:0',
+        ]);
 
+        $order = Order::with('orderItems')->findOrFail($request->order_id);
+
+        if ($order->status !== Order::STATUS_SHOPPING_CART) {
+            return response()->json(['success' => false, 'message' => 'این سفارش قبلاً ثبت شده است.'], 400);
+        }
+
+        if ($order->orderItems->isEmpty()) {
+            return response()->json(['success' => false, 'message' => 'سبد خرید خالی است.'], 400);
+        }
+
+        DB::transaction(function () use ($order, $request) {
+            $order->status         = Order::STATUS_PENDING;
+            $order->payment_method = $request->payment_method;
+            $order->cash_amount    = $request->cash_amount;
+            $order->card_amount    = $request->card_amount;
+            $order->save();
+
+            $subProductIds = DB::table('order_sub_products')
+                ->where('order_id', $order->id)
+                ->pluck('sub_product_id')
+                ->toArray();
+
+            SubProduct::whereIn('id', $subProductIds)
+                ->update(['status' => SubProduct::STATUS_RETURNED]);
+        });
+
+        return response()->json([
+            'success'  => true,
+            'message'  => 'سفارش با موفقیت ثبت شد.',
+            'order_id' => $order->id,
+        ]);
     }
 
 

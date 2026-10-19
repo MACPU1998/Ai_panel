@@ -26,6 +26,9 @@ class Order extends Model
         'final_price',
         'quantity',
         'status',
+        'payment_method',
+        'cash_amount',
+        'card_amount',
     ];
 
     public function customer()

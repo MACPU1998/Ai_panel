@@ -20,8 +20,6 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-
-
             ->editColumn('shipping_price', function ($order) {
                 return $order->shipping_price ? $order->shipping_price : '-';
             })
@@ -53,7 +51,7 @@ class OrderDataTable extends DataTable
                <button class="btn btn-sm btn-danger" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash"></i></button>
         ';
             })
-            ->rawColumns(['image', 'action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['image', 'action'])
             ->setRowId('id');
     }
 

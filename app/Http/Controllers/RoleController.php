@@ -100,8 +100,7 @@ class RoleController extends Controller
         } else {
             $role->syncPermissions([]);
         }
-        return redirect('roles.index')->with('success','مجوزها با موفقیت اختصاص داده شدند');
-//        return back()->with('success', 'مجوزها با موفقیت اختصاص داده شدند.');
+        return redirect()->route('roles.index')->with('success', 'مجوزها با موفقیت اختصاص داده شدند.');
     }
 
 }
