@@ -20,30 +20,37 @@ class AdminAuthController extends Controller
     {
         $credentials = $request->only('email', 'password');
 
-        if (Auth::guard('admin')->attempt($credentials)) {
+        if (Auth::guard('admin')->attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+
             return redirect()->route('admin.dashboard');
         }
-        return back()->withErrors(['email' => 'ایمیل یا رمز عبور اشتباه است.'])->withInput($request->only('email', 'remember'));
+
+        return back()
+            ->withErrors(['email' => 'ایمیل یا رمز عبور اشتباه است.'])
+            ->withInput($request->only('email', 'remember'));
     }
 
     public function edit()
     {
         $admin = Auth::guard('admin')->user();
-        return view('admin.layouts.admin.edit_admin', compact('admin'));
+        return view('admin.layouts.admins.edit_admin', compact('admin'));
     }
 
-    public function update(AdminUpdateRequest $request, Admin $admin)
+    public function update(AdminUpdateRequest $request)
     {
+        $admin = Auth::guard('admin')->user();
         $admin->update($request->validated());
 
-        return redirect()->route('admin.dashboard')->with('success', 'مشخصات شما با موفقیت بروزرسانی شد.');
+        return redirect()->route('admin.dashboard')
+            ->with('success', 'مشخصات شما با موفقیت بروزرسانی شد.');
     }
 
     public function editPassword()
     {
 
         $admin = Auth::guard('admin')->user();
-        return view('admin.layouts.admin.edit_admin_password', compact('admin'));
+        return view('admin.layouts.admins.edit_admin_password', compact('admin'));
     }
 
     public function updatePassword(AdminPasswordUpdateRequest $request)
@@ -62,9 +69,13 @@ class AdminAuthController extends Controller
         return redirect()->route('admin.dashboard')->with('success', 'مشخصات شما با موفقیت بروزرسانی شد.');
     }
 
-    public function logout()
+
+    public function logout(Request $request)
     {
         Auth::guard('admin')->logout();
+
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
 
         return redirect()->route('admin.login');
     }

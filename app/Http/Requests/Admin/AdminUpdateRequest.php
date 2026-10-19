@@ -22,7 +22,7 @@ class AdminUpdateRequest extends FormRequest
      */
     public function rules(): array
     {
-        $admin = Auth::guard('admin')->user(); // گرفتن ادمین لاگین شده
+        $admin = Auth::guard('admin')->user();
         return [
             'first_name' => 'required|string|min:3|max:50',
             'last_name' => 'required|string|min:3|max:255',

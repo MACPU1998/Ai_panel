@@ -2,49 +2,55 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Admin\AdminPasswordUpdateRequest;
+use App\DataTables\AdminsDataTable;
+use App\Http\Requests\Admin\AdminRequest;
 use App\Http\Requests\Admin\AdminUpdateRequest;
 use App\Models\Admin;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
+use Spatie\Permission\Models\Role;
 
 class AdminController extends Controller
 {
-    // لیست ادمین‌ها
-    public function index()
+    public function index(AdminsDataTable $dataTable)
     {
-        return view('admin.layouts.admins.index');
+        return $dataTable->render('admin.layouts.admins.manage_admin');
     }
 
-    // دریافت اطلاعات برای دیتاتیبل
-    public function getAdminsData(Request $request)
+    public function show(Admin $admin)
     {
-        $admins = Admin::query();
+        $admin->load('roles');
 
-        return datatables()->eloquent($admins)
-            ->addColumn('action', function (Admin $admin) {
-                $url = route('admins.edit', [
-                    'admin' => $admin->id,
-                ]);
-
-                return '<a href="' . $url . '" class="btn btn-primary">
-                    ویرایش
-                </a>';
-            })
-            ->rawColumns(['action'])
-            ->toJson();
+        return view('admin.layouts.admins.show', compact('admin'));
     }
 
-    // ویرایش ادمین انتخاب‌شده
-    public function edit(Admin $admin)
+
+    public function create()
     {
         $roles = Role::all();
+        session()->forget('_old_input'); // حذف اطلاعات ورودی قبلی
+        return view('admin.layouts.admins.add_admin', compact('roles'));
+    }
 
-        return view(
-            'admin.layouts.admins.edit',
-            compact('admin', 'roles')
-        );
+    public function store(AdminRequest $request)
+    {
+        $validated = $request->validated();
+        $admin = Admin::create([
+            'first_name' => $validated['first_name'],
+            'last_name' => $validated['last_name'],
+            'email' => $validated['email'],
+            'phone' => $validated['phone'],
+            'password' => bcrypt($validated['password']),
+        ]);
+        // اختصاص نقش به کاربر
+        $admin->assignRole($validated['role']);
+
+        return redirect()->route('admins.index')->with('success', 'کاربر با موفقیت ایجاد شد');
+    }
+    public function edit(Admin $admin)
+    {
+        $roles = Role::where('guard_name', 'admin')->get();
+
+        return view('admin.layouts.admins.edit', compact('admin', 'roles'));
     }
 
     // ذخیره تغییرات ادمین انتخاب‌شده

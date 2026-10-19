@@ -5,7 +5,7 @@ return [
     'edit_admin_password' => 'ویرایش رمز ادمین',
     'manage_permission' => 'مدیریت مجوزها',
     'permissions' => 'مجوزها',
-    'add_permission' => 'اضافه کردن مجوز',
+    'add_permission' => 'افزودن مجوز',
     'select_permission' => 'انتخاب مجوز',
     'selected_permission' => 'مجوزهای انتخاب شده:',
     'edit_permission' => 'ویرایش مجوز',
@@ -13,38 +13,40 @@ return [
     'manage_role' => 'مدیریت نقش',
     'roles' => 'نقش ها',
     'role' => 'نقش',
-    'add_role' => 'اضافه کردن نقش',
+    'add_role' => 'افزودن نقش',
     'current_role' => 'نقش فعلی: ',
     'edit_role' => 'ویرایش نقش',
 
     'manage_customer' => 'مدیریت مشتری',
-    'add_customer' => 'اضافه کردن مشتری',
+    'add_customer' => 'افزودن مشتری',
     'edit_customer' => 'ویرایش مشتری',
     'customer' => 'مشتری',
     'customers' => 'مشتریان',
 
     'manage_order' => 'مدیریت سفارشات',
-    'add_order' => 'اضافه کردن سفارش',
+    'add_order' => 'افزودن سفارش',
     'edit_order' => 'ویرایش سفارش',
     'order' => 'سفارشات',
 
     'manage_admin' => 'مدیریت ادمین',
-    'manage_amin' => 'مدیریت ادمین',
-    'add_admin' => 'اضافه کردن ادمین',
+    'add_admin' => 'افزودن ادمین',
+
+    'manage_user' => 'مدیریت کاربر',
+    'add_user' => 'افزودن کاربر',
 
 
     'manage_menu' => 'مدیریت منوها',
-    'add_menu' => 'اضافه کردن منو',
+    'add_menu' => 'افزودن منو',
     'edit_menu' => 'ویرایش منو',
     'delete_menu' => 'حذف منو',
 
     'manage_category' => 'مدیریت دسته بندی محصولات',
-    'add_category' => 'اضافه کردن دسته بندی محصول',
+    'add_category' => 'افزودن دسته بندی محصول',
     'edit_category' => 'ویرایش دسته بندی محصول',
     'delete_category' => 'حذف دسته بندی محصول',
 
     'manage_goods' => 'مدیریت کالاها',
-    'add_goods' => 'اضافه کردن کالا',
+    'add_goods' => 'افزودن کالا',
     'edit_goods' => 'ویرایش کالا',
     'delete_goods' => 'حذف کالا',
     'barcode' => 'بارکد',
@@ -53,7 +55,7 @@ return [
     'count' => 'تعداد',
 
     'manage_product' => 'مدیریت محصولات',
-    'add_product' => 'اضافه کردن محصولات',
+    'add_product' => 'افزودن محصولات',
     'edit_product' => 'ویرایش محصولات',
     'delete_product' => 'حذف محصولات',
     'product_id' => 'کد محصول',
@@ -65,14 +67,14 @@ return [
     'final_price' => 'قیمت نهایی',
 
     'manage_product_currency' => 'مدیریت ارز محصولات',
-    'add_product_currency' => 'اضافه کردن ارز',
+    'add_product_currency' => 'افزودن ارز',
     'edit_product_currency' => 'ویرایش ارز',
     'delete_product_currency' => 'حذف ارز',
 
     'manage_sub_product' => 'مدیریت زیر محصولات',
     'subProducts' => 'زیر محصولات',
-    'add_sub_product' => 'اضافه کردن زیر محصول',
-    'add_group_sub_product' => 'اضافه کردن زیر محصول گروهی',
+    'add_sub_product' => 'افزودن زیر محصول',
+    'add_group_sub_product' => 'افزودن زیر محصول گروهی',
     'edit_sub_product' => 'ویرایش زیرمحصول',
     'delete_sub_product' => 'حذف زیرمحصول',
     'serie_year' => 'سری سال',
@@ -80,7 +82,7 @@ return [
     'label' => 'لیبل',
 
     'manage_product_attribute' => 'مدیریت ویژگی محصولات',
-    'add_product_attribute' => 'اضافه کردن ویژگی',
+    'add_product_attribute' => 'افزودن ویژگی',
     'edit_product_attribute' => 'ویرایش ویژگی',
     'delete_product_attribute' => 'حذف ویژگی',
 

@@ -99,9 +99,12 @@
                                         <a href="javascript:void(0)" class="p-2 dropdown-item h6 rounded-1">
                                             تنظیمات
                                         </a>
-                                        <a href="{{route('admin.logout')}}" class="p-2 dropdown-item h6 rounded-1">
-                                            خروج
-                                        </a>
+                                        <form method="POST" action="{{ route('admin.logout') }}">
+                                            @csrf
+                                            <button type="submit" class="p-2 dropdown-item h6 rounded-1 w-100 text-start">
+                                                خروج
+                                            </button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>

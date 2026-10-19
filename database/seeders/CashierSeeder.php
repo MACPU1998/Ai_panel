@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Admin;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 
@@ -15,7 +15,7 @@ class CashierSeeder extends Seeder
     {
         $role = Role::firstOrCreate([
             'name' => 'cashier',
-            'guard_name' => 'admin',
+            'guard_name' => 'user',
         ], [
             'primary' => false,
             'status' => 1,
@@ -23,7 +23,7 @@ class CashierSeeder extends Seeder
 
         $this->command->info('✅ نقش صندوقدار (cashier) ایجاد/تأیید شد.');
 
-        $admin = Admin::firstOrCreate(
+        $user = User::firstOrCreate(
             ['email' => 'cashier@email.com'],
             [
                 'first_name' => 'صندوقدار',
@@ -33,8 +33,8 @@ class CashierSeeder extends Seeder
             ]
         );
 
-        $admin->syncRoles([$role->name]);
+        $user->syncRoles([$role->name]);
 
-        $this->command->info('✅ ادمین صندوقدار (cashier@email.com) ایجاد/تأیید شد و نقش اختصاص داده شد.');
+        $this->command->info('✅ کاربر صندوقدار (cashier@email.com) ایجاد/تأیید شد و نقش اختصاص داده شد.');
     }
 }

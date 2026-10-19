@@ -58,9 +58,16 @@
                         </li>
 
                         <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('admins.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <span class="hide-menu">{{__("general.manage_admin")}}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:account"></iconify-icon>
-                                <span class="hide-menu">{{__("general.manage_amin")}}</span>
+                                <span class="hide-menu">{{__("general.manage_user")}}</span>
                             </a>
                         </li>
 

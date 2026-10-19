@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AdminAuthController;
+use App\Http\Controllers\AdminController;
 use App\Http\Controllers\CashierController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\CustomerController;
@@ -21,7 +22,6 @@ Route::prefix('admin')->group(function () {
 
     Route::get('/login', [AdminAuthController::class, 'index'])->name('admin.index')
         ->middleware('AdminAuthenticated');
-
     Route::post('/login', [AdminAuthController::class, 'login'])->name('admin.login');
 
     Route::middleware('auth:admin')->group(function () {
@@ -42,16 +42,23 @@ Route::prefix('admin')->group(function () {
         Route::post('/logout', [AdminAuthController::class, 'logout'])->name('admin.logout');
     });
 
-    Route::prefix('admins')->name('admins.')->middleware('auth:admin')->group(function () {
+    Route::prefix('admins')->name('admins.')
+        ->middleware(['auth:admin', 'role:super-admin,admin'])
+        ->group(function () {
 
-        Route::get('/', [AdminController::class, 'index'])->name('index');
+            Route::get('/', [AdminController::class, 'index'])->name('index');
 
-        Route::get('/data', [AdminController::class, 'getAdminsData'])->name('data');
+            Route::get('/data', [AdminController::class, 'getAdminsData'])->name('data');
 
-        Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('edit');
+            Route::get('/create', [AdminController::class, 'create'])->name('create');
 
-        Route::put('/{admin}/update', [AdminController::class, 'update'])->name('update');
-    });
+            Route::post('/store', [AdminController::class, 'store'])->name('store');
+
+            Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('edit');
+
+            Route::put('/{admin}/update', [AdminController::class, 'update'])->name('update');
+            Route::get('/datatable', [UserController::class, 'datatable'])->name('datatable');
+        });
 
     // user
     Route::prefix('users')->name('users.')->middleware('auth:admin')->group(function () {
