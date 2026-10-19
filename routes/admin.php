@@ -47,17 +47,13 @@ Route::prefix('admin')->group(function () {
         ->group(function () {
 
             Route::get('/', [AdminController::class, 'index'])->name('index');
-
-            Route::get('/data', [AdminController::class, 'getAdminsData'])->name('data');
-
             Route::get('/create', [AdminController::class, 'create'])->name('create');
-
             Route::post('/store', [AdminController::class, 'store'])->name('store');
-
             Route::get('/{admin}/edit', [AdminController::class, 'edit'])->name('edit');
-
             Route::put('/{admin}/update', [AdminController::class, 'update'])->name('update');
-            Route::get('/datatable', [UserController::class, 'datatable'])->name('datatable');
+            Route::get('/datatable', [AdminController::class, 'datatable'])->name('datatable');
+            Route::get('/password/{admin}/edit', [AdminController::class, 'editPassword'])->name('edit.password');
+            Route::put('/password/{admin}/update', [AdminController::class, 'updatePassword'])->name('update.password');
         });
 
     // user
