@@ -54,6 +54,8 @@ Route::prefix('admin')->group(function () {
             Route::get('/datatable', [AdminController::class, 'datatable'])->name('datatable');
             Route::get('/password/{admin}/edit', [AdminController::class, 'editPassword'])->name('edit.password');
             Route::put('/password/{admin}/update', [AdminController::class, 'updatePassword'])->name('update.password');
+
+//            Route::delete('/{user}', [UserController::class, 'destroy'])->name('destroy');
         });
 
     // user

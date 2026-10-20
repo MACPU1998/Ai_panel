@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DataTables\UsersDataTable;
 use App\Http\Requests\User\UserRequest;
 use App\Http\Requests\User\UserUpdateRequest;
-use App\Models\Admin;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -14,7 +13,7 @@ use Yajra\DataTables\DataTables;
 
 class UserController extends Controller
 {
-    public function index(usersDataTable $dataTable)
+    public function index(UsersDataTable $dataTable)
     {
         return $dataTable->render('admin.layouts.users.manage_user');
     }
@@ -22,22 +21,22 @@ class UserController extends Controller
     public function create()
     {
         $roles = Role::all();
-        session()->forget('_old_input'); // حذف اطلاعات ورودی قبلی
+        session()->forget('_old_input');
         return view('admin.layouts.users.add_user', compact('roles'));
     }
 
     public function store(UserRequest $request)
     {
         $validated = $request->validated();
-        $admin = Admin::create([
+        $user = User::create([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
             'password' => bcrypt($validated['password']),
         ]);
-        // اختصاص نقش به کاربر
-        $admin->assignRole($validated['role']);
+
+        $user->assignRole($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ایجاد شد');
     }
@@ -60,22 +59,22 @@ class UserController extends Controller
     }
 
 
-    public function edit(Admin $admin)
+    public function edit(User $user)
     {
         $roles = Role::all();
-        return view('admin.layouts.users.edit_user', compact('admin', 'roles'));
+        return view('admin.layouts.users.edit_user', compact('user', 'roles'));
     }
 
-    public function update(UserUpdateRequest $request, Admin $admin)
+    public function update(UserUpdateRequest $request, User $user)
     {
         $validated = $request->validated();
-        $admin->update([
+        $user->update([
             'first_name' => $validated['first_name'],
             'last_name' => $validated['last_name'],
             'email' => $validated['email'],
             'phone' => $validated['phone'],
         ]);
-        $admin->syncRoles($validated['role']);
+        $user->syncRoles($validated['role']);
 
         return redirect()->route('users.index')->with('success', 'کاربر با موفقیت ویرایش شد.');
     }
@@ -102,7 +101,6 @@ class UserController extends Controller
             'password' => ['required', 'string', 'min:8', 'confirmed'],
         ]);
 
-        // بررسی صحت رمز فعلی
         if (!Hash::check($request->current_password, $user->password)) {
             return back()->withErrors(['current_password' => 'رمز فعلی اشتباه است.']);
         }

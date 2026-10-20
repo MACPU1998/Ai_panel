@@ -39,7 +39,7 @@ class UsersDataTable extends DataTable
                  <a href="' . route('users.edit.password', $user->id) . '" class="btn btn-sm btn-secondary">ویرایش رمز</a>
         ';
             })
-            ->rawColumns(['action']) // برای تفسیر HTML در ستون action
+            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
@@ -60,7 +60,7 @@ class UsersDataTable extends DataTable
             ->setTableId('users-table')
             ->columns($this->getColumns())
             ->minifiedAjax(route('users.datatable')) // مسیر ajax
-            ->orderBy(0)
+            ->orderBy(7, 'desc') // The number 7 is the index associated with creation.
             ->parameters([
                 'dom' => 'Bfrtip',
                 'buttons' => ['excel', 'csv', 'pdf', 'print', 'reload'],

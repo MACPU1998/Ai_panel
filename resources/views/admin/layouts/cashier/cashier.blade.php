@@ -5,11 +5,11 @@
 @section('content')
 
     <style>
-        /* ── Grid: سبد عریض‌تر، جستجو باریک‌تر ── */
+        /* ── Grid: مشتری / سبد+جستجو — پرداخت زیر سبد ── */
         #cashier-wrap {
             display: grid;
             grid-template-columns: 520px 1fr;
-            grid-template-rows: auto 1fr;
+            grid-template-rows: auto 1fr auto;
             gap: 14px;
             height: calc(100vh - 160px);
             min-height: 580px;
@@ -19,28 +19,51 @@
             grid-column: 1 / -1;
         }
 
-        /* ── ستون‌ها ── */
+
         #cart-panel {
             display: flex;
             flex-direction: column;
+            overflow: hidden;
+            flex: 1;
+            min-height: 0;
+            grid-column: 1;
+            grid-row: 2 / 4;
         }
 
         #product-panel {
-            overflow-y: auto;
+            grid-column: 2;
+            grid-row: 2;
         }
 
+        /* سطر پرداخت زیر جستجوی محصول */
+        #payment-section {
+            grid-column: 2;
+            grid-row: 3;
+            align-self: start;
+        }
+
+        #cart-barcode-wrap {
+            border-bottom: 1px solid #e9ecef;
+            padding: 8px 12px;
+        }
+
+        #cart-barcode-input {
+            border: 2px solid #ffc107;
+            background: #fffdf0;
+            border-radius: 8px;
+            font-size: .88rem;
+        }
+
+        #cart-barcode-input:focus {
+            border-color: #198754;
+            background: #fff;
+            box-shadow: 0 0 0 3px rgba(25, 135, 84, .1);
+        }
+
+        /* ── آیتم‌های سبد ── */
         #cart-items {
             flex: 1;
             overflow-y: auto;
-            max-height: calc(100vh - 420px);
-            min-height: 200px;
-        }
-
-        /* ─ آیتم سبد ─ */
-        .cart-item {
-            border-bottom: 1px solid #f0f0f0;
-            padding: 12px 14px;
-            transition: background .1s;
         }
 
         .cart-item:hover {
@@ -98,7 +121,6 @@
             width: 40px;
             height: 40px;
             border-radius: 6px;
-            object-fit: cover;
             flex-shrink: 0;
             background: #f0f0f0;
             display: flex;
@@ -143,40 +165,60 @@
             text-align: center;
         }
 
-        /* ── بارکد ── */
-        #barcode-input {
-            border: 2px dashed #ffc107;
-            background: #fffdf0;
-        }
-
-        #barcode-input:focus {
-            border-color: #198754;
-            background: #fff;
-        }
-
-        /* ── پنل پرداخت ── */
+        /* ── پنل پرداخت — نوار مینیمال ── */
         #payment-section {
-            border-top: 2px solid #dee2e6;
-            padding: 12px 14px;
             background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 10px;
+            padding: 8px 12px;
+            flex-shrink: 0;
+        }
+
+        #payment-section .pay-bar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        #payment-section .total-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: #e8f5e9;
+            border: 1px solid #a5d6a7;
+            border-radius: 20px;
+            padding: 3px 12px;
+            font-size: .8rem;
+            white-space: nowrap;
+        }
+
+        #payment-section .total-chip #cart-total {
+            font-weight: 700;
+            font-size: .88rem;
+            color: #198754;
         }
 
         .payment-method-btn {
-            flex: 1;
-            padding: 8px 4px;
-            font-size: .82rem;
-            border: 2px solid #dee2e6;
+            padding: 4px 10px;
+            font-size: .78rem;
+            border: 1.5px solid #dee2e6;
             background: #fff;
-            border-radius: 8px;
+            border-radius: 20px;
             cursor: pointer;
             transition: all .15s;
+            white-space: nowrap;
         }
 
         .payment-method-btn.active {
             border-color: #198754;
             background: #e8f5e9;
             color: #198754;
-            font-weight: 600;
+        }
+
+        .pay-methods {
+            display: flex;
+            gap: 5px;
         }
 
         /* ── منو collapsible ── */
@@ -282,15 +324,27 @@
             </div>
         </div>
 
-        {{-- ══════ ستون چپ: سبد خرید (عریض) ══════ --}}
         <div id="cart-panel" class="card">
 
             <div class="card-header d-flex justify-content-between align-items-center py-2 px-3">
-            <span class="fw-bold">
-                <iconify-icon icon="solar:cart-large-4-bold-duotone"></iconify-icon>
-                سبد خرید
-            </span>
+                <span class="fw-bold">
+                    <iconify-icon icon="solar:cart-large-4-bold-duotone"></iconify-icon>
+                    سبد خرید
+                </span>
                 <span class="badge bg-secondary" id="cart-count">۰ آیتم</span>
+            </div>
+
+            <div id="cart-barcode-wrap">
+                <div class="input-group input-group-sm">
+                    <span class="input-group-text bg-warning-subtle border-warning text-warning-emphasis">
+                        <iconify-icon icon="solar:barcode-bold-duotone"></iconify-icon>
+                    </span>
+                    <input type="text" id="cart-barcode-input" class="form-control cart-barcode-input"
+                           placeholder="بارکد کالا را اسکن کنید...">
+                    <button class="btn btn-warning btn-sm" id="btn-barcode-search" type="button" title="جستجو">
+                        <iconify-icon icon="solar:magnifer-bold-duotone"></iconify-icon>
+                    </button>
+                </div>
             </div>
 
             <div id="cart-items">
@@ -300,92 +354,74 @@
                 </div>
             </div>
 
-            <div id="payment-section">
-                <div class="d-flex justify-content-between mb-2 fw-bold fs-6">
-                    <span>جمع کل:</span>
-                    <span id="cart-total" class="text-success">۰ تومان</span>
-                </div>
-
-                <div class="mb-2">
-                    <label class="form-label fw-semibold small mb-1">روش پرداخت</label>
-                    <div class="d-flex gap-2">
-                        <button class="payment-method-btn active" data-method="cash">
-                            <iconify-icon icon="solar:banknote-bold-duotone"></iconify-icon>
-                            <br>نقدی
-                        </button>
-                        <button class="payment-method-btn" data-method="card">
-                            <iconify-icon icon="solar:card-bold-duotone"></iconify-icon>
-                            <br>کارت
-                        </button>
-                        <button class="payment-method-btn" data-method="mixed">
-                            <iconify-icon icon="solar:card-transfer-bold-duotone"></iconify-icon>
-                            <br>ترکیبی
-                        </button>
-                    </div>
-                </div>
-
-                <div id="mixed-amounts" class="row g-2 mb-2" style="display:none!important">
-                    <div class="col-6">
-                        <label class="form-label small mb-1">مبلغ نقدی</label>
-                        <input type="number" id="cash-amount" class="form-control form-control-sm"
-                               placeholder="تومان" min="0" value="0">
-                    </div>
-                    <div class="col-6">
-                        <label class="form-label small mb-1">مبلغ کارت</label>
-                        <input type="number" id="card-amount" class="form-control form-control-sm"
-                               placeholder="تومان" min="0" value="0">
-                    </div>
-                    <div class="col-12">
-                        <small id="mixed-diff" class="text-danger"></small>
-                    </div>
-                </div>
-
-                <div class="d-flex gap-2 mt-2">
-                    <button id="btn-checkout" class="btn btn-success flex-fill fw-bold" disabled>
-                        <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
-                        ثبت و پرداخت
-                    </button>
-                    <button id="btn-clear-cart" class="btn btn-outline-danger" title="پاک کردن سبد">
-                        <iconify-icon icon="solar:trash-bin-2-bold-duotone"></iconify-icon>
-                    </button>
-                </div>
-            </div>
-
         </div>
 
-        {{-- ══════ ستون راست: جستجو + محصولات (باریک) ══════ --}}
         <div id="product-panel" class="card p-2">
 
-            {{-- ── بخش جستجو — با قابلیت باز/بسته ── --}}
             <div id="search-section">
                 <div class="product-search-header" id="search-toggle">
-                <span class="fw-semibold small">
-                    <iconify-icon icon="solar:magnifer-bold-duotone"></iconify-icon>
-                    جستجو
-                </span>
+                    <span class="fw-semibold small">
+                        <iconify-icon icon="solar:magnifer-bold-duotone"></iconify-icon>
+                        جستجوی محصول
+                    </span>
                     <iconify-icon icon="solar:alt-arrow-down-line-duotone"
                                   class="toggle-icon text-muted"></iconify-icon>
                 </div>
                 <div class="collapsible-body" id="search-body" style="max-height:200px;">
-                    <div class="d-flex gap-2">
-                        <input type="text" id="product-search-input" class="form-control form-control-sm"
-                               placeholder="نام محصول...">
-                        <input type="text" id="barcode-input" class="form-control form-control-sm"
-                               placeholder="بارکد..." style="max-width:140px;">
-                    </div>
+                    <input type="text" id="product-search-input" class="form-control form-control-sm"
+                           placeholder="نام محصول...">
                 </div>
             </div>
 
             <hr class="my-2">
 
-            {{-- ── نتایج جستجو — لیست مینیمال ── --}}
             <div id="product-results" style="overflow-y:auto; flex:1;">
-                <div class="text-center text-muted py-4" id="search-placeholder">
+                <div class="text-center text-muted py-4">
                     <iconify-icon icon="solar:box-minimalistic-line-duotone" style="font-size:2.5rem"></iconify-icon>
-                    <p class="mt-1 small">جستجو کنید یا بارکد اسکن نمایید.</p>
+                    <p class="mt-1 small">نام محصول را جستجو کنید.</p>
                 </div>
             </div>
 
+        </div>
+
+        <div id="payment-section">
+            <div class="pay-bar">
+
+                {{-- جمع کل --}}
+                <div class="total-chip">
+                    <iconify-icon icon="solar:tag-price-bold-duotone" style="color:#198754"></iconify-icon>
+                    <span class="text-muted" style="font-size:.75rem">جمع:</span>
+                    <span id="cart-total">۰ تومان</span>
+                </div>
+
+                {{-- روش پرداخت --}}
+                <div class="pay-methods">
+                    <button class="payment-method-btn active" data-method="cash">💵 نقدی</button>
+                    <button class="payment-method-btn" data-method="card">💳 کارت</button>
+                    <button class="payment-method-btn" data-method="mixed">🔀 ترکیبی</button>
+                </div>
+
+                {{-- مبالغ ترکیبی --}}
+                <div id="mixed-amounts" class="d-flex align-items-center gap-2" style="display:none!important">
+                    <input type="number" id="cash-amount" class="form-control form-control-sm"
+                           placeholder="نقدی (تومان)" min="0" value="0" style="width:110px">
+                    <input type="number" id="card-amount" class="form-control form-control-sm"
+                           placeholder="کارت (تومان)" min="0" value="0" style="width:110px">
+                    <small id="mixed-diff" class="text-danger"></small>
+                </div>
+
+                {{-- دکمه‌های اقدام --}}
+                <div class="d-flex gap-2 ms-auto">
+                    <button id="btn-checkout" class="btn btn-success btn-sm fw-bold px-3" disabled>
+                        <iconify-icon icon="solar:check-circle-bold-duotone"></iconify-icon>
+                        پرداخت
+                    </button>
+                    <button id="btn-clear-cart" class="btn btn-outline-danger btn-sm" title="پاک کردن سبد">
+                        <iconify-icon icon="solar:trash-bin-2-bold-duotone"></iconify-icon>
+                    </button>
+                </div>
+
+            </div>
         </div>
 
     </div>{{-- /cashier-wrap --}}
@@ -442,7 +478,8 @@
 
             // ── DOM refs ────────────────────────────────────────
             const $productSearch = document.getElementById('product-search-input');
-            const $barcodeInput = document.getElementById('barcode-input');
+            const $cartBarcodeInput = document.getElementById('cart-barcode-input');
+            const $btnBarcodeSearch = document.getElementById('btn-barcode-search');
             const $productResults = document.getElementById('product-results');
             const $cartItems = document.getElementById('cart-items');
             const $cartEmpty = document.getElementById('cart-empty');
@@ -584,15 +621,59 @@
 
             $productSearch.addEventListener('input', e => searchProducts(e.target.value));
 
-            $barcodeInput.addEventListener('keydown', e => {
+            // ══════════════════════════════════════════════════
+            //  بارکد اسکنر در سبد — اسکن مستقیم به cart
+            // ══════════════════════════════════════════════════
+            async function scanBarcode(barcode) {
+                barcode = barcode.trim();
+                if (!barcode) return;
+                if (!state.customerId) {
+                    toast('ابتدا مشتری را انتخاب کنید.', 'error');
+                    $cartBarcodeInput.value = '';
+                    return;
+                }
+
+                // جستجوی محصول با بارکد
+                const res = await fetch(`{{ route('cashier.search_products') }}?q=${encodeURIComponent(barcode)}`);
+                const list = await res.json();
+
+                // پیدا کردن دقیق‌ترین تطابق (بارکد exact یا اولین نتیجه)
+                const exact = list.find(p => p.barcode === barcode) || list[0];
+
+                if (!exact) {
+                    toast(`بارکد "${barcode}" یافت نشد.`, 'error');
+                    $cartBarcodeInput.value = '';
+                    return;
+                }
+
+                // افزودن ۱ عدد به سبد
+                try {
+                    const addRes = await postJSON('{{ route('cashier.add_to_cart') }}', {
+                        customer_id: state.customerId,
+                        product_id: exact.id,
+                        quantity: 1,
+                    });
+                    if (addRes.success) {
+                        toast(`✅ "${exact.name}" اسکن و به سبد اضافه شد.`);
+                        applyCart(addRes.cart);
+                    } else {
+                        toast(addRes.message || 'خطا در افزودن.', 'error');
+                    }
+                } catch (_) {
+                    toast('خطای ارتباطی.', 'error');
+                }
+                $cartBarcodeInput.value = '';
+                $cartBarcodeInput.focus();
+            }
+
+            // Enter یا دکمه جستجو در بارکد
+            $cartBarcodeInput.addEventListener('keydown', e => {
                 if (e.key === 'Enter') {
                     e.preventDefault();
-                    searchProducts($barcodeInput.value.trim());
+                    scanBarcode($cartBarcodeInput.value);
                 }
             });
-            $barcodeInput.addEventListener('input', debounce(e => {
-                if (e.target.value.trim()) searchProducts(e.target.value.trim());
-            }, 600));
+            $btnBarcodeSearch.addEventListener('click', () => scanBarcode($cartBarcodeInput.value));
 
             function renderProductResults(list) {
                 if (!list.length) {

@@ -56,9 +56,11 @@ class SubProductDataTable extends DataTable
      */
     public function query(SubProduct $subProduct): QueryBuilder
     {
-        return $subProduct->newQuery()->with('product');
+        return $subProduct->newQuery()
+            ->with('product')
+            ->orderByDesc('created_at')
+            ->orderByDesc('id');
     }
-
     /**
      * Optional method if you want to use the html builder.
      */
