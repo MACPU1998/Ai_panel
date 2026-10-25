@@ -14,6 +14,7 @@ use App\Http\Controllers\ProductCurrencyController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\SubProductController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -236,4 +237,14 @@ Route::prefix('admin')->group(function () {
         Route::get('/search-customers', [CashierController::class, 'searchCustomers'])->name('cashier.search_customers')->addMeta(true, ["super admin:admin", "cashier:admin"]);
     });
 
+    //Route warehouse
+    Route::prefix('warehouses')->group(function () {
+        Route::get('/', [WarehouseController::class, 'index'])->name('warehouses.index')->addMeta(true, ["super admin:admin"]);
+        Route::get('/create', [WarehouseController::class, 'create'])->name('warehouses.create')->addMeta(true, ["super admin:admin"]);
+        Route::post('/store', [WarehouseController::class, 'store'])->name('warehouses.store')->addMeta(true, ["super admin:admin"]);
+        Route::get('/datatable', [WarehouseController::class, 'datatable'])->name('warehouses.datatable')->addMeta(true, ["super admin:admin"]);
+        Route::get('/{warehouse}/edit', [WarehouseController::class, 'edit'])->name('warehouses.edit')->addMeta(true, ["super admin:admin"]);
+        Route::put('/{warehouse}/update', [WarehouseController::class, 'update'])->name('warehouses.update')->addMeta(true, ["super admin:admin"]);
+        Route::delete('/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouses.destroy')->addMeta(true, ["super admin:admin"]);
+    });
 });
