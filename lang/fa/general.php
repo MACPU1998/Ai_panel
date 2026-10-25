@@ -45,6 +45,11 @@ return [
     'edit_category' => 'ویرایش دسته بندی محصول',
     'delete_category' => 'حذف دسته بندی محصول',
 
+    'manage_warehouse' => 'مدیریت انباری',
+    'add_warehouse' => 'افزودن انباری',
+    'edit_warehouse' => 'ویرایش انباری',
+    'delete_warehouse' => 'حذف انباری',
+
     'manage_goods' => 'مدیریت کالاها',
     'add_goods' => 'افزودن کالا',
     'edit_goods' => 'ویرایش کالا',

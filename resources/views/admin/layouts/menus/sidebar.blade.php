@@ -59,7 +59,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('admins.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:account"></iconify-icon>
+                                <iconify-icon icon="mdi:shield-account"></iconify-icon>
                                 <span class="hide-menu">{{__("general.manage_admin")}}</span>
                             </a>
                         </li>
@@ -68,6 +68,13 @@
                             <a class="sidebar-link" href="{{route('users.index')}}" aria-expanded="false">
                                 <iconify-icon icon="mdi-light:account"></iconify-icon>
                                 <span class="hide-menu">{{__("general.manage_user")}}</span>
+                            </a>
+                        </li>
+
+                        <li class="sidebar-item">
+                            <a class="sidebar-link" href="{{route('warehouses.index')}}" aria-expanded="false">
+                                <iconify-icon icon="mdi:warehouse"></iconify-icon>
+                                <span class="hide-menu">{{__("general.manage_warehouse")}}</span>
                             </a>
                         </li>
 
@@ -122,7 +129,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('productCurrencies.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="mdi:currency-usd"></iconify-icon>
                                 <span class="hide-menu">{{__("general.productCurrencies")}}</span>
                             </a>
                         </li>
@@ -130,7 +137,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('products.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="mdi:package-variant-closed"></iconify-icon>
                                 <span class="hide-menu">{{__("general.products")}}</span>
                             </a>
                         </li>
@@ -138,7 +145,7 @@
 
                         <li class="sidebar-item">
                             <a class="sidebar-link" href="{{route('subProducts.index')}}" aria-expanded="false">
-                                <iconify-icon icon="mdi-light:clipboard-plus"></iconify-icon>
+                                <iconify-icon icon="mdi:layers-outline"></iconify-icon>
                                 <span class="hide-menu">{{__("general.subProducts")}}</span>
                             </a>
                         </li>
