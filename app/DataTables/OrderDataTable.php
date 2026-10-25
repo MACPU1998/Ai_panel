@@ -86,7 +86,7 @@ class OrderDataTable extends DataTable
     {
         return [
             Column::make('id')->title('شناسه سفارش'),
-            Column::make('customer_id')->title('کاربر'),
+            Column::make('customer_id')->title('مشتری'),
             Column::make('shipping_price')->title('هزینه پست'),
             Column::make('tax_price')->title('مالیات'),
             Column::make('total_price')->title('مبلغ کل'),
