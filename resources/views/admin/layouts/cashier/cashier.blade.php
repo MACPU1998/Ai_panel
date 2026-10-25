@@ -297,7 +297,7 @@
                             </div>
                             <button class="btn btn-outline-secondary" type="button"
                                     id="btn-clear-customer" title="تغییر مشتری">
-                                <iconify-icon icon="solar:pen-2-line-duotone"></iconify-icon>
+                                <iconify-icon icon="solar:close-circle-line-duotone"></iconify-icon>
                             </button>
                         </div>
                         <div id="customer-search-results" class="list-group position-absolute z-3 shadow"
