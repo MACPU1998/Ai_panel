@@ -20,6 +20,12 @@ class OrderDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+
+            ->addColumn('customer_name', function ($order) {
+                return $order->customer
+                    ? $order->customer->first_name . ' ' . $order->customer->last_name
+                    : '-';
+            })
             ->editColumn('shipping_price', function ($order) {
                 return $order->shipping_price ? $order->shipping_price : '-';
             })
@@ -46,11 +52,10 @@ class OrderDataTable extends DataTable
                 return '-';
             })
             ->addColumn('action', function ($order) {
+            /*    <a href="' . route('orders.edit', $order->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>*/
                 return '
-                <a href="' . route('orders.edit', $order->id) . '" class="btn btn-sm btn-primary"> <i class="bi bi-pencil"></i></a>
-
                 <a href="' . route('orders.preview', $order->customer_id) . '" class="btn btn-sm btn-primary">
-                   <i class="bi bi-view-list"></i>
+                   <i class="bi bi-eye"></i>
                 </a>
 
                <button class="btn btn-sm btn-danger" onclick="deleteOrder(' . $order->id . ')"><i class="bi bi-trash"></i></button>
@@ -65,7 +70,7 @@ class OrderDataTable extends DataTable
      */
     public function query(Order $order): QueryBuilder
     {
-        return $order->newQuery();
+        return $order->newQuery()->with('customer');
     }
 
     /**
@@ -91,7 +96,10 @@ class OrderDataTable extends DataTable
     {
         return [
             Column::make('id')->title('شناسه سفارش'),
-            Column::make('customer_id')->title('مشتری'),
+            Column::make('customer_name')
+                ->title('مشتری')
+                ->orderable(true)
+                ->searchable(true),
             Column::make('shipping_price')->title('هزینه پست'),
             Column::make('tax_price')->title('مالیات'),
             Column::make('total_price')->title('مبلغ کل'),

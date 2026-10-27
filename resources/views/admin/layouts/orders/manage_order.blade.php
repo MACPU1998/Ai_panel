@@ -36,10 +36,10 @@
                 },
                 columns: [
                     {data: 'id', name: 'id'},
-                    {  data: 'customer_id', name: 'customer_id'},
+                    { data: 'customer_name', name: 'customer_name', title: 'مشتری' },
                     {  data: 'shipping_price', name: 'shipping_price'},
                     {  data: 'tax_price', name: 'tax_price'},
-                    {  data: 'total_price', name: 'tax_price'},
+                    {  data: 'total_price', name: 'total_price'},
                     {  data: 'final_price', name: 'final_price'},
                     {  data: 'quantity', name: 'quantity'},
                     {  data: 'status', name: 'status'},
