@@ -5,19 +5,22 @@ namespace Database\Seeders;
 use App\Models\Admin;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
+use Spatie\Permission\PermissionRegistrar;
 
 class SuperAdminSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     */
     public function run(): void
     {
+        app(PermissionRegistrar::class)->forgetCachedPermissions();
 
-        $role = Role::firstOrCreate(['name' => 'Super Admin', 'guard_name' => 'admin']);
+        $role = Role::firstOrCreate([
+            'name' => 'super-admin',
+            'guard_name' => 'admin',
+        ]);
 
-        $admin = Admin::firstOrCreate(
-            ['email' => 'admin@email.com',
+        $admin = Admin::withTrashed()->firstOrCreate(
+            ['email' => 'admin@email.com'],
+            [
                 'first_name' => 'admin',
                 'last_name' => 'admin',
                 'phone' => '0123456789',
@@ -25,8 +28,10 @@ class SuperAdminSeeder extends Seeder
             ]
         );
 
-        // تخصیص نقش به کاربر
-        $admin->assignRole($role);
+        if ($admin->trashed()) {
+            $admin->restore();
+        }
 
+        $admin->syncRoles([$role]);
     }
 }

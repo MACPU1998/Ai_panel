@@ -28,10 +28,11 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Model
 {
     use HasRoles,SoftDeletes;
-	protected $table = 'admins';
+	protected $table = 'users';
 
 	protected $casts = [
-		'email_verified_at' => 'datetime'
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
 	];
 
 	protected $hidden = [

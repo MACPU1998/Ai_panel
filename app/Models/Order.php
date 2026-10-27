@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use App\Models\Customer;
 
 class Order extends Model
 {
@@ -42,12 +44,14 @@ class Order extends Model
         'final_price',
         'quantity',
         'status',
+        'payment_method',
+        'cash_amount',
+        'card_amount',
     ];
 
-    public function customer()
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(Customer::class);
-
+        return $this->belongsTo(Customer::class, 'customer_id', 'id');
     }
     public function subProducts()
     {

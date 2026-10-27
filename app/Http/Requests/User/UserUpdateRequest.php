@@ -28,7 +28,7 @@ class UserUpdateRequest extends FormRequest
             'email' => [
                 'required',
                 'email',
-                Rule::unique('admins', 'email')->ignore($this->admin->id), // اجازه میده ایمیل ادمین تغییر کنه
+                Rule::unique('admins', 'email')->ignore($this->admin->id),
             ],
             'phone' => 'required|numeric',
             'role' => 'required|exists:roles,name',
